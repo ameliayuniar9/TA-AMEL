@@ -11,5 +11,8 @@
     <mapping resource="projek/e/commerce/springhibernate/model/PengeluaranModel.hbm.xml"/>
     <mapping resource="projek/e/commerce/springhibernate/model/AkunModel.hbm.xml"/>
     <mapping resource="projek/e/commerce/springhibernate/model/DetailPesananModel.hbm.xml"/>
+    <mapping resource="projek/e/commerce/springhibernate/model/ProvinsiModel.hbm.xml"/>
+    <mapping resource="projek/e/commerce/springhibernate/model/KotaModel.hbm.xml"/>
+    <mapping resource="projek/e/commerce/springhibernate/model/KecamatanModel.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

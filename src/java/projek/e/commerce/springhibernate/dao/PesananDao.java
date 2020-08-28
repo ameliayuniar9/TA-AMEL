@@ -19,5 +19,8 @@ public interface PesananDao {
     public void deleteBelanja(String id);
     public void updateBelanja(PesananModel belanjaModel);
     public List<PesananModel> getListBelanjaUpdate(String kode_pesanan);
+    public List<Object[]> getPesananStatusBaru() throws Exception;
+    public List<Object[]> getPesananStatusBelumBayar() throws Exception;
+    public List<Object[]> getPesananStatusSudahBayar() throws Exception;
    
 }

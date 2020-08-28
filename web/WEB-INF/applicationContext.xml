@@ -43,6 +43,9 @@
                 <value>projek/e/commerce/springhibernate/model/PengeluaranModel.hbm.xml</value>
                 <value>projek/e/commerce/springhibernate/model/AkunModel.hbm.xml</value>
                 <value>projek/e/commerce/springhibernate/model/DetailPesananModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/ProvinsiModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/KotaModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/KecamatanModel.hbm.xml</value>
             </list>  
         </property>  
         <property name="hibernateProperties">  

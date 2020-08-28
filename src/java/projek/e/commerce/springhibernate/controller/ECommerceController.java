@@ -27,6 +27,7 @@ import org.springframework.web.portlet.ModelAndView;
 import projek.e.commerce.springhibernate.dao.AkunDao;
 import projek.e.commerce.springhibernate.dao.CartDao;
 import projek.e.commerce.springhibernate.dao.DetailDao;
+import projek.e.commerce.springhibernate.dao.DetailPesananDao;
 import projek.e.commerce.springhibernate.dao.LoginDao;
 import projek.e.commerce.springhibernate.dao.PembeliDao;
 import projek.e.commerce.springhibernate.dao.PenerimaDao;
@@ -41,6 +42,7 @@ import projek.e.commerce.springhibernate.dto.OngkirDto;
 import projek.e.commerce.springhibernate.dto.PembeliDto;
 import projek.e.commerce.springhibernate.dto.PesananDto;
 import projek.e.commerce.springhibernate.dto.DetailDto;
+import projek.e.commerce.springhibernate.dto.DetailPesananDto;
 import projek.e.commerce.springhibernate.dto.ListKodeDto;
 import projek.e.commerce.springhibernate.dto.PenerimaDto;
 import projek.e.commerce.springhibernate.dto.PengeluaranDto;
@@ -50,6 +52,7 @@ import projek.e.commerce.springhibernate.model.LoginModel;
 import projek.e.commerce.springhibernate.model.PembeliModel;
 import projek.e.commerce.springhibernate.service.AkunService;
 import projek.e.commerce.springhibernate.service.CartService;
+import projek.e.commerce.springhibernate.service.DetailPesananService;
 import projek.e.commerce.springhibernate.service.KategoriService;
 import projek.e.commerce.springhibernate.service.LoginService;
 import projek.e.commerce.springhibernate.service.OngkirService;
@@ -130,6 +133,12 @@ public class ECommerceController {
       
       @Autowired
     PengeluaranDao  pengeluaranDao;
+      
+      @Autowired
+    DetailPesananService detailPesananService;
+      
+      @Autowired
+    DetailPesananDao detailPesananDao;
     
     LoginModel uModel=new LoginModel();
     PembeliDto dto=new PembeliDto();
@@ -609,6 +618,39 @@ public class ECommerceController {
             e.printStackTrace();
         } 
         return "tabelPesanan";
+    }
+    
+    @RequestMapping(value = "/tabelPesanan2", method = RequestMethod.GET)
+    public String viewTabelPesanan2(ModelMap model){
+        try {
+            List<PesananDto> listPesananDto = pesananService.getListBelanja();
+            model.addAttribute("listPesananDto", listPesananDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return "tabelPesanan2";
+    }
+    
+    @RequestMapping(value = "/tabelPesanan3", method = RequestMethod.GET)
+    public String viewTabelPesanan3(ModelMap model){
+        try {
+            List<PesananDto> listPesananDto = pesananService.getListBelanja();
+            model.addAttribute("listPesananDto", listPesananDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return "tabelPesanan3";
+    }
+    
+    @RequestMapping(value = "/tabelDetailPesanan", method = RequestMethod.GET)
+    public String viewTabelDetailPesanan(ModelMap model){
+        try {
+            List<DetailPesananDto> listDetailPesananDto = detailPesananService.getListDetailPesanan();
+            model.addAttribute("listDetailPesananDto", listDetailPesananDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return "tabelDetailPesanan";
     }
     
     @RequestMapping(value = "/deleteDataBelanja", method = RequestMethod.GET)

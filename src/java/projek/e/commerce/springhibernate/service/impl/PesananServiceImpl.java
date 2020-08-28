@@ -130,7 +130,7 @@ public class PesananServiceImpl implements PesananService{
     @Override
     public void doUpdateDataBelanja(PesananDto belanjaDto) throws Exception {
         PesananModel dataModel = new PesananModel();
-        SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss"); 
         try {
             dataModel.setKode_pesanan(belanjaDto.getKode_pesanan());
             dataModel.setId_pembeli(belanjaDto.getId_pembeli());
@@ -160,7 +160,7 @@ public class PesananServiceImpl implements PesananService{
         }
         a+=1;
         String kode_bel="PEN-"+a+"";
-        SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         dataModel.setKode_pesanan(kode_bel);
         dataModel.setId_pembeli(id_pembeli);
         dataModel.setTotal_pesanan(belanjaDto.getTotal_pesanan());

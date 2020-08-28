@@ -75,5 +75,38 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         dataList = query.list();
         return dataList;
     }
+
+    @Override
+    public List<Object[]> getPesananStatusBaru() throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran " +
+                      "FROM tb_pesanan a JOIN tb_pembeli b ON a.id_pembeli=b.id_pembeli " +
+                      "WHERE a.status='BARU' ";
+        Query query = createNativeQuery(sql);
+        listData = query.list();
+        return listData;
+    }
+
+    @Override
+    public List<Object[]> getPesananStatusBelumBayar() throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran " +
+                      "FROM tb_pesanan a JOIN tb_pembeli b ON a.id_pembeli=b.id_pembeli " +
+                      "WHERE a.status='BELUM BAYAR' ";
+        Query query = createNativeQuery(sql);
+        listData = query.list();
+        return listData;
+    }
+
+    @Override
+    public List<Object[]> getPesananStatusSudahBayar() throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran " +
+                      "FROM tb_pesanan a JOIN tb_pembeli b ON a.id_pembeli=b.id_pembeli " +
+                      "WHERE a.status='SUDAH BAYAR' ";
+        Query query = createNativeQuery(sql);
+        listData = query.list();
+        return listData;
+    }
     
 }

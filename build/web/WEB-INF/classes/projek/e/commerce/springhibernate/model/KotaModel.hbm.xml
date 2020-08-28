@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="projek.e.commerce.springhibernate.model.KotaModel" table="tb_kota">
+        <id column="id_kota" name="id_kota" type="string">
+            <generator class="assigned"/>
+        </id>
+        <property column="id_provinsi" name="id_provinsi"/>
+        <property column="nama" name="nama"/>
+    </class>
+</hibernate-mapping>

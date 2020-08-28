@@ -114,7 +114,7 @@
                     <!-- Logo -->
                     <div class="header-logo">
                         <a class="logo" href="#">
-                            <img src="./a/img/logo.png" alt="">
+                            <img src="./a/img/logo mostly.png" alt="">
                         </a>
                     </div>
                     <!-- /Logo -->
@@ -213,7 +213,6 @@
                     <c:url var="ongkir" value="/tabelOngkir.htm"/>
                     <c:url var="ulasan" value="/tabelUlasan.htm"/>
                     <c:url var="pesanan" value="/tabelPesanan.htm"/>
-                    <c:url var="detailPesanan" value="/tabelDetailPesanan.htm"/>
                     <c:url var="akun" value="/tabelAkun.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
                     <div class="menu-nav">
@@ -227,7 +226,6 @@
                             <li><a href="${ongkir}">Ongkir</a></li>
                             <li><a href="${ulasan}">Ulasan</a></li>
                             <li><a href="${pesanan}">Pesanan</a></li>
-                            <li><a href="${detailPesanan}">Pesanan</a></li>
                             <li><a href="${akun}">Akun</a></li>
                             <li><a href="${pengeluaran}">Pengeluaran</a></li>
                             <li><a href="#">Laporan</a></li>
@@ -263,6 +261,19 @@
     <!-- footer subscribe -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
+    <c:url var="tabelDetailPesanan" value="/tabelDetailPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan" value="/tabelPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan2" value="/tabelPesanan2.htm">        
+    </c:url>
+    <c:url var="tabelPesanan3" value="/tabelPesanan3.htm">        
+    </c:url>
+    <p align="center" style = "font-family:courier;"><u><a href="${tabelDetailPesanan}">DETAIL PESANAN</a></u>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U><a href="${tabelPesanan}">PERMINTAAN APPROVE</a></u>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U><a href="${tabelPesanan2}">PESANAN SUDAH BAYAR</a></u>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U><a href="${tabelPesanan3}">PESANAN BELUM BAYAR</a></u>
+    </p>
     <h5 align="center">Tabel Permintaan Approve</h5>
         <table  align="center" class="table1" border="1">
             <tr>
@@ -301,67 +312,6 @@
             </c:forEach>
         </table>
     <!--</div>-->
-    <br><br>
-    <h5 align="center">Tabel Pesanan Sudah Bayar</h5>
-    <table  align="center" class="table1" border="1">
-            <tr>
-                <th>No</th> 
-                <th>Kode Pesanan</th>    
-                <th>Nama Pembeli</th>  
-                <th>Total Pesanan</th>            
-                <th width="300px">Tanggal Pesan</th>
-                <th>Bukti Pembayaran</th>
-                <th>Tanggal Pembayaran</th> 
-                <th>Status</th>
-            </tr>
-            <c:set var="index" value="1"/>
-            <c:forEach var="listPesanan" items="${listPesananDto}">
-                <tr>  
-                    <td>${index}</td>
-                    <td>${listPesanan.kode_pesanan}</td>
-                    <td>${listPesanan.nama}</td>
-                    <td>${listPesanan.total_pesanan}</td>
-                    <td>${listPesanan.tanggal_pesan}</td>
-                    <c:set var="gambar" value="${listPesanan.bukti_pembayaran}"/>
-                    <td><c:if test="${gambar != null}"><img src="./b/img/pembayaran/${listPesanan.bukti_pembayaran}" width="100px" height="130px"></c:if></td>
-                    <td>${listPesanan.tanggal_pembayaran}</td>
-                    <td>${listPesanan.status}</td>
-                  </tr>            
-                <c:set var="index" value="${index+1}"/>
-            </c:forEach>
-        </table>
-            <br><br>
-            <h5 align="center">Tabel Pesanan Belum Bayar</h5>
-            <table  align="center" class="table1" border="1">
-            <tr>
-                <th>No</th> 
-                <th>Kode Pesanan</th>    
-                <th>Nama Pembeli</th>  
-                <th>Total Pesanan</th>            
-                <th width="300px">Tanggal Pesan</th>
-                <th>Tanggal Pembayaran</th> 
-                <th>Status</th>            
-                <th colspan="2">action</th>
-            </tr>
-            <c:set var="index" value="1"/>
-            <c:forEach var="listPesanan" items="${listPesananDto}">
-                <tr>  
-                    <td>${index}</td>
-                    <td>${listPesanan.kode_pesanan}</td>
-                    <td>${listPesanan.nama}</td>
-                    <td>${listPesanan.total_pesanan}</td>
-                    <td>${listPesanan.tanggal_pesan}</td>
-                    <td>${listPesanan.tanggal_pembayaran}</td>
-                    <td>${listPesanan.status}</td>
-                    <c:url var="deletePesanan" value="/deleteDataPesanan.htm">
-                        <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
-                    </c:url>
-                    <td><a href="${deletePesanan}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
-                </tr>            
-                <c:set var="index" value="${index+1}"/>
-            </c:forEach>
-        </table>
-
 <!-- jQuery Plugins -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
