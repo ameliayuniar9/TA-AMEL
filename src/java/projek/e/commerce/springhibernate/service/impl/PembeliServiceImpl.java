@@ -156,13 +156,13 @@ public class PembeliServiceImpl implements PembeliService{
         int b=0;
         for(PembeliModel model : listData){
             String tam=model.getId_pembeli();
-            String tamp=tam.substring(6);
+            String tamp=tam.substring(5);
             if(a<Integer.parseInt(tamp)){
                 a=Integer.parseInt(tamp);
             }
         }
         a+=1;
-        String id_pem="202056"+a+"";
+        String id_pem="20200"+a+"";
         dataModel.setId_pembeli(id_pem);
         dataModel.setNama(pembeliDto.getNama());
         dataModel.setUsername(pembeliDto.getUsername());

@@ -1,5 +1,5 @@
 <%-- 
-    Document   : tabelKategori
+    Document   : tabelPesanan
     Created on : Jul 7, 2019, 12:45:44 AM
     Author     : HP
 --%>
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Tabel Kategori</title>
+    <title>Tabel Pesanan</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -60,14 +60,12 @@
             border-collapse: collapse;
             width: 50%;
             border: 1px solid #f2f5f7;
-            margin-left:auto;margin-right:auto;
         }
 
         .table1 tr th{
             background: #FF69B4;
             color: #fff;
             font-weight: normal;
-            width: 200px;
         }
 
         .table1, th, td {
@@ -127,23 +125,23 @@
                     <ul class="header-btns">
                         <!-- Account -->
                         <li class="header-account dropdown default-dropdown">
-                                <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon">
-                                        <i class="fa fa-user-o"></i>
-                                    </div>
-                                    <c:url var="login" value="/index.htm"></c:url>
-                                    <a href="${login}" class="text-uppercase">LOGOUT</a>
+                            <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-user-o"></i>
                                 </div>
-                                <!--<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
-                                <ul class="custom-menu">
-                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                    <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                    <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                    <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                                </ul>-->
-                            </li>
+                                <c:url var="login" value="/index.htm"></c:url>
+                                <a href="${login}" class="text-uppercase">LOGOUT</a>
+                            </div>
+                            <!--<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
+                            <ul class="custom-menu">
+                                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
+                                <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
+                                <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                                <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                            </ul>-->
+                        </li>
                         <!-- /Account -->
 
                         <!-- Cart -->
@@ -201,13 +199,13 @@
         <div class="container">
             <div id="responsive-nav">
                 <!-- category nav -->
-<!--                <div class="category-nav show-on-click">
-                    <span class="category-header">E-COMMERCE</span>
-                </div>-->
+                <!--                <div class="category-nav show-on-click">
+                                    <span class="category-header">E-COMMERCE</span>
+                                </div>-->
                 <!-- /category nav -->
 
                 <!-- menu nav -->
-                   <c:url var="home" value="/menuAdmin.htm"/>
+               <c:url var="home" value="/menuAdmin.htm"/>
                     <c:url var="produk" value="/tabelProduk.htm"/>
                     <c:url var="kategori" value="/tabelKategori.htm"/>
                     <c:url var="detail" value="/tabelDetail.htm"/>
@@ -262,38 +260,44 @@
 
     <!-- footer subscribe -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <c:url var="tambahDataKategori" value="/doTambahDataKategori.htm">        
-     </c:url>
-    <p align="center" style = "font-family:courier;"><u><a href="${tambahDataKategori}">Tambah</a></u></p>
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
-     
-            <table align="center" class="table1" border="1">
-                <tr>
-                    <th>No</th> 
-                    <th>Kode Kategori</th>            
-                    <th>Nama Kategori</th>            
-                    <th colspan="2">action</th>
-                </tr>
-                <c:set var="index" value="1"/>
-                <c:forEach var="listKategori" items="${listKategoriDto}">
-                    <tr>  
-                        <td>${index}</td>
-                        <td>${listKategori.kode_kategori}</td>
-                        <td>${listKategori.nama_kategori}</td>
-                        <c:url var="deleteKategori" value="/deleteDataKategori.htm">
-                            <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
-                        </c:url>
-                        <c:url var="updateKategori" value="/getDataUpdateKategori.htm">
-                            <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
-                        </c:url>
-                        <td><a href="${deleteKategori}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
-                        <td><a href="${updateKategori}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
-                    </tr>            
-                    <c:set var="index" value="${index+1}"/>
-                </c:forEach>
-            </table>
+    <c:url var="tabelDetailPesanan" value="/tabelDetailPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan" value="/tabelPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan2" value="/tabelPesanan2.htm">        
+    </c:url>
+    <c:url var="tabelPesanan3" value="/tabelPesanan3.htm">        
+    </c:url>
+    <p align="center" style = "font-family:courier;"><u><a href="${tabelDetailPesanan}">DETAIL PESANAN</a></u>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U><a href="${tabelPesanan}">PERMINTAAN APPROVE</a></u>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U><a href="${tabelPesanan2}">PESANAN SUDAH BAYAR</a></u>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U><a href="${tabelPesanan3}">PESANAN BELUM BAYAR</a></u>
+    </p>
+    <h5 align="center">Tabel Detail Pesanan</h5>
+        <table  align="center" class="table1" border="1">
+            <tr>
+                <th>No</th> 
+                <th>Kode Detail Pesanan</th>    
+                <th>Kode Pesanan</th>  
+                <th>Kode Detail</th>            
+                <th>Kuantitas</th>
+                <th>Total</th>
+            </tr>
+            <c:set var="index" value="1"/>
+            <c:forEach var="listPesanan" items="${listSDetailPesananDto}">
+                <tr>  
+                    <td>${index}</td>
+                    <td>${listPesanan.kode_detail_pesanan}</td>
+                    <td>${listPesanan.kode_pesanan}</td>
+                    <td>${listPesanan.kode_detail}</td>
+                    <td>${listPesanan.kuantitas}</td>
+                    <td>${listPesanan.total}</td>
+                </tr>            
+                <c:set var="index" value="${index+1}"/>
+            </c:forEach>
+        </table>
     <!--</div>-->
-</div>
 
 <!-- jQuery Plugins -->
 <script src="js/jquery.min.js"></script>
