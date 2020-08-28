@@ -135,11 +135,11 @@ public class PesananServiceImpl implements PesananService{
             dataModel.setKode_pesanan(belanjaDto.getKode_pesanan());
             dataModel.setId_pembeli(belanjaDto.getId_pembeli());
             dataModel.setTotal_pesanan(belanjaDto.getTotal_pesanan());
-            dataModel.setTanggal_pesan(String.valueOf(dt.format(new Date())));
-            dataModel.setStatus("BELUM BAYAR");
-            dataModel.setBukti_pembayaran("");
+            dataModel.setTanggal_pesan(belanjaDto.getTanggal_pesan());
+            dataModel.setStatus("SUDAH BAYAR");
+            dataModel.setBukti_pembayaran(belanjaDto.getFile().getOriginalFilename());
             dataModel.setId_penerima(belanjaDto.getId_penerima());
-            dataModel.setTanggal_pembayaran("");
+            dataModel.setTanggal_pembayaran(String.valueOf(dt.format(new Date())));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -160,12 +160,12 @@ public class PesananServiceImpl implements PesananService{
         }
         a+=1;
         String kode_bel="PEN-"+a+"";
-        
+        SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
         dataModel.setKode_pesanan(kode_bel);
         dataModel.setId_pembeli(id_pembeli);
         dataModel.setTotal_pesanan(belanjaDto.getTotal_pesanan());
-        dataModel.setTanggal_pesan("");
-        dataModel.setStatus("");
+        dataModel.setTanggal_pesan(String.valueOf(dt.format(new Date())));
+        dataModel.setStatus("BELUM BAYAR");
         dataModel.setBukti_pembayaran("");
         dataModel.setId_penerima(belanjaDto.getId_penerima());
         dataModel.setTanggal_pembayaran("");

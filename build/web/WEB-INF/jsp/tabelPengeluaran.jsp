@@ -223,7 +223,7 @@
                         <li><a href="${home}">Home</a></li>
                         <li><a href="${kategori}">Kategori</a></li>
                         <li><a href="${produk}">Produk</a></li>
-                        <li><a href="${detail}">DetailProduk</a></li>
+                        <li><a href="${detail}">Detail Produk</a></li>
                         <li><a href="${pembeli}">Pembeli</a></li>
                         <li><a href="${ongkir}">Ongkir</a></li>
                         <li><a href="${ulasan}">Ulasan</a></li>

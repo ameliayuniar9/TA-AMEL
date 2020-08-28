@@ -394,7 +394,7 @@ public class ECommerceController {
             e.printStackTrace();
         }
         System.out.println("KODE PESANAN = "+pesananDto.getKode_pesanan());
-        return "redirect:settingAddress.htm?id_pembeli="+id+"&kode_pesanan="+pesananDto.getKode_pesanan();
+        return "redirect:pesananPembeli.htm?id_pembeli="+id+"&kode_pesanan="+pesananDto.getKode_pesanan();
     }
     
     @RequestMapping(value = "/updatePesanan", method = RequestMethod.POST)
@@ -465,7 +465,7 @@ public class ECommerceController {
                 byte[] bytes = detailDto.getFile().getBytes();
 //                ServletContext context = session.getServletContext();  
 //                String rootPath = context.getRealPath("/b/img");
-                String rootPath = "E:\\Amelia\\Ameliay\\E-Commerce\\web\\b\\img" ;
+                String rootPath = "E:\\Amelia\\E-Commerce\\web\\b\\img" ;
                 // Creating the directory to store file
                 //String rootPath = "E:\\file" ;
                 File dir = new File(rootPath);//rootPath itu url nya..
@@ -529,7 +529,7 @@ public class ECommerceController {
                 byte[] bytes = detailDto.getFile().getBytes();
 //                ServletContext context = session.getServletContext();  
 //                String rootPath = context.getRealPath("/b/img");
-                String rootPath = "E:\\Amelia\\Ameliay\\E-Commerce\\web\\b\\img" ;
+                String rootPath = "E:\\Amelia\\E-Commerce\\web\\b\\img" ;
                 // Creating the directory to store file
                 //String rootPath = "E:\\file" ;
                 File dir = new File(rootPath);//rootPath itu url nya..
@@ -872,7 +872,7 @@ public class ECommerceController {
                 byte[] bytes = ulasanDto.getFile().getBytes();
 //                ServletContext context = session.getServletContext();  
 //                String rootPath = context.getRealPath("/b/img");
-                String rootPath = "E:\\Amelia\\Ameliay\\E-Commerce\\web\\b\\img\\video" ;
+                String rootPath = "E:\\Amelia\\E-Commerce\\web\\b\\img\\video" ;
                 // Creating the directory to store file
                 //String rootPath = "E:\\file" ;
                 File dir = new File(rootPath);//rootPath itu url nya..
@@ -930,7 +930,7 @@ public class ECommerceController {
                 byte[] bytes = ulasanDto.getFile().getBytes();
 //                ServletContext context = session.getServletContext();  
 //                String rootPath = context.getRealPath("/b/img");
-                String rootPath = "E:\\Amelia\\Ameliay\\E-Commerce\\web\\b\\img\\video" ;
+                String rootPath = "E:\\Amelia\\E-Commerce\\web\\b\\img\\video" ;
                 // Creating the directory to store file
                 //String rootPath = "E:\\file" ;
                 File dir = new File(rootPath);//rootPath itu url nya..
@@ -1118,7 +1118,7 @@ public class ECommerceController {
         if (!pengeluaranDto.getFile().isEmpty()) {
             try {
                 byte[] bytes = pengeluaranDto.getFile().getBytes();  
-                String rootPath = "E:\\Amelia\\Ameliay\\E-Commerce\\web\\b\\img\\bukti pengeluaran"; 
+                String rootPath = "E:\\Amelia\\E-Commerce\\web\\b\\img\\bukti pengeluaran"; 
 //                System.out.println("tampilannya :"+);
 //
 //                // Creating the directory to store file
@@ -1174,5 +1174,25 @@ public class ECommerceController {
         List<AkunDto> akunDto1 = akunService.getListAkun();
         model.addAttribute("listkp", akunDto1);
         return "updateDataPengeluaran";
+    }
+    
+    @RequestMapping(value = "/pesananPembeli", method = RequestMethod.GET)
+    public String viewPesananPembeli(ModelMap model,PesananDto pesananDto){
+        KategoriDto dto = null;     
+            dto = new KategoriDto();
+            model.addAttribute("kategoriDto", dto);
+       
+        List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
+        List<PenerimaDto> listPenerimaDto=penerimaService.getListPenerimaById(id);
+        PenerimaDto penerimaDto=new PenerimaDto();
+        try {
+            model.addAttribute("listCartDto", listCartDto);
+            model.addAttribute("pesananDto", pesananDto);
+            model.addAttribute("listPenerimaDto", listPenerimaDto);
+            model.addAttribute("penerimaDto",penerimaDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "pesananPembeli";
     }
 }
