@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="projek.e.commerce.springhibernate.model.PembeliModel" table="tb_pembeli">
+        <id column="id_pembeli" name="id_pembeli" type="string">
+            <generator class="assigned"/>
+        </id>
+        <property column="nama" name="nama"/>
+        <property column="no_telp" name="no_telp"/>
+        <property column="alamat" name="alamat"/>
+        <property column="username" name="username"/>
+        <property column="password" name="password"/>
+        <property column="email" name="email"/>
+        <property column="foto" name="foto"/>
+    </class>
+</hibernate-mapping>

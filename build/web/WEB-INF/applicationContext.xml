@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+    
+    <context:component-scan base-package="projek.e.commerce.springhibernate.dao" />
+    <context:component-scan base-package="projek.e.commerce.springhibernate.service" />
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <bean id="transactionManager" 
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="mappingResources">  
+            <list>                                
+                <value>projek/e/commerce/springhibernate/model/LoginModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/DetailModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/KategoriModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/OngkirModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/PembeliModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/PenerimaModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/ProdukModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/PesananModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/CartModel.hbm.xml</value> 
+                <value>projek/e/commerce/springhibernate/model/UlasanModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/PengeluaranModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/AkunModel.hbm.xml</value>
+                <value>projek/e/commerce/springhibernate/model/DetailPesananModel.hbm.xml</value>
+            </list>  
+        </property>  
+        <property name="hibernateProperties">  
+            <props>  
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>  
+                <prop key="hibernate.hbm2ddl.auto">update</prop>  
+                <prop key="hibernate.show_sql">true</prop>                    
+            </props>  
+        </property>
+    </bean>
+    
+   <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/jdbc.properties" />
+
+<bean id="dataSource"
+    class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+    p:driverClassName="${jdbc.driverClassName}"
+    p:url="${jdbc.url}"
+    p:username="${jdbc.username}"
+    p:password="${jdbc.password}"/>
+
+    <bean id="loginService" class="projek.e.commerce.springhibernate.service.impl.LoginServiceImpl"></bean>
+    <bean id="loginDao" class="projek.e.commerce.springhibernate.dao.impl.LoginDaoImpl"></bean>
+    <bean id="pembeliService" class="projek.e.commerce.springhibernate.service.impl.PembeliServiceImpl"></bean>
+    <bean id="pembeliDao" class="projek.e.commerce.springhibernate.dao.impl.PembeliDaoImpl"></bean>
+    <bean id="kategoriService" class="projek.e.commerce.springhibernate.service.impl.KategoriServiceImpl"></bean>
+    <bean id="kategoriDao" class="projek.e.commerce.springhibernate.dao.impl.KategoriDaoImpl"></bean>
+    <bean id="produkService" class="projek.e.commerce.springhibernate.service.impl.ProdukServiceImpl"></bean>
+    <bean id="produkDao" class="projek.e.commerce.springhibernate.dao.impl.ProdukDaoImpl"></bean>
+    <bean id="pesananService" class="projek.e.commerce.springhibernate.service.impl.PesananServiceImpl"></bean>
+    <bean id="pesananDao" class="projek.e.commerce.springhibernate.dao.impl.PesananDaoImpl"></bean>
+    <bean id="ongkirService" class="projek.e.commerce.springhibernate.service.impl.OngkirServiceImpl"></bean>
+    <bean id="ongkirDao" class="projek.e.commerce.springhibernate.dao.impl.OngkirDaoImpl"></bean>
+    <bean id="penerimaService" class="projek.e.commerce.springhibernate.service.impl.PenerimaServiceImpl"></bean>
+    <bean id="penerimaDao" class="projek.e.commerce.springhibernate.dao.impl.PenerimaDaoImpl"></bean>
+    <bean id="detailService" class="projek.e.commerce.springhibernate.service.impl.DetailServiceImpl"></bean>
+    <bean id="detailDao" class="projek.e.commerce.springhibernate.dao.impl.DetailDaoImpl"></bean>
+    <bean id="cartService" class="projek.e.commerce.springhibernate.service.impl.CartServiceImpl"></bean>
+    <bean id="cartDao" class="projek.e.commerce.springhibernate.dao.impl.CartDaoImpl"></bean>
+    <bean id="ulasanService" class="projek.e.commerce.springhibernate.service.impl.UlasanServiceImpl"></bean>
+    <bean id="ulasanDao" class="projek.e.commerce.springhibernate.dao.impl.UlasanDaoImpl"></bean>
+    <bean id="pengeluaranService" class="projek.e.commerce.springhibernate.service.impl.PengeluaranServiceImpl"></bean>
+    <bean id="pengeluaranDao" class="projek.e.commerce.springhibernate.dao.impl.PengeluaranDaoImpl"></bean>
+    <bean id="akunService" class="projek.e.commerce.springhibernate.service.impl.AkunServiceImpl"></bean>
+    <bean id="akunDao" class="projek.e.commerce.springhibernate.dao.impl.AkunDaoImpl"></bean>
+    <bean id="detailPesananService" class="projek.e.commerce.springhibernate.service.impl.DetailPesananServiceImpl"></bean>
+    <bean id="detailPesananDao" class="projek.e.commerce.springhibernate.dao.impl.DetailPesananDaoImpl"></bean>
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
+
+</beans>

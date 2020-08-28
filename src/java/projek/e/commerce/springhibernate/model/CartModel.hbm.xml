@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="projek.e.commerce.springhibernate.model.CartModel" table="tb_keranjang">
+    <id column="kode_cart" name="kode_cart" type="string">
+      <generator class="assigned"/>
+    </id>
+    <property column="kode_detail" name="kode_detail"/>
+    <property column="id_pembeli" name="id_pembeli"/>
+    <property column="kuantitas" name="kuantitas"/>
+    <property column="total" name="total"/>
+    <property column="status" name="status"/>
+  </class>
+</hibernate-mapping>

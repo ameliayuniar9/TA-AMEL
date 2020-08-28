@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="projek.e.commerce.springhibernate.model.ProdukModel" table="tb_produk">
+        <id column="kode_produk" name="kode_produk" type="string">
+            <generator class="assigned"/>
+        </id>
+        <property column="kode_kategori" name="kode_kategori"/>
+        <property column="nama_produk" name="nama_produk"/>
+        <property column="harga_jual" name="harga_jual"/>
+        <property column="berat" name="berat"/>
+        <property column="keterangan_produk" name="keterangan_produk"/>
+    </class>
+</hibernate-mapping>

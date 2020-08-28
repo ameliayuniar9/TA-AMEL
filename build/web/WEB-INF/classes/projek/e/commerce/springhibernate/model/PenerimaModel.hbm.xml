@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="projek.e.commerce.springhibernate.model.PenerimaModel" table="tb_penerima">
+        <id column="id_penerima" name="id_penerima" type="string">
+            <generator class="assigned"/>
+        </id>
+        <property column="id_pembeli" name="id_pembeli"/>
+        <property column="nama_penerima" name="nama_penerima"/>
+        <property column="no_telp" name="no_telp"/>
+        <property column="provinsi" name="provinsi"/>
+        <property column="kabupaten" name="kabupaten"/>
+        <property column="kecamatan" name="kecamatan"/>
+        <property column="kode_pos" name="kode_pos"/>
+        <property column="alamat_lengkap" name="alamat_lengkap"/>
+        <property column="status" name="status"/>
+    </class>
+</hibernate-mapping>

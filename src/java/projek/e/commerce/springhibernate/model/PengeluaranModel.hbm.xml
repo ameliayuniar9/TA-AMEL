@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="projek.e.commerce.springhibernate.model.PengeluaranModel" table="tb_pengeluaran">
+    <id name="kode_pengeluaran" column="kode_pengeluaran" type="string">
+            <generator class="assigned" />
+        </id>
+        <property name="tanggal" column="tanggal"/>
+        <property name="kode_akun" column="kode_akun"/>
+        <property name="deskripsi" column="deskripsi"/>
+        <property name="jumlah" column="jumlah"/>
+        <property name="upload_file" column="upload_file"/>
+        <property name="status" column="status" />
+  </class>
+</hibernate-mapping>
