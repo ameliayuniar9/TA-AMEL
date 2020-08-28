@@ -5,6 +5,8 @@
  */
 package projek.e.commerce.springhibernate.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  *
  * @author HP
@@ -13,6 +15,7 @@ public class PesananDto {
    String kode_pesanan,id_pembeli,status,bukti_pembayaran,tanggal_pesan,id_penerima,tanggal_pembayaran,nama,nama_penerima;
    Integer total_pesanan;
    String[] kodeChart;
+    MultipartFile file;
 
     public String[] getKodeChart() {
         return kodeChart;
@@ -101,5 +104,13 @@ public class PesananDto {
 
     public void setNama_penerima(String nama_penerima) {
         this.nama_penerima = nama_penerima;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 }

@@ -273,7 +273,6 @@
             <th>gambar</th>
             <th colspan="6">action</th>
         </tr>
-    </tr>
     <c:set var="index" value="1"/>
     <c:forEach var="listPengeluaran" items="${listPengeluaranDtoCek}">
         <tr>  
