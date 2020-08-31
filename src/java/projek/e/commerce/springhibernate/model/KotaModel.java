@@ -35,7 +35,4 @@ public class KotaModel {
     public void setNama(String nama) {
         this.nama = nama;
     }
-    
-    
-    
 }

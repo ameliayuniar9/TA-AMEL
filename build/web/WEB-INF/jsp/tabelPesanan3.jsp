@@ -42,7 +42,46 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
+    <script type="text/javascript">
+            $(document).ready(function () {
+                // Activate tooltips
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // Filter table rows based on searched term
+                $("#search").on("keyup", function () {
+                    var term = $(this).val().toLowerCase();
+                    $("table tbody tr").each(function () {
+                        $row = $(this);
+                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
+                        console.log(name);
+                        if (name.search(term) < 0) {
+                            $row.hide();
+                        } else {
+                            $row.show();
+                        }
+                    });
+                });
+            });
+        </script>
     <style type="text/css">
+        .searchNama{
+            width: 130px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('./b/images/icons/search.png');
+            background-position: 10px 10px; 
+            background-repeat: no-repeat;
+            background-size: 30px 30px;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        .searchNama:focus{
+            width: 50%;
+        }
         #tombol{
             padding: 15px 50px;
             background: red;
@@ -282,8 +321,7 @@
             <th>Nama Pembeli</th>  
             <th>Total Pesanan</th>            
             <th width="300px">Tanggal Pesan</th>
-            <th>Tanggal Pembayaran</th> 
-            <th>Status</th>            
+            <th>Tanggal Pembayaran</th>       
             <th colspan="2">action</th>
         </tr>
         <c:set var="index" value="1"/>
@@ -295,7 +333,6 @@
                 <td>${listPesanan.total_pesanan}</td>
                 <td>${listPesanan.tanggal_pesan}</td>
                 <td>${listPesanan.tanggal_pembayaran}</td>
-                <td>${listPesanan.status}</td>
                 <c:url var="deletePesanan" value="/deleteDataPesanan.htm">
                     <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                 </c:url>

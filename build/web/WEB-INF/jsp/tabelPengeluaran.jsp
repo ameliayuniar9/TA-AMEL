@@ -42,7 +42,46 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
+    <script type="text/javascript">
+            $(document).ready(function () {
+                // Activate tooltips
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // Filter table rows based on searched term
+                $("#search").on("keyup", function () {
+                    var term = $(this).val().toLowerCase();
+                    $("table tbody tr").each(function () {
+                        $row = $(this);
+                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
+                        console.log(name);
+                        if (name.search(term) < 0) {
+                            $row.hide();
+                        } else {
+                            $row.show();
+                        }
+                    });
+                });
+            });
+        </script>
     <style type="text/css">
+        .searchNama{
+            width: 130px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('./b/images/icons/search.png');
+            background-position: 10px 10px; 
+            background-repeat: no-repeat;
+            background-size: 30px 30px;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        .searchNama:focus{
+            width: 50%;
+        }
         #tombol{
             padding: 15px 50px;
             background: red;
@@ -244,8 +283,11 @@
     </c:url>
     <p align="center" style = "font-family:courier;"><u><a href="${tambahDataPengeluaran}">Tambah</a></u></p>
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
+    <form>
+        <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Tanggal"/><br><br></center>
+    </form>
     <table  align="center" class="table1" border="1">
-        <tr>
+        <thead><tr>
             <th>No</th> 
             <th>Kode Pengeluaran</th>            
             <th>Tanggal</th> 
@@ -260,7 +302,7 @@
         <c:set var="index" value="1"/>
         <c:forEach var="listPengeluaran" items="${listPengeluaranDtoCek}">
             <c:choose>
-                <c:when test="${listPengeluaran.status=='Disapprove'}">
+                <c:when test="${listPengeluaran.status=='Disapproved'}">
                     <tr>  
                         <td style="background: red">${index}</td>
                         <td style="background: red">${listPengeluaran.kode_pengeluaran}</td>

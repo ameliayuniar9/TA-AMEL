@@ -42,7 +42,46 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
+    <script type="text/javascript">
+            $(document).ready(function () {
+                // Activate tooltips
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // Filter table rows based on searched term
+                $("#search").on("keyup", function () {
+                    var term = $(this).val().toLowerCase();
+                    $("table tbody tr").each(function () {
+                        $row = $(this);
+                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
+                        console.log(name);
+                        if (name.search(term) < 0) {
+                            $row.hide();
+                        } else {
+                            $row.show();
+                        }
+                    });
+                });
+            });
+        </script>
     <style type="text/css">
+        .searchNama{
+            width: 130px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('./b/images/icons/search.png');
+            background-position: 10px 10px; 
+            background-repeat: no-repeat;
+            background-size: 30px 30px;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        .searchNama:focus{
+            width: 50%;
+        }
         #tombol{
             padding: 15px 50px;
             background: red;
@@ -128,21 +167,13 @@
                         <!-- Account -->
                         <li class="header-account dropdown default-dropdown">
                                 <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon">
-                                        <i class="fa fa-user-o"></i>
-                                    </div>
+                                    
                                     <c:url var="login" value="/index.htm"></c:url>
-                                    <a href="${login}" class="text-uppercase">LOGOUT</a>
-                                </div>
-                                <!--<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
-                                <ul class="custom-menu">
-                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                    <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                    <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                    <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                                </ul>-->
+                                    <a href="${login}" class="text-uppercase"><div class="header-btns-icon">
+                                        <i class="fa fa-user-o"></i></div>
+                                        <strong>LOGOUT</strong></a><br>
+                                </div>      
+                               
                             </li>
                         <!-- /Account -->
 
@@ -201,38 +232,38 @@
         <div class="container">
             <div id="responsive-nav">
                 <!-- category nav -->
-<!--                <div class="category-nav show-on-click">
-                    <span class="category-header">E-COMMERCE</span>
-                </div>-->
+                <!--                <div class="category-nav show-on-click">
+                                    <span class="category-header">E-COMMERCE</span>
+                                </div>-->
                 <!-- /category nav -->
 
                 <!-- menu nav -->
-                   <c:url var="home" value="/menuAdmin.htm"/>
-                    <c:url var="produk" value="/tabelProduk.htm"/>
-                    <c:url var="kategori" value="/tabelKategori.htm"/>
-                    <c:url var="detail" value="/tabelDetail.htm"/>
-                    <c:url var="pembeli" value="/tabelPembeli.htm"/>
-                    <c:url var="ongkir" value="/tabelOngkir.htm"/>
-                    <c:url var="ulasan" value="/tabelUlasan.htm"/>
-                    <c:url var="pesanan" value="/tabelPesanan.htm"/>
-                    <c:url var="akun" value="/tabelAkun.htm"/>
-                    <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
-                    <div class="menu-nav">
-                        <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-                        <ul class="menu-list">
-                            <li><a href="${home}">Home</a></li>
-                            <li><a href="${kategori}">Kategori</a></li>
-                            <li><a href="${produk}">Produk</a></li>
-                            <li><a href="${detail}">DetailProduk</a></li>
-                            <li><a href="${pembeli}">Pembeli</a></li>
-                            <li><a href="${ongkir}">Ongkir</a></li>
-                            <li><a href="${ulasan}">Ulasan</a></li>
-                            <li><a href="${pesanan}">Pesanan</a></li>
-                            <li><a href="${akun}">Akun</a></li>
-                            <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
-                        </ul>
-                    </div>
+                <c:url var="home" value="/menuAdmin.htm"/>
+                <c:url var="produk" value="/tabelProduk.htm"/>
+                <c:url var="kategori" value="/tabelKategori.htm"/>
+                <c:url var="detail" value="/tabelDetail.htm"/>
+                <c:url var="pembeli" value="/tabelPembeli.htm"/>
+                <c:url var="ongkir" value="/tabelOngkir.htm"/>
+                <c:url var="ulasan" value="/tabelUlasan.htm"/>
+                <c:url var="pesanan" value="/tabelPesanan.htm"/>
+                <c:url var="akun" value="/tabelAkun.htm"/>
+                <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                <div class="menu-nav">
+                    <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+                    <ul class="menu-list">
+                        <li><a href="${home}">Home</a></li>
+                        <li><a href="${kategori}">Kategori</a></li>
+                        <li><a href="${produk}">Produk</a></li>
+                        <li><a href="${detail}">DetailProduk</a></li>
+                        <li><a href="${pembeli}">Pembeli</a></li>
+                        <li><a href="${ongkir}">Ongkir</a></li>
+                        <li><a href="${ulasan}">Ulasan</a></li>
+                        <li><a href="${pesanan}">Pesanan</a></li>
+                        <li><a href="${akun}">Akun</a></li>
+                        <li><a href="${pengeluaran}">Pengeluaran</a></li>
+                        <li><a href="#">Laporan</a></li>
+                    </ul>
+                </div>
                 <!-- menu nav -->
             </div>
         </div>
@@ -262,36 +293,41 @@
 
     <!-- footer subscribe -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <c:url var="tambahDataKategori" value="/doTambahDataKategori.htm">        
-     </c:url>
+    <c:url var="tambahDataKategori" value="/doTambahDataKategori.htm">        
+    </c:url>
     <p align="center" style = "font-family:courier;"><u><a href="${tambahDataKategori}">Tambah</a></u></p>
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
-     
-            <table align="center" class="table1" border="1">
-                <tr>
-                    <th>No</th> 
-                    <th>Kode Kategori</th>            
-                    <th>Nama Kategori</th>            
-                    <th colspan="2">action</th>
-                </tr>
-                <c:set var="index" value="1"/>
-                <c:forEach var="listKategori" items="${listKategoriDto}">
-                    <tr>  
-                        <td>${index}</td>
-                        <td>${listKategori.kode_kategori}</td>
-                        <td>${listKategori.nama_kategori}</td>
-                        <c:url var="deleteKategori" value="/deleteDataKategori.htm">
-                            <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
-                        </c:url>
-                        <c:url var="updateKategori" value="/getDataUpdateKategori.htm">
-                            <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
-                        </c:url>
-                        <td><a href="${deleteKategori}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
-                        <td><a href="${updateKategori}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
-                    </tr>            
-                    <c:set var="index" value="${index+1}"/>
-                </c:forEach>
-            </table>
+    <form>
+        <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Nama"/><br><br></center></form>
+    <table align="center" class="table1" border="1">
+        <thead>
+        <tr>
+            <th>No</th> 
+            <th>Kode Kategori</th>            
+            <th>Nama Kategori</th>            
+            <th colspan="2">action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:set var="index" value="1"/>
+        <c:forEach var="listKategori" items="${listKategoriDto}">
+            <tr>  
+                <td>${index}</td>
+                <td>${listKategori.kode_kategori}</td>
+                <td>${listKategori.nama_kategori}</td>
+                <c:url var="deleteKategori" value="/deleteDataKategori.htm">
+                    <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
+                </c:url>
+                <c:url var="updateKategori" value="/getDataUpdateKategori.htm">
+                    <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
+                </c:url>
+                <td><a href="${deleteKategori}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
+                <td><a href="${updateKategori}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
+            </tr>            
+            <c:set var="index" value="${index+1}"/>
+        </c:forEach>
+        </tbody>
+    </table>
     <!--</div>-->
 </div>
 

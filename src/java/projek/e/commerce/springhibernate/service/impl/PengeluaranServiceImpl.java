@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import projek.e.commerce.springhibernate.dao.PengeluaranDao;
 import projek.e.commerce.springhibernate.dto.PengeluaranDto;
 import projek.e.commerce.springhibernate.model.PengeluaranModel;
@@ -20,7 +19,6 @@ import projek.e.commerce.springhibernate.service.PengeluaranService;
  * @author amelia.yuniar
  */
 @Service
-@Transactional
 public class PengeluaranServiceImpl implements PengeluaranService{
     @Autowired
     PengeluaranDao  pengeluaranDao;
@@ -270,7 +268,7 @@ public class PengeluaranServiceImpl implements PengeluaranService{
             ddm.setDeskripsi(pengeluaranDto.getDeskripsi());
             ddm.setJumlah(pengeluaranDto.getJumlah());
             ddm.setUpload_file(pengeluaranDto.getUpload_file());
-            ddm.setStatus("approved");
+            ddm.setStatus("Approved");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -288,7 +286,7 @@ public class PengeluaranServiceImpl implements PengeluaranService{
             ddm.setDeskripsi(pengeluaranDto.getDeskripsi());
             ddm.setJumlah(pengeluaranDto.getJumlah());
             ddm.setUpload_file(pengeluaranDto.getUpload_file());
-            ddm.setStatus("Disapprove");
+            ddm.setStatus("Disapproved");
         } catch (Exception e) {
             e.printStackTrace();
         }

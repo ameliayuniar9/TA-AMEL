@@ -22,5 +22,6 @@ public interface PesananDao {
     public List<Object[]> getPesananStatusBaru() throws Exception;
     public List<Object[]> getPesananStatusBelumBayar() throws Exception;
     public List<Object[]> getPesananStatusSudahBayar() throws Exception;
+    public List<Object[]> getPesananStatusReject() throws Exception;
    
 }

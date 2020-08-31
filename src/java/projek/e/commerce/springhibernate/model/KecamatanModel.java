@@ -35,7 +35,4 @@ public class KecamatanModel {
     public void setNama(String nama) {
         this.nama = nama;
     }
-    
-    
-    
 }
