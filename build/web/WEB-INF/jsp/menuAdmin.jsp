@@ -95,75 +95,37 @@
                             <!-- Account -->
                             <li class="header-account dropdown default-dropdown">
                                 <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon">
-                                        <i class="fa fa-user-o"></i>
-                                    </div>
+                                    
                                     <c:url var="login" value="/index.htm"></c:url>
-                                    <a href="${login}" class="text-uppercase"><strong>LOGOUT</strong></a>
+                                    <a href="${login}" class="text-uppercase"><div class="header-btns-icon">
+                                        <i class="fa fa-user-o"></i>
+                                    </div><strong>LOGOUT</strong></a><br>
+                                    
                                 </div>
-                                <!--<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
-                                <ul class="custom-menu">
-                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                    <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                    <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                    <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                                </ul>-->
+                                <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true"><br>
+                                </div>
+                                   
+                                    <c:url var="changePassword" value="/getDataUpdateLogin.htm">
+                                        <c:param name="id_login" value="${id_login}"/>
+                                    </c:url>
+                                    <br><a href="${changePassword}" style="color:blue">Change password</a>
+                                   
+                                       
+                               
                             </li>
                             <!-- /Account -->
+                           
 
                             <!-- Cart -->
-                            <li class="header-cart dropdown default-dropdown">
-<!--                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <span class="qty">3</span>
-                                    </div>
-                                    <strong class="text-uppercase">My Cart:</strong>
-                                    <br>
-                                    <span>35.20$</span>
-                                </a>-->
-                                <div class="custom-menu">
-                                    <div id="shopping-cart">
-                                        <div class="shopping-cart-list">
-                                            <div class="product product-widget">
-                                                <div class="product-thumb">
-                                                    <img src="./a/img/thumb-product01.jpg" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                                </div>
-                                                <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                            <div class="product product-widget">
-                                                <div class="product-thumb">
-                                                    <img src="./a/img/thumb-product01.jpg" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                                </div>
-                                                <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="shopping-cart-btns">
-                                            <button class="main-btn">View Cart</button>
-                                            <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            
                             <!-- /Cart -->
 
                             <!-- Mobile nav toggle-->
-                            <li class="nav-toggle">
-                                <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
-                            </li>
+                           
                             <!-- / Mobile nav toggle -->
                         </ul>
                     </div>
+                                     
                 </div>
                 <!-- header -->
             </div>
@@ -191,7 +153,6 @@
                     <c:url var="ongkir" value="/tabelOngkir.htm"/>
                     <c:url var="ulasan" value="/tabelUlasan.htm"/>
                     <c:url var="pesanan" value="/tabelPesanan.htm"/>
-                    <c:url var="detailPesanan" value="/tabelDetailPesanan.htm"/>
                     <c:url var="akun" value="/tabelAkun.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
                     <div class="menu-nav">
@@ -205,7 +166,6 @@
                             <li><a href="${ongkir}">Ongkir</a></li>
                             <li><a href="${ulasan}">Ulasan</a></li>
                             <li><a href="${pesanan}">Pesanan</a></li>
-                            <li><a href="${detailPesanan}">Pesanan</a></li>
                             <li><a href="${akun}">Akun</a></li>
                             <li><a href="${pengeluaran}">Pengeluaran</a></li>
                             <li><a href="#">Laporan</a></li>
@@ -228,6 +188,17 @@
                     <div id="home-slick">
                         <!-- banner -->
                         <div class="banner banner-1">
+                            <c:set var="indexCek" value="0"/>
+                <c:forEach var="listPesanan" items="${listPesananDto}">                   
+                    <c:set var="indexCek" value="${indexCek+1}"/>
+                </c:forEach>
+                <c:if test = "${indexCek >0}">
+                    <div class="alert alert-info">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                        <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Information</h3> ${indexCek} Permintaan Confirm Pembayaran Baru
+                    </div>
+                 </c:if>
+                <br><br>
                             <img src="./a/img/home.PNG" alt="">
                         </div>
                         <!-- /banner -->

@@ -108,5 +108,16 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         listData = query.list();
         return listData;
     }
+
+    @Override
+    public List<Object[]> getPesananStatusReject() throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran " +
+                      "FROM tb_pesanan a JOIN tb_pembeli b ON a.id_pembeli=b.id_pembeli " +
+                      "WHERE a.status='REJECT' ";
+        Query query = createNativeQuery(sql);
+        listData = query.list();
+        return listData;
+    }
     
 }

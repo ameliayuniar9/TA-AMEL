@@ -5,6 +5,7 @@
  */
 package projek.e.commerce.springhibernate.controller;
 
+import com.google.gson.Gson;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,10 +29,13 @@ import projek.e.commerce.springhibernate.dao.AkunDao;
 import projek.e.commerce.springhibernate.dao.CartDao;
 import projek.e.commerce.springhibernate.dao.DetailDao;
 import projek.e.commerce.springhibernate.dao.DetailPesananDao;
+import projek.e.commerce.springhibernate.dao.KecamatanDao;
+import projek.e.commerce.springhibernate.dao.KotaDao;
 import projek.e.commerce.springhibernate.dao.LoginDao;
 import projek.e.commerce.springhibernate.dao.PembeliDao;
 import projek.e.commerce.springhibernate.dao.PenerimaDao;
 import projek.e.commerce.springhibernate.dao.PengeluaranDao;
+import projek.e.commerce.springhibernate.dao.ProvinsiDao;
 import projek.e.commerce.springhibernate.dao.UlasanDao;
 import projek.e.commerce.springhibernate.dto.AkunDto;
 import projek.e.commerce.springhibernate.dto.CartDto;
@@ -43,10 +47,14 @@ import projek.e.commerce.springhibernate.dto.PembeliDto;
 import projek.e.commerce.springhibernate.dto.PesananDto;
 import projek.e.commerce.springhibernate.dto.DetailDto;
 import projek.e.commerce.springhibernate.dto.DetailPesananDto;
+import projek.e.commerce.springhibernate.dto.KecamatanDto;
+import projek.e.commerce.springhibernate.dto.KotaDto;
 import projek.e.commerce.springhibernate.dto.ListKodeDto;
 import projek.e.commerce.springhibernate.dto.PenerimaDto;
 import projek.e.commerce.springhibernate.dto.PengeluaranDto;
 import projek.e.commerce.springhibernate.dto.ProdukDto;
+import projek.e.commerce.springhibernate.dto.ProvinsiDto;
+import projek.e.commerce.springhibernate.dto.TampMainDto;
 import projek.e.commerce.springhibernate.dto.UlasanDto;
 import projek.e.commerce.springhibernate.model.LoginModel;
 import projek.e.commerce.springhibernate.model.PembeliModel;
@@ -61,9 +69,12 @@ import projek.e.commerce.springhibernate.service.ProdukService;
 import projek.e.commerce.springhibernate.service.impl.LoginServiceImpl;
 import projek.e.commerce.springhibernate.service.impl.PembeliServiceImpl;
 import projek.e.commerce.springhibernate.service.DetailService;
+import projek.e.commerce.springhibernate.service.KecamatanService;
+import projek.e.commerce.springhibernate.service.KotaService;
 import projek.e.commerce.springhibernate.service.PenerimaService;
 import projek.e.commerce.springhibernate.service.PengeluaranService;
 import projek.e.commerce.springhibernate.service.PesananService;
+import projek.e.commerce.springhibernate.service.ProvinsiService;
 import projek.e.commerce.springhibernate.service.UlasanService;
 
 /**
@@ -139,6 +150,24 @@ public class ECommerceController {
       
       @Autowired
     DetailPesananDao detailPesananDao;
+      
+      @Autowired
+    ProvinsiService provinsiService;
+      
+      @Autowired
+    ProvinsiDao  provinsiDao;
+      
+      @Autowired
+    KotaService kotaService;
+      
+      @Autowired
+    KotaDao kotaDao;
+      
+      @Autowired
+    KecamatanService kecamatanService;
+      
+      @Autowired
+    KecamatanDao  kecamatanDao;
     
     LoginModel uModel=new LoginModel();
     PembeliDto dto=new PembeliDto();
@@ -148,7 +177,7 @@ public class ECommerceController {
     
     String x="",akses;
     int cek=0;
-    String kodeProd,id,kodeDetail;
+    String kodeProd,id,kodeDetail,id_login;
     int jmlProd=0;
     
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -194,23 +223,57 @@ public class ECommerceController {
     }
     
     @RequestMapping(value = "/detailKeranjang", method = RequestMethod.GET)
-    public String viewDetailKeranjang(ModelMap model,PesananDto pesananDto){
+    public String viewDetailKeranjang(ModelMap model,PesananDto pesananDto) throws Exception{
         KategoriDto dto = null;     
             dto = new KategoriDto();
             model.addAttribute("kategoriDto", dto);
        
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         List<PenerimaDto> listPenerimaDto=penerimaService.getListPenerimaById(id);
+        List<ProvinsiDto> listProvinsi = provinsiService.getListProvinsi();
+        List<KotaDto> listKota=kotaService.getListKota();
+        List<KecamatanDto> listKecamatan=kecamatanService.getListKecamatan();
         PenerimaDto penerimaDto=new PenerimaDto();
         try {
             model.addAttribute("listCartDto", listCartDto);
             model.addAttribute("pesananDto", pesananDto);
-              model.addAttribute("listPenerimaDto", listPenerimaDto);
+            model.addAttribute("listPenerimaDto", listPenerimaDto);
             model.addAttribute("penerimaDto",penerimaDto);
+            model.addAttribute("listProvinsi", listProvinsi);
+            model.addAttribute("listKota", listKota);
+            model.addAttribute("listKecamatan", listKecamatan);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "detailKeranjang";
+    }
+    
+    @RequestMapping(value = "/getDataKotaByProvinsi", method = RequestMethod.GET)
+    @ResponseBody
+    public String getDataKotaByProvinsi(String id_provinsi) {
+        List<KotaDto> listKota = kotaService.getKotaById(id_provinsi);
+        return new Gson().toJson(listKota);
+    }
+
+    @RequestMapping(value = "/getKota2", method = RequestMethod.GET)
+    @ResponseBody
+    public String getKota2(String Prov, String Kota) {
+        List<TampMainDto> listNama = kotaService.getNama(Prov, Kota);
+        return new Gson().toJson(listNama);
+    }
+    
+    @RequestMapping(value = "/getDataKecamatanByKota", method = RequestMethod.GET)
+    @ResponseBody
+    public String getDataKecamatanByKota(String id_kota) {
+        List<KecamatanDto> listKecamatan = kecamatanService.getListKecamatanById(id_kota);
+        return new Gson().toJson(listKecamatan);
+    }
+
+    @RequestMapping(value = "/getKecamatan2", method = RequestMethod.GET)
+    @ResponseBody
+    public String getKecamatan2(String Kota, String Kec) {
+        List<TampMainDto> listNama = kotaService.getNama(Kota, Kec);
+        return new Gson().toJson(listNama);
     }
     
     
@@ -612,18 +675,30 @@ public class ECommerceController {
     @RequestMapping(value = "/tabelPesanan", method = RequestMethod.GET)
     public String viewTabelPesanan(ModelMap model){
         try {
-            List<PesananDto> listPesananDto = pesananService.getListBelanja();
+            List<PesananDto> listPesananDto = pesananService.getPesananStatusBaru();
             model.addAttribute("listPesananDto", listPesananDto);
+            List<PesananDto> listPesananRejectDto = pesananService.getPesananStatusReject();
+            model.addAttribute("listPesananRejectDto", listPesananRejectDto);
         } catch (Exception e) {
             e.printStackTrace();
         } 
         return "tabelPesanan";
     }
+    @RequestMapping(value = "/updateConfirm", method = RequestMethod.GET)
+    public String updateConfirm(String kode_pesanan, ModelMap model) throws Exception {
+        pesananService.Confirm(kode_pesanan);
+        return "redirect:tabelPesanan.htm";
+    }
+    @RequestMapping(value = "/updateReject", method = RequestMethod.GET)
+    public String updateReject(String kode_pesanan, ModelMap model) throws Exception {
+        pesananService.Reject(kode_pesanan);
+        return "redirect:tabelPesanan.htm";
+    }
     
     @RequestMapping(value = "/tabelPesanan2", method = RequestMethod.GET)
     public String viewTabelPesanan2(ModelMap model){
         try {
-            List<PesananDto> listPesananDto = pesananService.getListBelanja();
+            List<PesananDto> listPesananDto = pesananService.getPesananStatusSudahBayar();
             model.addAttribute("listPesananDto", listPesananDto);
         } catch (Exception e) {
             e.printStackTrace();
@@ -634,7 +709,7 @@ public class ECommerceController {
     @RequestMapping(value = "/tabelPesanan3", method = RequestMethod.GET)
     public String viewTabelPesanan3(ModelMap model){
         try {
-            List<PesananDto> listPesananDto = pesananService.getListBelanja();
+            List<PesananDto> listPesananDto = pesananService.getPesananStatusBelumBayar();
             model.addAttribute("listPesananDto", listPesananDto);
         } catch (Exception e) {
             e.printStackTrace();
@@ -698,13 +773,17 @@ public class ECommerceController {
     
     
     @RequestMapping(value = "/menuAdmin", method = RequestMethod.GET)
-    public String viewMenuAdm(ModelMap model,NotivDto notivDto){
+    public String viewMenuAdm(ModelMap model,NotivDto notivDto) throws Exception{
         if(cek==1){
              notivDto.setSukses(x);
              notivDto.setAkses(akses);
          }
         cek=0;
         model.addAttribute("notivDto", notivDto);
+        LoginDto login=loginService.getUpdateDataLogin(id_login);
+        model.addAttribute("id_login", id_login);
+        List<PesananDto> listPesananDto = pesananService.getPesananStatusBaru();
+            model.addAttribute("listPesananDto", listPesananDto);
         return "menuAdmin";
     }
     
@@ -811,8 +890,9 @@ public class ECommerceController {
                     if(ddm.getAkses().equalsIgnoreCase("Admin")){   
                         x=ddm.getUsername();
                         cek=1;
+                        id_login=ddm.getId_login();
                         akses=ddm.getAkses();
-                        return"redirect:menuAdmin.htm";   
+                        return"redirect:menuAdmin.htm?id_login="+id_login;   
                     }else if(ddm.getAkses().equalsIgnoreCase("Owner")){
                         x=ddm.getUsername();
                         cek=1;
@@ -1236,5 +1316,18 @@ public class ECommerceController {
             e.printStackTrace();
         }
         return "pesananPembeli";
+    }
+    
+    @RequestMapping(value = "/getDataUpdateLogin", method = RequestMethod.GET)
+    public String getUpdateDataLogin(ModelMap model) throws Exception{   
+        LoginDto loginDto =loginService.getUpdateDataLogin(id_login);
+        model.addAttribute("loginDto", loginDto);
+        return "changePassword";
+    }
+    
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    public String editData(LoginDto loginDto) throws Exception{
+        loginService.doUpdateDataLogin(loginDto);
+        return "redirect:menuAdmin.htm";
     }
 }

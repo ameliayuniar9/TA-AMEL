@@ -42,7 +42,46 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
+    <script type="text/javascript">
+            $(document).ready(function () {
+                // Activate tooltips
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // Filter table rows based on searched term
+                $("#search").on("keyup", function () {
+                    var term = $(this).val().toLowerCase();
+                    $("table tbody tr").each(function () {
+                        $row = $(this);
+                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
+                        console.log(name);
+                        if (name.search(term) < 0) {
+                            $row.hide();
+                        } else {
+                            $row.show();
+                        }
+                    });
+                });
+            });
+        </script>
     <style type="text/css">
+        .searchNama{
+            width: 130px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('./b/images/icons/search.png');
+            background-position: 10px 10px; 
+            background-repeat: no-repeat;
+            background-size: 30px 30px;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        .searchNama:focus{
+            width: 50%;
+        }
         #tombol{
             padding: 15px 50px;
             background: red;
@@ -283,8 +322,7 @@
                 <th>Total Pesanan</th>            
                 <th width="300px">Tanggal Pesan</th>
                 <th>Bukti Pembayaran</th>
-                <th>Tanggal Pembayaran</th> 
-                <th>Status</th>            
+                <th>Tanggal Pembayaran</th>             
                 <th colspan="2">action</th>
             </tr>
             <c:set var="index" value="1"/>
@@ -295,18 +333,16 @@
                     <td>${listPesanan.nama}</td>
                     <td>${listPesanan.total_pesanan}</td>
                     <td>${listPesanan.tanggal_pesan}</td>
-                    <c:set var="gambar" value="${listPesanan.bukti_pembayaran}"/>
-                    <td><c:if test="${gambar != null}"><img src="./b/img/pembayaran/${listPesanan.bukti_pembayaran}" width="100px" height="130px"></c:if></td>
+                    <td><a class="image-popup-vertical-fit" href="./b/img/pembayaran/${listPesanan.bukti_pembayaran}"><img src="./b/img/pembayaran/${listPesanan.bukti_pembayaran}" width="100px" height="130px"></a></td>
                     <td>${listPesanan.tanggal_pembayaran}</td>
-                    <td>${listPesanan.status}</td>
-                    <c:url var="deletePesanan" value="/deleteDataPesanan.htm">
+                    <c:url var="rejectPesanan" value="/updateReject.htm">
                         <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                     </c:url>
-                    <c:url var="updatePesanan" value="/getDataUpdatePesanan.htm">
+                    <c:url var="confirmPesanan" value="/updateConfirm.htm">
                         <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                     </c:url>
-                    <td><a href="${deletePesanan}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
-                    <td><a href="${updatePesanan}"><img src="./b/images/icons/icon konfirm.jpeg" alt="" width="20px" height="20px">Konfirmasi</a></td>
+                    <td><a class="btn btn-primary" href="${confirmPesanan}">Confirm</td>
+                    <td><a class="btn btn-danger" href="${rejectPesanan}">Reject</td>
                 </tr>            
                 <c:set var="index" value="${index+1}"/>
             </c:forEach>

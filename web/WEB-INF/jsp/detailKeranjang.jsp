@@ -441,6 +441,109 @@
                 </div>
             </div>
         </form>	
+        <script>
+            function isikota()
+            {
+                var idProvinsi = document.getElementById("id_provinsi").value;
+                var content;
+                if (idProvinsi == 0) {
+                    content = '<option value="0" name="idKota" disabled="true">-- Pilih Kota --</option>';
+                    $('#id_kota').html(content);
+                } else {
+                    $.ajax({
+                        url: 'getDataKotaByProvinsi.htm',
+                        data: "id_provinsi=" + idProvinsi,
+                        type: 'GET',
+                        success: function (response) {
+                            var data = JSON.parse(response);
+                            var len = data.length;
+                            content = '<option value="0" name="idKota" disabled="true">-- Pilih Kabupaten/Kota --</option>';
+                            for (var i = 0; i < len; i++) {
+                                content += '<option value="' + data[i].id_kota + '" name="idKota">' + data[i].nama + '</option>';
+                                $('#id_kota').html(content);
+                            }
+                        }
+                    });
+                }
+
+            }
+
+            function ok() {
+                var isiProv;
+                var isiKota;
+                var idProv = document.getElementById("id_provinsi").value;
+                var idKota = document.getElementById("id_kota").value;
+
+                if (idProv == 0) {
+                    $('#hasilProv').html("SEMUA PROVINSI");
+                    $('#hasilKota').html("SEMUA KABUPATEN/KOTA");
+                } else {
+                    $.ajax({
+                        url: 'getKota2.htm',
+                        data: {
+                            prov: idProv,
+                            kota: idKota
+                        },
+                        type: 'GET',
+                        success: function (response) {
+                            var data = JSON.parse(response);
+                            $('#hasilProv').html(data[0].nama);
+                            $('#hasilKota').html(data[1].nama);
+                        }
+                    });
+                }
+            }
+            
+            function isikecamatan()
+            {
+                var idKota = document.getElementById("id_kota").value;
+                var content;
+                if (idKota == 0) {
+                    content = '<option value="0" name="idKecamatan" disabled="true">-- Pilih Kecamatan --</option>';
+                    $('#id_kecamatan').html(content);
+                } else {
+                    $.ajax({
+                        url: 'getDataKecamatanByKota.htm',
+                        data: "id_kota=" + idKota,
+                        type: 'GET',
+                        success: function (response) {
+                            var data = JSON.parse(response);
+                            var len = data.length;
+                            content = '<option value="0" name="idKecamatan" disabled="true">-- Pilih Kecamatan --</option>';
+                            for (var i = 0; i < len; i++) {
+                                content += '<option value="' + data[i].id_kecamatan + '" name="idKecamatan">' + data[i].nama + '</option>';
+                                $('#id_kecamatan').html(content);
+                            }
+                        }
+                    });
+                }
+
+            }
+
+            function ok() {
+                var idKota = document.getElementById("id_kota").value;
+                var idKec = document.getElementById("id_kecamatan").value;
+
+                if (idProv == 0) {
+                    $('#hasilKota').html("SEMUA KOTA");
+                    $('#hasilKec').html("SEMUA KECAMATAN");
+                } else {
+                    $.ajax({
+                        url: 'getKecamatan2.htm',
+                        data: {
+                            kota: idKota,
+                            kec: idKec
+                        },
+                        type: 'GET',
+                        success: function (response) {
+                            var data = JSON.parse(response);
+                            $('#hasilKota').html(data[0].nama);
+                            $('#hasilKec').html(data[1].nama);
+                        }
+                    });
+                }
+            }
+        </script>
 
         <section class="bg0 p-t-104 p-b-116">
             <div class="container">
@@ -458,16 +561,23 @@
                                 <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="no_telp" placeholder="Nomor Telepon"/>
                             </div>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="provinsi" placeholder="Provinsi"/>
+                                <form:select  path="provinsi" name="provinsi_filter" id="id_provinsi" onchange="isikota()" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30">
+                                    <form:option value="0">-- Pilih Provinsi --</form:option>
+                                    <c:forEach var="prov"  items="${listProvinsi}">
+                                        <form:option  value="${prov.id_provinsi}">${prov.nama}</form:option>
+                                    </c:forEach>
+                                </form:select>
+                                    
                             </div>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="kabupaten" placeholder="Kabupaten/Kota"/>
+                                <form:select path="kabupaten" name="kota_filter" id="id_kota" onchange="isikecamatan()" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30">
+                                    <form:option value="0" disabled="true" selected="true">-- Pilih Kabupaten/Kota --</form:option>
+                                </form:select>
                             </div>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="kecamatan" placeholder="Kecamatan"/>
-                            </div>
-                            <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="kode_pos" placeholder="Kode Pos"/>
+                                <form:select name="kecamatan_filter" id="id_kecamatan" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="kecamatan">
+                                    <form:option value="0" disabled="true" selected="true">-- Pilih Kecamatan --</form:option>
+                                </form:select>
                             </div>
                             <div class="bor8 m-b-20 how-pos4-parent">
                                 <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-25" path="alamat_lengkap" placeholder="Alamat Lengkap"/>
@@ -478,6 +588,8 @@
                             </form:button>
                         </form:form>
                     </div>
+                    <h3 id="hasilProv" style="text-decoration: blink;"></h3>
+        <h3 id="hasilKota"></h3>
 
                     <div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
                         <div class="flex-w w-full p-b-42">
@@ -503,12 +615,12 @@
                                         <tr>
                                             <td></td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
-                                            <td>${listPenerima.alamat_lengkap} , Kab/Kota ${listPenerima.kabupaten}<td>
+                                            <td>${listPenerima.alamat_lengkap} , ${listPenerima.kabupaten}<td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
-                                            <td>${listPenerima.provinsi} , ${listPenerima.kode_pos}<td>
+                                            <td>${listPenerima.provinsi}<td>
                                         </tr>
                                     </table>
                                 </div>
@@ -667,12 +779,12 @@
         <!--===============================================================================================-->
         <script src="b/vendor/select2/select2.min.js"></script>
         <script>
-                                            $(".js-select2").each(function () {
-                                                $(this).select2({
-                                                    minimumResultsForSearch: 20,
-                                                    dropdownParent: $(this).next('.dropDownSelect2')
-                                                });
-                                            })
+                                                $(".js-select2").each(function () {
+                                                    $(this).select2({
+                                                        minimumResultsForSearch: 20,
+                                                        dropdownParent: $(this).next('.dropDownSelect2')
+                                                    });
+                                                })
         </script>
         <!--===============================================================================================-->
         <script src="b/vendor/daterangepicker/moment.min.js"></script>
@@ -683,78 +795,78 @@
         <!--===============================================================================================-->
         <script src="b/vendor/parallax100/parallax100.js"></script>
         <script>
-                                            $('.parallax100').parallax100();
+                                                $('.parallax100').parallax100();
         </script>
         <!--===============================================================================================-->
         <script src="b/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
         <script>
-                                            $('.gallery-lb').each(function () { // the containers for all your galleries
-                                                $(this).magnificPopup({
-                                                    delegate: 'a', // the selector for gallery item
-                                                    type: 'image',
-                                                    gallery: {
-                                                        enabled: true
-                                                    },
-                                                    mainClass: 'mfp-fade'
+                                                $('.gallery-lb').each(function () { // the containers for all your galleries
+                                                    $(this).magnificPopup({
+                                                        delegate: 'a', // the selector for gallery item
+                                                        type: 'image',
+                                                        gallery: {
+                                                            enabled: true
+                                                        },
+                                                        mainClass: 'mfp-fade'
+                                                    });
                                                 });
-                                            });
         </script>
         <!--===============================================================================================-->
         <script src="b/vendor/isotope/isotope.pkgd.min.js"></script>
         <!--===============================================================================================-->
         <script src="b/vendor/sweetalert/sweetalert.min.js"></script>
         <script>
-                                            $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
-                                                e.preventDefault();
-                                            });
-
-                                            $('.js-addwish-b2').each(function () {
-                                                var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-                                                $(this).on('click', function () {
-                                                    swal(nameProduct, "is added to wishlist !", "success");
-
-                                                    $(this).addClass('js-addedwish-b2');
-                                                    $(this).off('click');
+                                                $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
+                                                    e.preventDefault();
                                                 });
-                                            });
 
-                                            $('.js-addwish-detail').each(function () {
-                                                var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+                                                $('.js-addwish-b2').each(function () {
+                                                    var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+                                                    $(this).on('click', function () {
+                                                        swal(nameProduct, "is added to wishlist !", "success");
 
-                                                $(this).on('click', function () {
-                                                    swal(nameProduct, "is added to wishlist !", "success");
-
-                                                    $(this).addClass('js-addedwish-detail');
-                                                    $(this).off('click');
+                                                        $(this).addClass('js-addedwish-b2');
+                                                        $(this).off('click');
+                                                    });
                                                 });
-                                            });
 
-                                            /*---------------------------------------------*/
+                                                $('.js-addwish-detail').each(function () {
+                                                    var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
-                                            $('.js-addcart-detail').each(function () {
-                                                var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-                                                $(this).on('click', function () {
-                                                    swal(nameProduct, "is added to cart !", "success");
+                                                    $(this).on('click', function () {
+                                                        swal(nameProduct, "is added to wishlist !", "success");
+
+                                                        $(this).addClass('js-addedwish-detail');
+                                                        $(this).off('click');
+                                                    });
                                                 });
-                                            });
+
+                                                /*---------------------------------------------*/
+
+                                                $('.js-addcart-detail').each(function () {
+                                                    var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+                                                    $(this).on('click', function () {
+                                                        swal(nameProduct, "is added to cart !", "success");
+                                                    });
+                                                });
 
         </script>
         <!--===============================================================================================-->
         <script src="b/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script>
-                                            $('.js-pscroll').each(function () {
-                                                $(this).css('position', 'relative');
-                                                $(this).css('overflow', 'hidden');
-                                                var ps = new PerfectScrollbar(this, {
-                                                    wheelSpeed: 1,
-                                                    scrollingThreshold: 1000,
-                                                    wheelPropagation: false,
-                                                });
+                                                $('.js-pscroll').each(function () {
+                                                    $(this).css('position', 'relative');
+                                                    $(this).css('overflow', 'hidden');
+                                                    var ps = new PerfectScrollbar(this, {
+                                                        wheelSpeed: 1,
+                                                        scrollingThreshold: 1000,
+                                                        wheelPropagation: false,
+                                                    });
 
-                                                $(window).on('resize', function () {
-                                                    ps.update();
-                                                })
-                                            });
+                                                    $(window).on('resize', function () {
+                                                        ps.update();
+                                                    })
+                                                });
         </script>
         <!--===============================================================================================-->
         <script src="b/js/main.js"></script>

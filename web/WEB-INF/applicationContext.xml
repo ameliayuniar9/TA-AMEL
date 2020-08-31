@@ -94,6 +94,12 @@
     <bean id="akunDao" class="projek.e.commerce.springhibernate.dao.impl.AkunDaoImpl"></bean>
     <bean id="detailPesananService" class="projek.e.commerce.springhibernate.service.impl.DetailPesananServiceImpl"></bean>
     <bean id="detailPesananDao" class="projek.e.commerce.springhibernate.dao.impl.DetailPesananDaoImpl"></bean>
+    <bean id="provinsiService" class="projek.e.commerce.springhibernate.service.impl.ProvinsiServiceImpl"></bean>
+    <bean id="provinsiDao" class="projek.e.commerce.springhibernate.dao.impl.ProvinsiDaoImpl"></bean>
+    <bean id="kotaService" class="projek.e.commerce.springhibernate.service.impl.KotaServiceImpl"></bean>
+    <bean id="kotaDao" class="projek.e.commerce.springhibernate.dao.impl.KotaDaoImpl"></bean>
+    <bean id="kecamatanService" class="projek.e.commerce.springhibernate.service.impl.KecamatanServiceImpl"></bean>
+    <bean id="kecamatanDao" class="projek.e.commerce.springhibernate.dao.impl.KecamatanDaoImpl"></bean>
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
 
 </beans>

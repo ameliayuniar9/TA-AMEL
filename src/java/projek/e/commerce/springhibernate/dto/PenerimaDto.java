@@ -10,7 +10,7 @@ package projek.e.commerce.springhibernate.dto;
  * @author HP
  */
 public class PenerimaDto {
-    String id_penerima,id_pembeli,nama_penerima,no_telp,provinsi,kabupaten,kecamatan,kode_pos,alamat_lengkap,status;
+    String id_penerima,id_pembeli,nama_penerima,no_telp,provinsi,kabupaten,kecamatan,alamat_lengkap,status;
 
     public String getId_penerima() {
         return id_penerima;
@@ -66,14 +66,6 @@ public class PenerimaDto {
 
     public void setKecamatan(String kecamatan) {
         this.kecamatan = kecamatan;
-    }
-
-    public String getKode_pos() {
-        return kode_pos;
-    }
-
-    public void setKode_pos(String kode_pos) {
-        this.kode_pos = kode_pos;
     }
 
     public String getAlamat_lengkap() {
