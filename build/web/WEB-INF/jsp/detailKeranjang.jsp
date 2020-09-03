@@ -83,8 +83,14 @@
         return kodeCartList;
     }
 
-    function getAlamat(id_penerima) {
+    function getAlamat(id_penerima,ongkir) {
         document.getElementById("id_penerima").value = id_penerima;
+        var x = document.getElementById("ongkirz");
+        var y= document.getElementById("hargaBarangz");
+        var z= document.getElementById("z");
+        x.value=tamp;
+        y.value=ongkir;
+        z.value=tamp+ongkir;
     }
 </script>
 <!DOCTYPE html>
@@ -626,7 +632,7 @@
                                 <div class="size-212 p-t-2">
                                     <table>
                                         <tr>
-                                            <td><input type="radio" name="alamat" onclick="getAlamat(value);" value="${listPenerima.id_penerima}"></td>
+                                            <td><input type="radio" name="alamat" onclick="getAlamat(value,${listPenerima.harga});" value="${listPenerima.id_penerima}"></td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
                                             <td>
                                                 <strong>${listPenerima.nama_penerima}</strong>
@@ -650,7 +656,9 @@
                                     </table>
                                 </div>
                             </c:forEach>
-
+                            Harga Product : &nbsp<input type="label" id="hargaBarangz" value=""/>
+                            Harga Ongkir &nbsp: &nbsp<input type="label" id="ongkirz" value=""/>
+                            Harga total &nbsp&nbsp: &nbsp<input type="label" id="z" value="" />
                         </div>
                         <form:form id="pesanan" action="savePesanan.htm" modelAttribute="pesananDto" method="POST">
                             <form:hidden path="total_pesanan" id="totalPesanan"></form:hidden>

@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projek.e.commerce.springhibernate.dao.KecamatanDao;
 import projek.e.commerce.springhibernate.dao.KotaDao;
+import projek.e.commerce.springhibernate.dao.OngkirDao;
 import projek.e.commerce.springhibernate.dao.PenerimaDao;
 import projek.e.commerce.springhibernate.dao.ProvinsiDao;
 import projek.e.commerce.springhibernate.dto.PenerimaDto;
 import projek.e.commerce.springhibernate.model.KecamatanModel;
 import projek.e.commerce.springhibernate.model.KotaModel;
+import projek.e.commerce.springhibernate.model.OngkirModel;
 import projek.e.commerce.springhibernate.model.PenerimaModel;
 import projek.e.commerce.springhibernate.model.ProvinsiModel;
 import projek.e.commerce.springhibernate.service.PenerimaService;
@@ -35,6 +37,9 @@ public class PenerimaServiceImpl implements PenerimaService{
     
     @Autowired
     KotaDao kotaDao;
+    
+    @Autowired
+    OngkirDao OngkirDao;
     
     @Autowired
     KecamatanDao kecamatanDao;
@@ -224,9 +229,17 @@ public class PenerimaServiceImpl implements PenerimaService{
                     }
                     if(model.getKabupaten()!= null){
                         penerimaDto.setKabupaten(model.getKabupaten());
+                        try{
+                            OngkirModel dd=(OngkirModel) OngkirDao.getOngkir(penerimaDto.getKabupaten());
+                            penerimaDto.setHarga(dd.getHarga());
+                        }catch(Exception e){
+                            penerimaDto.setHarga(0);
+                        }
+                        
                     }
                     if(model.getKecamatan()!= null){
                         penerimaDto.setKecamatan(model.getKecamatan());
+                        
                     }
                     if(model.getAlamat_lengkap()!= null){
                         penerimaDto.setAlamat_lengkap(model.getAlamat_lengkap());
