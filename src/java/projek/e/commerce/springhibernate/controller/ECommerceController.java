@@ -56,6 +56,8 @@ import projek.e.commerce.springhibernate.dto.ProdukDto;
 import projek.e.commerce.springhibernate.dto.ProvinsiDto;
 import projek.e.commerce.springhibernate.dto.TampMainDto;
 import projek.e.commerce.springhibernate.dto.UlasanDto;
+import projek.e.commerce.springhibernate.model.DetailModel;
+import projek.e.commerce.springhibernate.model.DetailPesananModel;
 import projek.e.commerce.springhibernate.model.LoginModel;
 import projek.e.commerce.springhibernate.model.PembeliModel;
 import projek.e.commerce.springhibernate.service.AkunService;
@@ -214,7 +216,7 @@ public class ECommerceController {
         DetailDto detailDto = detailService.getUpdateDataDetail(kode_detail);
         kodeDetail=detailDto.getKode_detail();
         kodeProd=detailDto.getKode_produk();
-        List<PembeliDto> listPembeliDtoSelect = pembeliService.getListPembeliSelect(id_pembeli);
+        List<PembeliDto> listPembeliDtoSelect = pembeliService.getListPembeliSelect(id);
         model.addAttribute("listPembeliDtoSelect", listPembeliDtoSelect);
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         model.addAttribute("listCartDto", listCartDto);
@@ -344,6 +346,7 @@ public class ECommerceController {
     @RequestMapping(value = "/savePenerima", method = RequestMethod.POST)
     public String saveDataPenerima(PenerimaDto penerimaDto, ModelMap model) throws Exception{                
         ModelAndView mdl = new ModelAndView();
+        penerimaDto.setId_penerima(id);
         penerimaService.saveDataPenerima(penerimaDto);                
         return "redirect:detailKeranjang.htm?id_pembeli="+id;
     }
@@ -451,21 +454,35 @@ public class ECommerceController {
         return "redirect:tabelKategori.htm";
     }
     
-     @RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
+    @RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
     public String Pesan(PesananDto pesananDto,ModelMap model) throws Exception{
-        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBB");
-        System.out.println(pesananDto.getKodeChart().length);
-         for (int i = 0; i < pesananDto.getKodeChart().length; i++) {
-             System.out.println(pesananDto.getKodeChart()[i]);
-         }   
+        System.out.println(pesananDto.getKode_detail());
+        System.out.println(pesananDto.getKodeChart());
+        System.out.println(pesananDto.getJumlah_belanja());
+        System.out.println(pesananDto.getHarga());
+         
         try {
-            System.out.println(pesananDto.getTotal_pesanan());
+            String[] detail=pesananDto.getKode_detail().split(",");
+            String[] chart=pesananDto.getKodeChart().split(",");
+            String[] stok=pesananDto.getJumlah_belanja().split(",");
+            String[] harga=pesananDto.getHarga().split(",");
+            
+            for (int i = 0; i < detail.length; i++) {
+                DetailPesananDto data=new DetailPesananDto();
+                DetailModel detailPesanan=detailService.getDetailById(detail[i]);
+                detailPesanan.setStok(detailPesanan.getStok()- Integer.parseInt(stok[i]));
+                detailDao.updateDetail(detailPesanan);
+                cartService.deleteDataCart(chart[i]);
+                data.setKode_detail(detail[i]);
+                data.setKuantitas(Integer.parseInt(stok[i]));
+                data.setTotal(Integer.parseInt(harga[i]));
+                detailPesananService.saveDataDetailPesanan(data);
+            }
             pesananService.saveDataBelanja(pesananDto,pp);
         } catch (Exception e) {
             System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBB");
             e.printStackTrace();
         }
-        System.out.println("KODE PESANAN = "+pesananDto.getKode_pesanan());
         return "redirect:pesananPembeli.htm?id_pembeli="+id+"&kode_pesanan="+pesananDto.getKode_pesanan();
     }
     
@@ -765,7 +782,7 @@ public class ECommerceController {
     public String saveDataKeranjang(CartDto cartDto,String kode_detail,ModelMap model) throws Exception{
         jmlProd=cartDto.getKuantitas();
         kode_detail=kodeDetail;
-        cartService.saveDataCart(cartDto,kode_detail,kodeProd,pp,jmlProd);
+        cartService.saveDataCart(cartDto,kode_detail,kodeProd,id,jmlProd);
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         model.addAttribute("listCartDto", listCartDto);
         return "redirect:menuBaru.htm?id_pembeli="+id;
@@ -818,7 +835,6 @@ public class ECommerceController {
         cek=0;
         model.addAttribute("notivDto", notivDto);
         try {
-            id=id_pembeli;
             List<DetailDto> listDetailDto = detailService.getListDetail();
             model.addAttribute("listDetailDto", listDetailDto);
             List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
@@ -899,6 +915,7 @@ public class ECommerceController {
                         akses=ddm.getAkses();
                         return"redirect:menuOwner.htm";
                     }else if(ddm.getAkses().equalsIgnoreCase("Pembeli")){
+                        id=ddm.getId_pembeli();
                         x=ddm.getUsername();
                         cek=1;
                         akses=ddm.getAkses();

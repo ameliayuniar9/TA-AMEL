@@ -159,7 +159,7 @@ public class PesananServiceImpl implements PesananService{
         }
         a+=1;
         String kode_bel="PEN-"+a+"";
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         dataModel.setKode_pesanan(kode_bel);
         dataModel.setId_pembeli(id_pembeli);
         dataModel.setTotal_pesanan(belanjaDto.getTotal_pesanan());

@@ -24,37 +24,62 @@
     }
 
     var kodeCartList = [];
+    var kodeDetailList =[];
+    var jumlahBelanjaList =[];
     var totalHarga = [];
     var tamp = 0;
-
-    function getKodeCart(kode_cart, total) {
+    var xxx;
+    var yyy;
+    var zzz;
+    var vvv;
+    function getKodeCart(kode_cart, total,kode_detail,jumlah_belanja) {
         var checkBox = document.getElementById(kode_cart);
         var label = document.getElementById("myTotal");
         var labelPs = document.getElementById("totalPesanan");
         var kodeChart = document.getElementById("kodeCharts");
-
+        var kodeDetail= document.getElementById("kode_details");
+        var jumlahBelanja= document.getElementById("jumlahbelanjas");
+        var harga= document.getElementById("hargas");
         if (checkBox.checked == true) {
             if (kodeCartList.length == 0)
                 kodeCartList[0] = kode_cart;
             else
                 kodeCartList[kodeCartList.length] = kode_cart;
             if (totalHarga.length == 0) {
-                totalHarga[0] = total;
+                totalHarga[0] = total.toString();
             } else
-                totalHarga[totalHarga.length] = total;
-            tamp += total;
+                totalHarga[totalHarga.length] = total.toString();
+            if (kodeDetailList.length == 0) {
+                kodeDetailList[0] = kode_detail;
+            } else
+                kodeDetailList[kodeDetailList.length] = kode_detail;
+            if (jumlahBelanjaList.length == 0) {
+                jumlahBelanjaList[0] = jumlah_belanja;
+            } else
+                jumlahBelanjaList[jumlahBelanjaList.length] = jumlah_belanja;
+            tamp += total; 
         } else {
             for (let i = 0; i < kodeCartList.length; i++) {
                 if (kodeCartList[i] == kode_cart) {
                     tamp -= total;
+                    kodeDetailList.splice(i, 1);
                     kodeCartList.splice(i, 1);
+                    jumlahBelanjaList.splice(i, 1);
                     totalHarga.splice(i, 1);
                 }
             }
+        
         }
+        vvv=totalHarga.toString();
+        xxx=kodeCartList.toString();
+        yyy=kodeDetailList.toString();
+        zzz=jumlahBelanjaList.toString();
         label.value = tamp;
         labelPs.value = tamp;
-        kodeChart.value = kodeChartList;
+        kodeChart.value = xxx;
+        kodeDetail.value = yyy;
+        jumlahBelanja.value = zzz;
+        harga.value=vvv;
         return kodeCartList;
     }
 
@@ -393,7 +418,7 @@
                                             <c:set var="jumlah" value="${listCart.kuantitas*listCart.harga_jual}"></c:set>
 
                                                 <td class="column-1">
-                                                    <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual});"/>
+                                                    <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual},'${listCart.kode_detail}','${listCart.kuantitas}');"/>
                                             </td>
                                             <td class="column-1">
                                                 <div class="how-itemcart1">
@@ -630,6 +655,9 @@
                         <form:form id="pesanan" action="savePesanan.htm" modelAttribute="pesananDto" method="POST">
                             <form:hidden path="total_pesanan" id="totalPesanan"></form:hidden>
                             <form:hidden path="kodeChart" id="kodeCharts"></form:hidden>
+                            <form:hidden path="kode_detail" id="kode_details"></form:hidden>
+                            <form:hidden path="jumlah_belanja" id="jumlahbelanjas"></form:hidden>
+                            <form:hidden path="harga" id="hargas"></form:hidden>
                             <form:hidden path="id_penerima" id="id_penerima"></form:hidden>
                             <form:button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="submit"><b>PESAN</b></form:button>
                         </form:form>

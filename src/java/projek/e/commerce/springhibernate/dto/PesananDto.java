@@ -14,14 +14,35 @@ import org.springframework.web.multipart.MultipartFile;
 public class PesananDto {
    String kode_pesanan,id_pembeli,status,bukti_pembayaran,tanggal_pesan,id_penerima,tanggal_pembayaran,nama,nama_penerima;
    Integer total_pesanan;
-   String[] kodeChart;
+   String kodeChart,kode_detail,jumlah_belanja,harga;
     MultipartFile file;
+    public String getHarga() {
+        return harga;
+    }
 
-    public String[] getKodeChart() {
+    public void setHarga(String harga) {
+        this.harga = harga;
+    }
+    
+    public String getJumlah_belanja() {
+        return jumlah_belanja;
+    }
+
+    public void setJumlah_belanja(String jumlah_belanja) {
+        this.jumlah_belanja = jumlah_belanja;
+    }
+    public String getKode_detail() {
+        return kode_detail;
+    }
+
+    public void setKode_detail(String kode_detail) {
+        this.kode_detail = kode_detail;
+    }
+    public String getKodeChart() {
         return kodeChart;
     }
 
-    public void setKodeChart(String[] kodeChart) {
+    public void setKodeChart(String kodeChart) {
         this.kodeChart = kodeChart;
     }
 

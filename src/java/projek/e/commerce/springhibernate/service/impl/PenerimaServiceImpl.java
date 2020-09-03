@@ -105,7 +105,7 @@ public class PenerimaServiceImpl implements PenerimaService{
         String id_pen="PEN-"+b+"";
         try {
             penerimaModel.setId_penerima(id_pen);
-            penerimaModel.setId_pembeli("202003");
+            penerimaModel.setId_pembeli(penerimaDto.getId_penerima());
             penerimaModel.setNama_penerima(penerimaDto.getNama_penerima());
             penerimaModel.setNo_telp(penerimaDto.getNo_telp());
             penerimaModel.setProvinsi(provinsiModel.getNama());

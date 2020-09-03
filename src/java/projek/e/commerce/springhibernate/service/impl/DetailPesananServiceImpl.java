@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import projek.e.commerce.springhibernate.dao.DetailPesananDao;
+import projek.e.commerce.springhibernate.dao.PesananDao;
 import projek.e.commerce.springhibernate.dto.DetailPesananDto;
 import projek.e.commerce.springhibernate.model.DetailPesananModel;
+import projek.e.commerce.springhibernate.model.PesananModel;
 import projek.e.commerce.springhibernate.service.DetailPesananService;
 
 /**
@@ -21,6 +23,8 @@ public class DetailPesananServiceImpl implements DetailPesananService{
     
     @Autowired
     DetailPesananDao detailPesananDao;
+    @Autowired
+    PesananDao belanjaDao;
     
     @Override
     public List<DetailPesananDto> getListDetailPesanan() throws Exception {
@@ -63,16 +67,31 @@ public class DetailPesananServiceImpl implements DetailPesananService{
         int a=0;
         for(DetailPesananModel model : listData){
             String tam=model.getKode_detail_pesanan();
-            String tamp=tam.substring(5);
+            String tamp=tam.substring(4  );
             if(a<Integer.parseInt(tamp)){
                 a=Integer.parseInt(tamp);
             }
         }
         a+=1;
         String kodeDtl="DTP-"+a+"";
+        
+        PesananModel dataModel = new PesananModel();
+        List<PesananModel> listDatax=belanjaDao.getListDataBelanja();
+        int b=0;
+        for(PesananModel model : listDatax){
+            String tam=model.getKode_pesanan();
+            String tamp=tam.substring(4);
+            if(b<Integer.parseInt(tamp)){
+                b=Integer.parseInt(tamp);
+            }
+        }
+        b+=1;
+        String kode_bel="PEN-"+b+"";
+        
+        
         try {
             detailPesananModel.setKode_detail_pesanan(kodeDtl);
-            detailPesananModel.setKode_pesanan(detailPesananDto.getKode_pesanan());
+            detailPesananModel.setKode_pesanan(kode_bel);
             detailPesananModel.setKode_detail(detailPesananDto.getKode_detail());
             detailPesananModel.setKuantitas(detailPesananDto.getKuantitas());
             detailPesananModel.setTotal(detailPesananDto.getTotal());
