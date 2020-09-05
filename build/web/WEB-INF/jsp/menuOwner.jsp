@@ -52,16 +52,16 @@
         <!-- HEADER -->
         <header>
             <!-- top Header -->
-<!--            <div id="top-header">
-                <div class="container">
-                    <div class="pull-left">
-                        <span>Welcome to E-shop!</span>
-                    </div>
-                    <div class="pull-right">
-                        <span>Welcome</span>
-                    </div>
-                </div>
-            </div>-->
+            <!--            <div id="top-header">
+                            <div class="container">
+                                <div class="pull-left">
+                                    <span>Welcome to E-shop!</span>
+                                </div>
+                                <div class="pull-right">
+                                    <span>Welcome</span>
+                                </div>
+                            </div>
+                        </div>-->
             <!-- /top Header -->
 
             <!-- header -->
@@ -77,17 +77,17 @@
                         <!-- /Logo -->
 
                         <!-- Search -->
-<!--                        <div class="header-search">
-                            <form>
-                                <input class="input search-input" type="text" placeholder="Enter your keyword">
-                                <select class="input search-categories">
-                                    <option value="0">All Categories</option>
-                                    <option value="1">Category 01</option>
-                                    <option value="1">Category 02</option>
-                                </select>
-                                <button class="search-btn"><i class="fa fa-search"></i></button>
-                            </form>
-                        </div>-->
+                        <!--                        <div class="header-search">
+                                                    <form>
+                                                        <input class="input search-input" type="text" placeholder="Enter your keyword">
+                                                        <select class="input search-categories">
+                                                            <option value="0">All Categories</option>
+                                                            <option value="1">Category 01</option>
+                                                            <option value="1">Category 02</option>
+                                                        </select>
+                                                        <button class="search-btn"><i class="fa fa-search"></i></button>
+                                                    </form>
+                                                </div>-->
                         <!-- /Search -->
                     </div>
                     <div class="pull-right">
@@ -115,15 +115,15 @@
 
                             <!-- Cart -->
                             <li class="header-cart dropdown default-dropdown">
-<!--                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <span class="qty">3</span>
-                                    </div>
-                                    <strong class="text-uppercase">My Cart:</strong>
-                                    <br>
-                                    <span>35.20$</span>
-                                </a>-->
+                                <!--                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                                                    <div class="header-btns-icon">
+                                                                        <i class="fa fa-shopping-cart"></i>
+                                                                        <span class="qty">3</span>
+                                                                    </div>
+                                                                    <strong class="text-uppercase">My Cart:</strong>
+                                                                    <br>
+                                                                    <span>35.20$</span>
+                                                                </a>-->
                                 <div class="custom-menu">
                                     <div id="shopping-cart">
                                         <div class="shopping-cart-list">
@@ -177,9 +177,9 @@
             <div class="container">
                 <div id="responsive-nav">
                     <!-- category nav -->
-<!--                    <div class="category-nav">
-                        <span class="category-header">E-COMMERCE</span>
-                    </div>-->
+                    <!--                    <div class="category-nav">
+                                            <span class="category-header">E-COMMERCE</span>
+                                        </div>-->
                     <!-- /category nav -->
 
                     <!-- menu nav -->
@@ -224,17 +224,18 @@
                         <!-- banner -->
                         <div class="banner banner-1">
                             <c:set var="indexCek" value="0"/>
-                <c:forEach var="listPengeluaran" items="${listPengeluaranCek}">                   
-                    <c:set var="indexCek" value="${indexCek+1}"/>
-                </c:forEach>
-                <c:if test = "${indexCek >0}">
-                    <div class="alert alert-info">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-                        <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Information</h3> ${indexCek} Permintaan Pengeluaran Baru
-                    </div>
-                 </c:if>
-                <br><br>
-                            <img src="./a/img/home.PNG" alt="">
+                            <c:forEach var="listPengeluaran" items="${listPengeluaranCek}">                   
+                                <c:set var="indexCek" value="${indexCek+1}"/>
+                            </c:forEach>
+                            <c:if test = "${indexCek >0}">
+                                <div class="alert alert-info">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                    <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Information</h3> ${indexCek} Permintaan Pengeluaran Baru
+                                </div>
+                            </c:if>
+                            <br><br>
+                            <div class="row">
+                                <canvas id="chart2" height="150" ></canvas></div>
                         </div>
                         <!-- /banner -->
                     </div>
@@ -253,6 +254,49 @@
         <script src="js/nouislider.min.js"></script>
         <script src="js/jquery.zoom.min.js"></script>
         <script src="js/main.js"></script>
+
+        <script data-cfasync="false" src="https://www.wrappixel.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+        <script src="https://www.wrappixel.com/demos/admin-templates/monster-admin/assets/plugins/jquery/jquery.min.js"></script>
+
+        <script src="https://www.wrappixel.com/demos/admin-templates/monster-admin/assets/plugins/Chart.js/Chart.min.js"></script>
+
+
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: 'getGrafik.htm',
+                    type: 'GET',
+                    success: function (response1) {
+                        var data1 = JSON.parse(response1);
+                        let data = [];
+                        let datajum = [];
+                        for (let a = 0; a < data1.length; a++) {
+                            data[a] = data1[a].nama_produk + " " + data1[a].warna;
+                            datajum[a] = data1[a].kuantitas;
+                        }
+                        new Chart(document.getElementById("chart2"),
+                                {
+                                    "type": "bar",
+                                    "data": {"labels": data,
+                                        "datasets": [{
+                                                "label": "My First Dataset",
+                                                "data": datajum,
+                                                "fill": false,
+                                                "backgroundColor": ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+                                                "borderColor": ["rgb(239, 83, 80)", "rgb(255, 159, 64)", "rgb(255, 178, 43)", "rgb(86, 192, 216)", "rgb(57, 139, 247)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                                                "borderWidth": 1}
+                                        ]},
+                                    "options": {
+                                        "scales": {"yAxes": [{"ticks": {"beginAtZero": true}}]}
+                                    }
+                                });
+                    }
+                });
+
+            });
+
+        </script>
+
 
     </body>
 

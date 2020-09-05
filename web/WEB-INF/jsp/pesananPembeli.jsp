@@ -391,17 +391,6 @@
                                 </div>
 
                                 <button id="print" class="btn btn-default btn-outline" type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button>
-
-
-
-
-                                <%--<form:input path="nama_kategori" class="input"/>--%>
-                                <%--<c:url var="address" value="/settingAddress.htm"></c:url>--%>
-                                <!--<a href="${address}" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">-->
-                                <!--</a>-->
-
-                                <!--<input type="submit" value="PESAN" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"/></p>-->
-                                <!--</form>-->
                             </div></div>
                     </div>
                     <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">

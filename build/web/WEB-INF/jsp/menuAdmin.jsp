@@ -19,6 +19,7 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
         <title>Home</title>
+        
 
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -199,7 +200,11 @@
                     </div>
                  </c:if>
                 <br><br>
-                            <img src="./a/img/home.PNG" alt="">
+                            
+                            <div class="row">
+                                <canvas id="chart2" height="150" ></canvas></div>
+
+                    </div>
                         </div>
                         <!-- /banner -->
                     </div>
@@ -212,12 +217,53 @@
         <!-- /HOME -->
 
         <!-- jQuery Plugins -->
-        <script src="js/jquery.min.js"></script>
+<!--        <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/slick.min.js"></script>
         <script src="js/nouislider.min.js"></script>
         <script src="js/jquery.zoom.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/main.js"></script>-->
+        
+    <script data-cfasync="false" src="https://www.wrappixel.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+     <script src="https://www.wrappixel.com/demos/admin-templates/monster-admin/assets/plugins/jquery/jquery.min.js"></script>
+ 
+    <script src="https://www.wrappixel.com/demos/admin-templates/monster-admin/assets/plugins/Chart.js/Chart.min.js"></script>
+    
+    <script>
+         $(document).ready(function () {
+            $.ajax({
+                url: 'getGrafik.htm',
+                type: 'GET',
+                success: function (response1) {
+                    var data1 =JSON.parse(response1);
+                    let data=[];
+                    let datajum=[];
+                    for (let a=0; a<data1.length; a++){ 
+                        data[a]=data1[a].nama_produk+" "+data1[a].warna;
+                        datajum[a]=data1[a].kuantitas;
+                    }
+                    new Chart(document.getElementById("chart2"),
+                    {
+                        "type":"bar",
+                        "data":{"labels":data,
+                        "datasets":[{
+                                        "label":"My First Dataset",
+                                        "data":datajum,
+                                        "fill":false,
+                                        "backgroundColor":["rgba(255, 99, 132, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)"],
+                                        "borderColor":["rgb(239, 83, 80)","rgb(255, 159, 64)","rgb(255, 178, 43)","rgb(86, 192, 216)","rgb(57, 139, 247)","rgb(153, 102, 255)","rgb(201, 203, 207)"],
+                                        "borderWidth":1}
+                                    ]},
+                        "options":{
+                            "scales":{"yAxes":[{"ticks":{"beginAtZero":true}}]}
+                        }
+                    });  
+                }
+            });
+                           
+        });
+           
+    </script>
 
     </body>
 

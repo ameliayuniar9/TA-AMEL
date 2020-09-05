@@ -353,4 +353,27 @@ public class PesananServiceImpl implements PesananService{
 
         belanjaDao.updateBelanja(dataModel);
     }
+
+    @Override
+    public List<PesananDto> GrafikProdukToko() throws Exception {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        PesananDto pesananDto = null;
+        try {
+           List <Object[]> listData = belanjaDao.getProdukForGrafik();
+           if(listData != null){
+                for(Object[] model : listData){
+                    pesananDto = new PesananDto();
+                    pesananDto.setKode_detail(model[0].toString());
+                    pesananDto.setNama_produk(model[1].toString());
+                    pesananDto.setWarna(model[2].toString());
+                    pesananDto.setKuantitas(Integer.parseInt(model[3].toString()));
+                    
+                    listDataDto.add(pesananDto);   
+                }
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
 }

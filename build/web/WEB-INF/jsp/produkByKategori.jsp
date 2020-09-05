@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Ulasan Produk</title>
+        <title>Product</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--===============================================================================================-->	
@@ -78,6 +78,8 @@
                         <c:url var="home" value="/home.htm"/>
                         <c:url var="produk" value="/menuBaru.htm"/>
                         <c:url var="tentang" value="/tentang.htm"/>
+                        <c:url var="kontak" value="/kontak.htm"/>
+                        <c:url var="billings" value="/pesananPembeli.htm"/>
                         <!-- Menu desktop -->
                         <div class="menu-desktop">
                             <ul class="main-menu">
@@ -106,6 +108,9 @@
                                         <li><a href="https:wa.me/6285892166671" target="_blank"><image src="./b/images/icons/wa.png" width="30px" height="30px"> P. Jawa</a></li>
                                         <li><a href="https:wa.me/6285871109169" target="_blank"><image src="./b/images/icons/wa.png" width="30px" height="30px"> Luar P. Jawa</a>
                                     </ul>
+                                </li>
+                                <li>
+                                    <a href="${billings}">Pesanan</a>
                                 </li>
                             </ul>
                         </div>	
@@ -138,10 +143,13 @@
                         <i class="zmdi zmdi-search"></i>
                     </div>
 
-                    <c:set var="listCart" value="${listCartDto}"/>
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </div>
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                    </div>
+
+                    <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
+                        <i class="zmdi zmdi-favorite-outline"></i>
+                    </a>
                 </div>
 
                 <!-- Button show menu -->
@@ -242,7 +250,7 @@
             <div class="header-cart flex-col-l p-l-65 p-r-25">
                 <div class="header-cart-title flex-w flex-sb-m p-b-8">
                     <span class="mtext-103 cl2">
-                        Your Cart
+                        Keranjang
                     </span>
 
                     <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
@@ -284,10 +292,6 @@
                                 <a href="${detailCart}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
                                 Lihat Keranjang
                             </a>
-
-                            <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-                                Pesan Sekarang
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -300,7 +304,9 @@
             <div class="container">
                 <div class="flex-w flex-sb-m p-b-52">
                     <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                        <c:url var="menu" value="/menuBaru.htm"></c:url>
+                        <c:url var="menu" value="/menuBaru.htm">
+                            <c:param name="id_pembeli" value="${id_pembeli}"/>
+                        </c:url>
                         <a href="${menu}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                             SEMUA PRODUK
                         </a>
@@ -532,20 +538,29 @@
                     </div>
                 </div>
 
-                <div class="row isotope-grid"><c:forEach var="listUlasan" items="${listUlasanDto}">
+                <div class="row isotope-grid"><c:forEach var="listProduk" items="${listDetailDto}">
                         <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
                             <!-- Block2 -->
+                            <c:url var="detailproduk" value="/detailProduk.htm">
+                                <c:param name="kode_produk" value="${listProduk.kode_produk}"/>
+                                <c:param name="kode_detail" value="${listProduk.kode_detail}"/>
+                            </c:url>
                             <div class="blSock2">
                                 <div class="block2-pic hov-img0">
-                                    <video controls width="250">
-                                        <source src="b/img/video/${listUlasan.video}" type="video/mp4">
-                                    </video>
+                                    <img src="b/img/${listProduk.gambar}" width="150px" height="250px" alt="IMG-PRODUCT">
+                                    <a href="${detailproduk}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                        Lihat Detail
+                                    </a>
                                 </div>
 
                                 <div class="block2-txt flex-w flex-t p-t-14">
                                     <div class="block2-txt-child1 flex-col-l ">
-                                        <span class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                            ${listProduk.keterangan}
+                                        <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                            ${listProduk.nama_produk} 
+                                        </a>
+
+                                        <span class="stext-105 cl3">
+                                            Rp ${listProduk.harga_jual}
                                         </span>
                                     </div>
                                 </div>
@@ -562,8 +577,9 @@
                 </div>
             </div>
         </div>
-        
-       <!-- Footer -->
+
+
+        <!-- Footer -->
         <footer class="bg3 p-t-75 p-b-32">
             <div class="container">
                 <div class="row">
@@ -642,12 +658,12 @@
         <!--===============================================================================================-->
         <script src="b/vendor/select2/select2.min.js"></script>
         <script>
-                            $(".js-select2").each(function () {
-                                $(this).select2({
-                                    minimumResultsForSearch: 20,
-                                    dropdownParent: $(this).next('.dropDownSelect2')
-                                });
-                            })
+            $(".js-select2").each(function () {
+                $(this).select2({
+                    minimumResultsForSearch: 20,
+                    dropdownParent: $(this).next('.dropDownSelect2')
+                });
+            })
         </script>
         <!--===============================================================================================-->
         <script src="b/vendor/daterangepicker/moment.min.js"></script>
@@ -658,78 +674,78 @@
         <!--===============================================================================================-->
         <script src="b/vendor/parallax100/parallax100.js"></script>
         <script>
-                            $('.parallax100').parallax100();
+            $('.parallax100').parallax100();
         </script>
         <!--===============================================================================================-->
         <script src="b/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
         <script>
-                            $('.gallery-lb').each(function () { // the containers for all your galleries
-                                $(this).magnificPopup({
-                                    delegate: 'a', // the selector for gallery item
-                                    type: 'image',
-                                    gallery: {
-                                        enabled: true
-                                    },
-                                    mainClass: 'mfp-fade'
-                                });
-                            });
+            $('.gallery-lb').each(function () { // the containers for all your galleries
+                $(this).magnificPopup({
+                    delegate: 'a', // the selector for gallery item
+                    type: 'image',
+                    gallery: {
+                        enabled: true
+                    },
+                    mainClass: 'mfp-fade'
+                });
+            });
         </script>
         <!--===============================================================================================-->
         <script src="b/vendor/isotope/isotope.pkgd.min.js"></script>
         <!--===============================================================================================-->
         <script src="b/vendor/sweetalert/sweetalert.min.js"></script>
         <script>
-                            $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
-                                e.preventDefault();
-                            });
+            $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
+                e.preventDefault();
+            });
 
-                            $('.js-addwish-b2').each(function () {
-                                var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-                                $(this).on('click', function () {
-                                    swal(nameProduct, "is added to wishlist !", "success");
+            $('.js-addwish-b2').each(function () {
+                var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+                $(this).on('click', function () {
+                    swal(nameProduct, "is added to wishlist !", "success");
 
-                                    $(this).addClass('js-addedwish-b2');
-                                    $(this).off('click');
-                                });
-                            });
+                    $(this).addClass('js-addedwish-b2');
+                    $(this).off('click');
+                });
+            });
 
-                            $('.js-addwish-detail').each(function () {
-                                var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+            $('.js-addwish-detail').each(function () {
+                var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
-                                $(this).on('click', function () {
-                                    swal(nameProduct, "is added to wishlist !", "success");
+                $(this).on('click', function () {
+                    swal(nameProduct, "is added to wishlist !", "success");
 
-                                    $(this).addClass('js-addedwish-detail');
-                                    $(this).off('click');
-                                });
-                            });
+                    $(this).addClass('js-addedwish-detail');
+                    $(this).off('click');
+                });
+            });
 
-                            /*---------------------------------------------*/
+            /*---------------------------------------------*/
 
-                            $('.js-addcart-detail').each(function () {
-                                var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-                                $(this).on('click', function () {
-                                    swal(nameProduct, "is added to cart !", "success");
-                                });
-                            });
+            $('.js-addcart-detail').each(function () {
+                var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+                $(this).on('click', function () {
+                    swal(nameProduct, "is added to cart !", "success");
+                });
+            });
 
         </script>
         <!--===============================================================================================-->
         <script src="b/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script>
-                            $('.js-pscroll').each(function () {
-                                $(this).css('position', 'relative');
-                                $(this).css('overflow', 'hidden');
-                                var ps = new PerfectScrollbar(this, {
-                                    wheelSpeed: 1,
-                                    scrollingThreshold: 1000,
-                                    wheelPropagation: false,
-                                });
+            $('.js-pscroll').each(function () {
+                $(this).css('position', 'relative');
+                $(this).css('overflow', 'hidden');
+                var ps = new PerfectScrollbar(this, {
+                    wheelSpeed: 1,
+                    scrollingThreshold: 1000,
+                    wheelPropagation: false,
+                });
 
-                                $(window).on('resize', function () {
-                                    ps.update();
-                                })
-                            });
+                $(window).on('resize', function () {
+                    ps.update();
+                })
+            });
         </script>
         <!--===============================================================================================-->
         <script src="b/js/main.js"></script>
