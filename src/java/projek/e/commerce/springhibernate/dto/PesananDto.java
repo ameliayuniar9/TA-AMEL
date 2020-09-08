@@ -13,44 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class PesananDto {
    String kode_pesanan,id_pembeli,status,bukti_pembayaran,tanggal_pesan,id_penerima,tanggal_pembayaran,nama,nama_penerima;
-<<<<<<< HEAD
-   Integer total_pesanan;
-   String kodeChart,kode_detail,jumlah_belanja,harga;
-=======
-   String nama_produk,warna,kode_detail;
+   String kodeCart,kode_detail,jumlah_belanja,harga;
+   String nama_produk,warna;
    Integer total_pesanan,kuantitas;
    String[] kodeChart;
->>>>>>> menuAdmin
-    MultipartFile file;
-    public String getHarga() {
-        return harga;
-    }
-
-    public void setHarga(String harga) {
-        this.harga = harga;
-    }
-    
-    public String getJumlah_belanja() {
-        return jumlah_belanja;
-    }
-
-    public void setJumlah_belanja(String jumlah_belanja) {
-        this.jumlah_belanja = jumlah_belanja;
-    }
-    public String getKode_detail() {
-        return kode_detail;
-    }
-
-    public void setKode_detail(String kode_detail) {
-        this.kode_detail = kode_detail;
-    }
-    public String getKodeChart() {
-        return kodeChart;
-    }
-
-    public void setKodeChart(String kodeChart) {
-        this.kodeChart = kodeChart;
-    }
+   MultipartFile file;
 
     public String getKode_pesanan() {
         return kode_pesanan;
@@ -108,15 +75,6 @@ public class PesananDto {
         this.tanggal_pembayaran = tanggal_pembayaran;
     }
 
-    public Integer getTotal_pesanan() {
-        return total_pesanan;
-    }
-
-    public void setTotal_pesanan(Integer total_pesanan) {
-        this.total_pesanan = total_pesanan;
-    }
-
-   
     public String getNama() {
         return nama;
     }
@@ -133,12 +91,36 @@ public class PesananDto {
         this.nama_penerima = nama_penerima;
     }
 
-    public MultipartFile getFile() {
-        return file;
+    public String getKodeCart() {
+        return kodeCart;
     }
 
-    public void setFile(MultipartFile file) {
-        this.file = file;
+    public void setKodeCart(String kodeCart) {
+        this.kodeCart = kodeCart;
+    }
+
+    public String getKode_detail() {
+        return kode_detail;
+    }
+
+    public void setKode_detail(String kode_detail) {
+        this.kode_detail = kode_detail;
+    }
+
+    public String getJumlah_belanja() {
+        return jumlah_belanja;
+    }
+
+    public void setJumlah_belanja(String jumlah_belanja) {
+        this.jumlah_belanja = jumlah_belanja;
+    }
+
+    public String getHarga() {
+        return harga;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
     }
 
     public String getNama_produk() {
@@ -157,12 +139,12 @@ public class PesananDto {
         this.warna = warna;
     }
 
-    public String getKode_detail() {
-        return kode_detail;
+    public Integer getTotal_pesanan() {
+        return total_pesanan;
     }
 
-    public void setKode_detail(String kode_detail) {
-        this.kode_detail = kode_detail;
+    public void setTotal_pesanan(Integer total_pesanan) {
+        this.total_pesanan = total_pesanan;
     }
 
     public Integer getKuantitas() {
@@ -172,5 +154,24 @@ public class PesananDto {
     public void setKuantitas(Integer kuantitas) {
         this.kuantitas = kuantitas;
     }
+
+    public String[] getKodeChart() {
+        return kodeChart;
+    }
+
+    public void setKodeChart(String[] kodeChart) {
+        this.kodeChart = kodeChart;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+   
+   
+    
     
 }

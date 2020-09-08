@@ -465,7 +465,7 @@ public class ECommerceController {
          
         try {
             String[] detail=pesananDto.getKode_detail().split(",");
-            String[] chart=pesananDto.getKodeChart().split(",");
+            String[] chart=pesananDto.getKodeCart().split(",");
             String[] stok=pesananDto.getJumlah_belanja().split(",");
             String[] harga=pesananDto.getHarga().split(",");
             
