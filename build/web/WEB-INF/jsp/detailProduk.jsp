@@ -253,7 +253,7 @@
             <div class="header-cart flex-col-l p-l-65 p-r-25">
                 <div class="header-cart-title flex-w flex-sb-m p-b-8">
                     <span class="mtext-103 cl2">
-                        Your Cart
+                        Keranjang
                     </span>
 
                     <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
@@ -292,12 +292,9 @@
                         <c:url var="detailCart" value="/detailKeranjang.htm"></c:url>
                             <div class="header-cart-buttons flex-w w-full">
                                 <a href="${detailCart}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-                                View Cart
+                                Lihat Keranjang
                             </a>
-
-                            <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-                                Check Out
-                            </a>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -308,15 +305,6 @@
         <!-- breadcrumb -->
         <div class="container">
             <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Home
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
-
-                <a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Men
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
                 <c:set var="prod" value="${produkDto}"/>
                 <span class="stext-109 cl4">
                     <c:out value="${prod.nama_produk}"/>

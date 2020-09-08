@@ -130,5 +130,18 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         listData = query.list();
         return listData;
     }
+
+    @Override
+    public List<PesananModel> getListDataPesananByIdPembeli(String id) throws Exception {
+        List<PesananModel> listData = null;
+        try {
+            String sql = "select model from PesananModel model where id_pembeli=:id";
+            Query query = createQuery(sql).setParameter("id", id);  
+            listData = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listData;
+    }
     
 }

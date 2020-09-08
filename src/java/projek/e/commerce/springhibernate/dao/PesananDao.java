@@ -24,5 +24,6 @@ public interface PesananDao {
     public List<Object[]> getPesananStatusSudahBayar() throws Exception;
     public List<Object[]> getPesananStatusReject() throws Exception;
     public List<Object[]> getProdukForGrafik() throws Exception;
+    public List<PesananModel> getListDataPesananByIdPembeli(String id)throws Exception;
    
 }

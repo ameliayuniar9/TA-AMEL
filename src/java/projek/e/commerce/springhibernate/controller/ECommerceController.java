@@ -206,6 +206,15 @@ public class ECommerceController {
         return "tentang";
     }
 
+    @RequestMapping(value = "/pembayaran", method = RequestMethod.GET)
+    public String viewPembayaran(String id_pembeli,String kode_pesanan,ModelMap model) throws Exception{
+        List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
+        model.addAttribute("listCartDto", listCartDto);
+        PesananDto pesananDto =pesananService.getUpdateDataBelanja(kode_pesanan);
+        model.addAttribute("pesananDto", pesananDto);
+        return "pembayaran";
+    }
+    
     @RequestMapping(value = "/kontak", method = RequestMethod.GET)
     public String viewKontak(){
         return "kontak";
@@ -1350,12 +1359,14 @@ public class ECommerceController {
        
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         List<PenerimaDto> listPenerimaDto=penerimaService.getListPenerimaById(id);
+        List<PesananDto> listPesananDto=pesananService.getListPesananByIdPembeli(id);
         PenerimaDto penerimaDto=new PenerimaDto();
         try {
             model.addAttribute("listCartDto", listCartDto);
             model.addAttribute("pesananDto", pesananDto);
             model.addAttribute("listPenerimaDto", listPenerimaDto);
             model.addAttribute("penerimaDto",penerimaDto);
+            model.addAttribute("listPesananDto", listPesananDto);
         } catch (Exception e) {
             e.printStackTrace();
         }
