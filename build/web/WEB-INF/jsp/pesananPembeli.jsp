@@ -408,14 +408,33 @@
                         <div class="m-l-25 m-r--38 m-lr-0-xl">
                             <div class="wrap-table-shopping-cart">
                                 <table class="table-shopping-cart">
-                                    <tr class="table_head">
-                                        <th class="column-1">Kode Pesanan</th>
-                                        <th class="column-2">Total Pesanan</th>
-                                        <th class="column-3">Tanggal Pesan</th>
-                                        <th class="column-4">Status</th>
-                                        <th class="column-5">Action</th>
-                                    </tr>   
+                                    <thead>
+                                        <tr class="table_head">
+                                            <th class="column-1">Kode Pesanan</th>
+                                            <th class="column-2">Total Pesanan</th>
+                                            <th class="column-3">Tanggal Pesan</th>
+                                            <th class="column-4">Status</th>
+                                            <th class="column-5">Action</th>
+                                        </tr> </thead>
+                                    <tbody>
+                                        <c:set var="index" value="1"/>
+                                        <c:forEach var="listPesanan" items="${listPesananDto}">
+                                            <tr>  
+                                                <td>${index}</td>
+                                                <td>${listPesanan.kode_pesanan}</td>
+                                                <td>${listPesanan.total_pesanan}</td>
+                                                <td>${listPesanan.tanggal_pesan}</td>
+                                                <td>${listPesanan.status}</td>
+                                                <td><c:url var="upload" value="/uploadBuktiTransfer.htm">
+                                                     <c:param name="kode_pengeluaran" value="${listPengeluaran.kode_pengeluaran}"/>
+                                                    </c:url></td>
+                                                    <td align="center"><a class="btn btn-warning" href="${upload}">Bayar</a>
+                                            </tr>            
+                                            <c:set var="index" value="${index+1}"/>
+                                        </c:forEach>                          
+                                    </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
@@ -560,12 +579,12 @@
     <!--===============================================================================================-->
     <script src="b/vendor/select2/select2.min.js"></script>
     <script>
-                                $(".js-select2").each(function () {
-                                    $(this).select2({
-                                        minimumResultsForSearch: 20,
-                                        dropdownParent: $(this).next('.dropDownSelect2')
-                                    });
-                                })
+                                    $(".js-select2").each(function () {
+                                        $(this).select2({
+                                            minimumResultsForSearch: 20,
+                                            dropdownParent: $(this).next('.dropDownSelect2')
+                                        });
+                                    })
     </script>
     <!--===============================================================================================-->
     <script src="b/vendor/daterangepicker/moment.min.js"></script>
@@ -576,78 +595,78 @@
     <!--===============================================================================================-->
     <script src="b/vendor/parallax100/parallax100.js"></script>
     <script>
-                                $('.parallax100').parallax100();
+                                    $('.parallax100').parallax100();
     </script>
     <!--===============================================================================================-->
     <script src="b/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
     <script>
-                                $('.gallery-lb').each(function () { // the containers for all your galleries
-                                    $(this).magnificPopup({
-                                        delegate: 'a', // the selector for gallery item
-                                        type: 'image',
-                                        gallery: {
-                                            enabled: true
-                                        },
-                                        mainClass: 'mfp-fade'
+                                    $('.gallery-lb').each(function () { // the containers for all your galleries
+                                        $(this).magnificPopup({
+                                            delegate: 'a', // the selector for gallery item
+                                            type: 'image',
+                                            gallery: {
+                                                enabled: true
+                                            },
+                                            mainClass: 'mfp-fade'
+                                        });
                                     });
-                                });
     </script>
     <!--===============================================================================================-->
     <script src="b/vendor/isotope/isotope.pkgd.min.js"></script>
     <!--===============================================================================================-->
     <script src="b/vendor/sweetalert/sweetalert.min.js"></script>
     <script>
-                                $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
-                                    e.preventDefault();
-                                });
-
-                                $('.js-addwish-b2').each(function () {
-                                    var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-                                    $(this).on('click', function () {
-                                        swal(nameProduct, "is added to wishlist !", "success");
-
-                                        $(this).addClass('js-addedwish-b2');
-                                        $(this).off('click');
+                                    $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
+                                        e.preventDefault();
                                     });
-                                });
 
-                                $('.js-addwish-detail').each(function () {
-                                    var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+                                    $('.js-addwish-b2').each(function () {
+                                        var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+                                        $(this).on('click', function () {
+                                            swal(nameProduct, "is added to wishlist !", "success");
 
-                                    $(this).on('click', function () {
-                                        swal(nameProduct, "is added to wishlist !", "success");
-
-                                        $(this).addClass('js-addedwish-detail');
-                                        $(this).off('click');
+                                            $(this).addClass('js-addedwish-b2');
+                                            $(this).off('click');
+                                        });
                                     });
-                                });
 
-                                /*---------------------------------------------*/
+                                    $('.js-addwish-detail').each(function () {
+                                        var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
-                                $('.js-addcart-detail').each(function () {
-                                    var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-                                    $(this).on('click', function () {
-                                        swal(nameProduct, "is added to cart !", "success");
+                                        $(this).on('click', function () {
+                                            swal(nameProduct, "is added to wishlist !", "success");
+
+                                            $(this).addClass('js-addedwish-detail');
+                                            $(this).off('click');
+                                        });
                                     });
-                                });
+
+                                    /*---------------------------------------------*/
+
+                                    $('.js-addcart-detail').each(function () {
+                                        var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+                                        $(this).on('click', function () {
+                                            swal(nameProduct, "is added to cart !", "success");
+                                        });
+                                    });
 
     </script>
     <!--===============================================================================================-->
     <script src="b/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script>
-                                $('.js-pscroll').each(function () {
-                                    $(this).css('position', 'relative');
-                                    $(this).css('overflow', 'hidden');
-                                    var ps = new PerfectScrollbar(this, {
-                                        wheelSpeed: 1,
-                                        scrollingThreshold: 1000,
-                                        wheelPropagation: false,
-                                    });
+                                    $('.js-pscroll').each(function () {
+                                        $(this).css('position', 'relative');
+                                        $(this).css('overflow', 'hidden');
+                                        var ps = new PerfectScrollbar(this, {
+                                            wheelSpeed: 1,
+                                            scrollingThreshold: 1000,
+                                            wheelPropagation: false,
+                                        });
 
-                                    $(window).on('resize', function () {
-                                        ps.update();
-                                    })
-                                });
+                                        $(window).on('resize', function () {
+                                            ps.update();
+                                        })
+                                    });
     </script>
     <script>
         $(document).ready(function () {

@@ -82,15 +82,18 @@
         harga.value=vvv;
         return kodeCartList;
     }
-
+    
+    var accept=false;
     function getAlamat(id_penerima,ongkir) {
         document.getElementById("id_penerima").value = id_penerima;
         var x = document.getElementById("ongkirz");
         var y= document.getElementById("hargaBarangz");
         var z= document.getElementById("z");
-        x.value=tamp;
-        y.value=ongkir;
+        var labelPs = document.getElementById("totalPesanan");
+        x.value=ongkir;
+        y.value=tamp;
         z.value=tamp+ongkir;
+        labelPs.value=tamp+ongkir;
     }
 </script>
 <!DOCTYPE html>
@@ -424,7 +427,7 @@
                                             <c:set var="jumlah" value="${listCart.kuantitas*listCart.harga_jual}"></c:set>
 
                                                 <td class="column-1">
-                                                    <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual},'${listCart.kode_detail}','${listCart.kuantitas}');"/>
+                                                    <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual},'${listCart.kode_detail}','${listCart.kuantitas}');getAlamat(value,0);"/>
                                             </td>
                                             <td class="column-1">
                                                 <div class="how-itemcart1">
@@ -632,7 +635,7 @@
                                 <div class="size-212 p-t-2">
                                     <table>
                                         <tr>
-                                            <td><input type="radio" name="alamat" onclick="getAlamat(value,${listPenerima.harga});" value="${listPenerima.id_penerima}"></td>
+                                            <td><input type="radio" name="alamat" onclick="getAlamat(value,${listPenerima.harga});" value="${listPenerima.id_penerima}" checked></td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
                                             <td>
                                                 <strong>${listPenerima.nama_penerima}</strong>
@@ -667,7 +670,7 @@
                             <form:hidden path="jumlah_belanja" id="jumlahbelanjas"></form:hidden>
                             <form:hidden path="harga" id="hargas"></form:hidden>
                             <form:hidden path="id_penerima" id="id_penerima"></form:hidden>
-                            <form:button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="submit"><b>PESAN</b></form:button>
+                            <form:button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"  type="submit"><b>PESAN</b></form:button>
                         </form:form>
                         <%--<c:url var="savePesanan" value="/settingAddress.htm"></c:url>--%>
                         <!--<a href="${savePesanan}" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">-->

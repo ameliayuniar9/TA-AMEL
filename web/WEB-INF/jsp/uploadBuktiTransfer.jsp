@@ -373,67 +373,44 @@
         <form class="bg0 p-t-75 p-b-85">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-                        <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-                            <div class="printableArea">
-                                <div class="print" id="lap">
-                                    <p>Silahkan transfer ke nomor rekening dibawah ini : </p><br>
-                                    <p>Nama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<b>Itsmostly Hijab</b><br>
-                                        Bank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;BCA<br>
-                                        No Rekening :&nbsp;8310147720 
-                                    </p><br><br>
-                                    <p>Nama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<b>Itsmostly Hijab</b><br>
-                                        Bank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Mandiri<br>
-                                        No Rekening :&nbsp;118-00-1088463-2 
-                                    </p><br><br>
-
-
-                                </div>
-
-                                <button id="print" class="btn btn-default btn-outline" type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button>
-
-
-
-
-                                <%--<form:input path="nama_kategori" class="input"/>--%>
-                                <%--<c:url var="address" value="/settingAddress.htm"></c:url>--%>
-                                <!--<a href="${address}" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">-->
-                                <!--</a>-->
-
-                                <!--<input type="submit" value="PESAN" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"/></p>-->
-                                <!--</form>-->
-                            </div></div>
-                    </div>
                     <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                         <div class="m-l-25 m-r--38 m-lr-0-xl">
                             <div class="wrap-table-shopping-cart">
-                                <table class="table-shopping-cart">
-                                    <thead>
-                                        <tr class="table_head">
-                                            <th class="column-1">Kode Pesanan</th>
-                                            <th class="column-2">Total Pesanan</th>
-                                            <th class="column-3">Tanggal Pesan</th>
-                                            <th class="column-4">Status</th>
-                                            <th class="column-5">Action</th>
-                                        </tr> </thead>
-                                    <tbody>
-                                        <c:set var="index" value="1"/>
-                                        <c:forEach var="listPesanan" items="${listPesananDto}">
-                                            <tr>  
-                                                <td>${index}</td>
-                                                <td>${listPesanan.kode_pesanan}</td>
-                                                <td>${listPesanan.total_pesanan}</td>
-                                                <td>${listPesanan.tanggal_pesan}</td>
-                                                <td>${listPesanan.status}</td>
-                                                <td><c:url var="upload" value="/uploadBuktiTransfer.htm">
-                                                     <c:param name="kode_pengeluaran" value="${listPengeluaran.kode_pengeluaran}"/>
-                                                    </c:url></td>
-                                                    <td align="center"><a class="btn btn-warning" href="${upload}">Bayar</a>
-                                            </tr>            
-                                            <c:set var="index" value="${index+1}"/>
-                                        </c:forEach>                          
-                                    </tbody>
-                                </table>
+                                <h3 align="center">UPLOAD BUKTI TRANSFER</h3>
+           <form:form id="pesanan" action="saveDataPesanan.htm" modelAttribute="pesananDto" method="POST" enctype="multipart/form-data">
+            <center><table>
+                    <tr>
+                        <td>KODE PESANAN</td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td><div class="form-group">
+                                <input class="form-control" type="date" path="tanggal" name="tanggal"/>
+                            </div></td>
+                    </tr>
+                    <tr>
+                        <td>NAMA PEMBELI</td>
+                        <td></td>
+                        <td><div class="form-group">
+                            <form:select path="kode_akun" name="kode_akun">
+                            <form:option value="" class="validate validate[required]" id="kode_kategori" selected="true" disabled="true">Pilih Kode Akun</form:option>
+                            <c:forEach var="kk" items="${listKk}">
+                                <form:option value="${kk.kode_akun}">${kk.nama_akun}</form:option>
+                            </c:forEach>
+                            </form:select></div></td>
+                    </tr>
+                    <tr>
+                        <td>BUKTI TRANSFER</td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td><div class="form-group">
+                                <form:input type="file" path="file" id="input-file-now" class="dropify"  name="file" />
+                            </div></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3">
+                            <form:button class="primary-btn" type="submit"><b>SIMPAN DATA</b></form:button>
+                        </td>
+                    </tr>
+                </form:form>
 
                             </div>
                         </div>

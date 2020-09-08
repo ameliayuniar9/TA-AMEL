@@ -353,4 +353,52 @@ public class PesananServiceImpl implements PesananService{
 
         belanjaDao.updateBelanja(dataModel);
     }
+
+    @Override
+    public List<PesananDto> getBelanjaByIdPembeli(String id) {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        List <PesananModel> listData = null;
+        try {
+            listData = (List<PesananModel>) belanjaDao.getListBelanjaByIdPembeli(id);
+        } catch (Exception ex) {
+            Logger.getLogger(ProdukServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        PesananDto belanjaDto = null;
+        try {
+            if(listData != null){
+                for(PesananModel model : listData){
+                    belanjaDto = new PesananDto();
+                    if(model.getKode_pesanan()!= null){
+                        belanjaDto.setKode_pesanan(model.getKode_pesanan());
+                    }
+                    if(model.getId_pembeli()!= null){
+                        belanjaDto.setId_pembeli(model.getId_pembeli());
+                    }
+                    if(model.getTotal_pesanan()!= null){
+                        belanjaDto.setTotal_pesanan(model.getTotal_pesanan());
+                    }
+                    if(model.getTanggal_pesan()!= null){
+                        belanjaDto.setTanggal_pesan(model.getTanggal_pesan());
+                    }
+                    if(model.getStatus()!= null){
+                        belanjaDto.setStatus(model.getStatus());
+                    }
+                    if(model.getBukti_pembayaran()!= null){
+                        belanjaDto.setBukti_pembayaran(model.getBukti_pembayaran());
+                    }
+                    if(model.getId_penerima()!= null){
+                        belanjaDto.setId_penerima(model.getId_penerima());
+                    }
+                    if(model.getTanggal_pembayaran()!= null){
+                        belanjaDto.setTanggal_pembayaran(model.getTanggal_pembayaran());
+                    }
+                    
+                    listDataDto.add(belanjaDto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto; 
+    }
 }

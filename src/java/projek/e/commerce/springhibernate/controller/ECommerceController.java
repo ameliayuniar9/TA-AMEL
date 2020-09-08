@@ -1323,11 +1323,13 @@ public class ECommerceController {
        
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         List<PenerimaDto> listPenerimaDto=penerimaService.getListPenerimaById(id);
+        List<PesananDto> listPesananDto=pesananService.getBelanjaByIdPembeli(id);
         PenerimaDto penerimaDto=new PenerimaDto();
         try {
             model.addAttribute("listCartDto", listCartDto);
             model.addAttribute("pesananDto", pesananDto);
             model.addAttribute("listPenerimaDto", listPenerimaDto);
+            model.addAttribute("listPesananDto", listPesananDto);
             model.addAttribute("penerimaDto",penerimaDto);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1346,5 +1348,10 @@ public class ECommerceController {
     public String editData(LoginDto loginDto) throws Exception{
         loginService.doUpdateDataLogin(loginDto);
         return "redirect:menuAdmin.htm";
+    }
+    
+    @RequestMapping(value = "/uploadBuktiTransfer", method = RequestMethod.GET)
+    public String viewUpload(ModelMap model,LoginDto loginDto,NotivDto notivDto){
+        return "uploadBuktiTransfer";
     }
 }

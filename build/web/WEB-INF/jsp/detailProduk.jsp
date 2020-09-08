@@ -381,24 +381,27 @@
                                         <c:out value="${produk.warna}"/>
                                     </div>
                                 </div>
-
                                 <div class="flex-w flex-r-m p-b-10">
-                                    <div class="size-204 flex-w flex-m respon6-next">
-                                        <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                    <div class="size-203 flex-c-m respon6">
+                                        Jumlah
+                                    </div>
+
+                                    <div class="size-204 respon6-next">
+                                        <form:form id="keranjang" action="saveKeranjang.htm" modelAttribute="cartDto"  method="POST">
+                                                <form:input type="number" path="kuantitas" min="1" max="${produk.stok}"/>
+                                    </div>
+                                </div>
+                                        
+                                         
+                                            
 
 
-                                            <form:form id="keranjang" action="saveKeranjang.htm" modelAttribute="cartDto"  method="POST">
-                                                <form:input type="number" path="kuantitas" class="input"/>
 
-                                            </div>
-
-
-                                            <form:button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                            <form:button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                                 Tambah ke Keranjang
                                             </form:button>
                                         </form:form>
-                                    </div>
-                                </div>
+                                    
                             </div>
                         </div>
                     </div>
