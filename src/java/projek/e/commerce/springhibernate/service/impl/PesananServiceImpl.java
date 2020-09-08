@@ -25,7 +25,6 @@ import projek.e.commerce.springhibernate.service.PesananService;
  * @author HP
  */
 @Service
-@Transactional
 public class PesananServiceImpl implements PesananService{
 
     @Autowired
@@ -160,7 +159,7 @@ public class PesananServiceImpl implements PesananService{
         }
         a+=1;
         String kode_bel="PEN-"+a+"";
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         dataModel.setKode_pesanan(kode_bel);
         dataModel.setId_pembeli(id_pembeli);
         dataModel.setTotal_pesanan(belanjaDto.getTotal_pesanan());
@@ -217,4 +216,141 @@ public class PesananServiceImpl implements PesananService{
         }
         return belanjaDto;
     }  
+
+    @Override
+    public List<PesananDto> getPesananStatusBaru() throws Exception {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        PesananDto pesananDto = null;
+        try {
+           List <Object[]> listData = belanjaDao.getPesananStatusBaru();
+           if(listData != null){
+                for(Object[] model : listData){
+                    pesananDto = new PesananDto();
+                    pesananDto.setKode_pesanan(model[0].toString());
+                    pesananDto.setNama(model[1].toString());
+                    pesananDto.setTotal_pesanan(Integer.parseInt(model[2].toString()));
+                    pesananDto.setTanggal_pesan(model[3].toString());
+                    pesananDto.setStatus(model[4].toString());
+                    pesananDto.setBukti_pembayaran(model[5].toString());
+                    pesananDto.setTanggal_pembayaran(model[6].toString());
+                    
+                    listDataDto.add(pesananDto);   
+                }
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
+
+    @Override
+    public List<PesananDto> getPesananStatusBelumBayar() throws Exception {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        PesananDto pesananDto = null;
+        try {
+           List <Object[]> listData = belanjaDao.getPesananStatusBelumBayar();
+           if(listData != null){
+                for(Object[] model : listData){
+                    pesananDto = new PesananDto();
+                    pesananDto.setKode_pesanan(model[0].toString());
+                    pesananDto.setNama(model[1].toString());
+                    pesananDto.setTotal_pesanan(Integer.parseInt(model[2].toString()));
+                    pesananDto.setTanggal_pesan(model[3].toString());
+                    pesananDto.setStatus(model[4].toString());
+                    pesananDto.setBukti_pembayaran(model[5].toString());
+                    pesananDto.setTanggal_pembayaran(model[6].toString());
+                    
+                    listDataDto.add(pesananDto);   
+                }
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
+
+    @Override
+    public List<PesananDto> getPesananStatusSudahBayar() throws Exception {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        PesananDto pesananDto = null;
+        try {
+           List <Object[]> listData = belanjaDao.getPesananStatusSudahBayar();
+           if(listData != null){
+                for(Object[] model : listData){
+                    pesananDto = new PesananDto();
+                    pesananDto.setKode_pesanan(model[0].toString());
+                    pesananDto.setNama(model[1].toString());
+                    pesananDto.setTotal_pesanan(Integer.parseInt(model[2].toString()));
+                    pesananDto.setTanggal_pesan(model[3].toString());
+                    pesananDto.setStatus(model[4].toString());
+                    pesananDto.setBukti_pembayaran(model[5].toString());
+                    pesananDto.setTanggal_pembayaran(model[6].toString());
+                    
+                    listDataDto.add(pesananDto);   
+                }
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
+
+    @Override
+    public List<PesananDto> getPesananStatusReject() throws Exception {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        PesananDto pesananDto = null;
+        try {
+           List <Object[]> listData = belanjaDao.getPesananStatusReject();
+           if(listData != null){
+                for(Object[] model : listData){
+                    pesananDto = new PesananDto();
+                    pesananDto.setKode_pesanan(model[0].toString());
+                    pesananDto.setNama(model[1].toString());
+                    pesananDto.setTotal_pesanan(Integer.parseInt(model[2].toString()));
+                    pesananDto.setTanggal_pesan(model[3].toString());
+                    pesananDto.setStatus(model[4].toString());
+                    pesananDto.setBukti_pembayaran(model[5].toString());
+                    pesananDto.setTanggal_pembayaran(model[6].toString());
+                    
+                    listDataDto.add(pesananDto);   
+                }
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
+    
+    @Override
+    public void Confirm(String kode_pesanan) throws Exception {
+        PesananModel dataModel = new PesananModel();
+        PesananModel belanjaDto=belanjaDao.getBelanjaById(kode_pesanan);
+        dataModel.setKode_pesanan(belanjaDto.getKode_pesanan());
+        dataModel.setId_pembeli(belanjaDto.getId_pembeli());
+        dataModel.setTotal_pesanan(belanjaDto.getTotal_pesanan());
+        dataModel.setTanggal_pesan(belanjaDto.getTanggal_pesan());
+        dataModel.setStatus("SUDAH BAYAR");
+        dataModel.setBukti_pembayaran(belanjaDto.getBukti_pembayaran());
+        dataModel.setId_penerima(belanjaDto.getId_penerima());
+        dataModel.setTanggal_pembayaran(belanjaDto.getTanggal_pembayaran());
+
+        belanjaDao.updateBelanja(dataModel);
+    }
+    
+    @Override
+    public void Reject(String kode_pesanan) throws Exception {
+        PesananModel dataModel = new PesananModel();
+        PesananModel belanjaDto=belanjaDao.getBelanjaById(kode_pesanan);
+        List<PesananModel> listData=belanjaDao.getListDataBelanja();
+        dataModel.setKode_pesanan(belanjaDto.getKode_pesanan());
+        dataModel.setId_pembeli(belanjaDto.getId_pembeli());
+        dataModel.setTotal_pesanan(belanjaDto.getTotal_pesanan());
+        dataModel.setTanggal_pesan(belanjaDto.getTanggal_pesan());
+        dataModel.setStatus("REJECT");
+        dataModel.setBukti_pembayaran(belanjaDto.getBukti_pembayaran());
+        dataModel.setId_penerima(belanjaDto.getId_penerima());
+        dataModel.setTanggal_pembayaran(belanjaDto.getTanggal_pembayaran());
+
+        belanjaDao.updateBelanja(dataModel);
+    }
 }

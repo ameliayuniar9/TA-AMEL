@@ -15,7 +15,6 @@
         <property column="provinsi" name="provinsi"/>
         <property column="kabupaten" name="kabupaten"/>
         <property column="kecamatan" name="kecamatan"/>
-        <property column="kode_pos" name="kode_pos"/>
         <property column="alamat_lengkap" name="alamat_lengkap"/>
         <property column="status" name="status"/>
     </class>

@@ -76,7 +76,7 @@ public class PengeluaranDaoImpl extends HibernateUtil implements PengeluaranDao{
     public List<Object[]> getExpenseValueToMakeLaporan(String tanggal_transaksi, String bulan_transaksi) throws Exception {
         List<Object[]> listData = null;
         String sql = "SELECT SUM(IF( YEAR(a.tanggal) =:thn AND MONTH(a.tanggal) =:bln, jumlah, 0)) AS total, b.nama_akun \n" +
-                     "FROM tb_pengeluaran a , tb_akun b WHERE a.status='approved' and a.kode_akun=b.kode_akun GROUP BY a.kode_akun";
+                     "FROM tb_pengeluaran a , tb_akun b WHERE a.status='Approved' and a.kode_akun=b.kode_akun GROUP BY a.kode_akun";
         Query query = createNativeQuery(sql).setParameter("thn", tanggal_transaksi);
         query.setParameter("bln", bulan_transaksi);
         listData = query.list();
@@ -86,7 +86,7 @@ public class PengeluaranDaoImpl extends HibernateUtil implements PengeluaranDao{
     @Override
     public List<Object[]> getExpenseWithAccountName() throws Exception {
         List<Object[]> listData = null;
-        String sql = "SELECT  a.kode_pengeluaran, a.tanggal, a.kode_akun, a.deskripsi, a.jumlah, a.upload_file, a.status, b.nama_akun FROM tb_pengeluaran a JOIN tb_akun b ON a.kode_akun=b.kode_akun WHERE a.STATUS='approved' ";
+        String sql = "SELECT  a.kode_pengeluaran, a.tanggal, a.kode_akun, a.deskripsi, a.jumlah, a.upload_file, a.status, b.nama_akun FROM tb_pengeluaran a JOIN tb_akun b ON a.kode_akun=b.kode_akun WHERE a.STATUS='Approved' ";
         Query query = createNativeQuery(sql);
         listData = query.list();
         return listData;
@@ -95,7 +95,7 @@ public class PengeluaranDaoImpl extends HibernateUtil implements PengeluaranDao{
     @Override
     public List<Object[]> getListDataPengeluaranCek() throws Exception {
         List<Object[]> listData = null;
-        String sql = "SELECT  a.kode_pengeluaran, a.tanggal, a.kode_akun, a.deskripsi, a.jumlah, a.upload_file, a.status, b.nama_akun FROM tb_pengeluaran a JOIN tb_akun b ON a.kode_akun=b.kode_akun WHERE a.STATUS!='approved' ";
+        String sql = "SELECT  a.kode_pengeluaran, a.tanggal, a.kode_akun, a.deskripsi, a.jumlah, a.upload_file, a.status, b.nama_akun FROM tb_pengeluaran a JOIN tb_akun b ON a.kode_akun=b.kode_akun WHERE a.STATUS!='Approved' ";
         Query query = createNativeQuery(sql);
         listData = query.list();
         return listData;

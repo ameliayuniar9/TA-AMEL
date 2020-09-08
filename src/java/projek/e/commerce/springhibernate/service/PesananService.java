@@ -19,5 +19,10 @@ public interface PesananService {
     public void saveDataBelanja(PesananDto belanjaDto,String id_pembeli) throws Exception;
     public void deleteDataBelanja(String kode_belanja) throws Exception;
     public PesananDto getUpdateDataBelanja(String kode_belanja) throws Exception;
-    
+    public List<PesananDto> getPesananStatusBaru() throws Exception;
+    public List<PesananDto> getPesananStatusBelumBayar() throws Exception;
+    public List<PesananDto> getPesananStatusSudahBayar() throws Exception;
+    public List<PesananDto> getPesananStatusReject() throws Exception;
+    public  void Confirm(String kode_pesanan) throws Exception;
+    public void Reject(String kode_pesanan) throws Exception;
 }

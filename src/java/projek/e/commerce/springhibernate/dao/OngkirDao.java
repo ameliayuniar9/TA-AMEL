@@ -19,5 +19,6 @@ public interface OngkirDao {
     public void deleteOngkir(String id);
     public void updateOngkir(OngkirModel ongkirModel);
     public List<OngkirModel> getListOngkirUpdate(String kode_ongkir);
+    public OngkirModel getOngkir(String provinsi);
     
 }

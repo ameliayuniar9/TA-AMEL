@@ -5,6 +5,7 @@
  */
 package projek.e.commerce.springhibernate.controller;
 
+import com.google.gson.Gson;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,10 +29,13 @@ import projek.e.commerce.springhibernate.dao.AkunDao;
 import projek.e.commerce.springhibernate.dao.CartDao;
 import projek.e.commerce.springhibernate.dao.DetailDao;
 import projek.e.commerce.springhibernate.dao.DetailPesananDao;
+import projek.e.commerce.springhibernate.dao.KecamatanDao;
+import projek.e.commerce.springhibernate.dao.KotaDao;
 import projek.e.commerce.springhibernate.dao.LoginDao;
 import projek.e.commerce.springhibernate.dao.PembeliDao;
 import projek.e.commerce.springhibernate.dao.PenerimaDao;
 import projek.e.commerce.springhibernate.dao.PengeluaranDao;
+import projek.e.commerce.springhibernate.dao.ProvinsiDao;
 import projek.e.commerce.springhibernate.dao.UlasanDao;
 import projek.e.commerce.springhibernate.dto.AkunDto;
 import projek.e.commerce.springhibernate.dto.CartDto;
@@ -43,11 +47,17 @@ import projek.e.commerce.springhibernate.dto.PembeliDto;
 import projek.e.commerce.springhibernate.dto.PesananDto;
 import projek.e.commerce.springhibernate.dto.DetailDto;
 import projek.e.commerce.springhibernate.dto.DetailPesananDto;
+import projek.e.commerce.springhibernate.dto.KecamatanDto;
+import projek.e.commerce.springhibernate.dto.KotaDto;
 import projek.e.commerce.springhibernate.dto.ListKodeDto;
 import projek.e.commerce.springhibernate.dto.PenerimaDto;
 import projek.e.commerce.springhibernate.dto.PengeluaranDto;
 import projek.e.commerce.springhibernate.dto.ProdukDto;
+import projek.e.commerce.springhibernate.dto.ProvinsiDto;
+import projek.e.commerce.springhibernate.dto.TampMainDto;
 import projek.e.commerce.springhibernate.dto.UlasanDto;
+import projek.e.commerce.springhibernate.model.DetailModel;
+import projek.e.commerce.springhibernate.model.DetailPesananModel;
 import projek.e.commerce.springhibernate.model.LoginModel;
 import projek.e.commerce.springhibernate.model.PembeliModel;
 import projek.e.commerce.springhibernate.service.AkunService;
@@ -61,9 +71,12 @@ import projek.e.commerce.springhibernate.service.ProdukService;
 import projek.e.commerce.springhibernate.service.impl.LoginServiceImpl;
 import projek.e.commerce.springhibernate.service.impl.PembeliServiceImpl;
 import projek.e.commerce.springhibernate.service.DetailService;
+import projek.e.commerce.springhibernate.service.KecamatanService;
+import projek.e.commerce.springhibernate.service.KotaService;
 import projek.e.commerce.springhibernate.service.PenerimaService;
 import projek.e.commerce.springhibernate.service.PengeluaranService;
 import projek.e.commerce.springhibernate.service.PesananService;
+import projek.e.commerce.springhibernate.service.ProvinsiService;
 import projek.e.commerce.springhibernate.service.UlasanService;
 
 /**
@@ -139,6 +152,24 @@ public class ECommerceController {
       
       @Autowired
     DetailPesananDao detailPesananDao;
+      
+      @Autowired
+    ProvinsiService provinsiService;
+      
+      @Autowired
+    ProvinsiDao  provinsiDao;
+      
+      @Autowired
+    KotaService kotaService;
+      
+      @Autowired
+    KotaDao kotaDao;
+      
+      @Autowired
+    KecamatanService kecamatanService;
+      
+      @Autowired
+    KecamatanDao  kecamatanDao;
     
     LoginModel uModel=new LoginModel();
     PembeliDto dto=new PembeliDto();
@@ -148,7 +179,7 @@ public class ECommerceController {
     
     String x="",akses;
     int cek=0;
-    String kodeProd,id,kodeDetail;
+    String kodeProd,id,kodeDetail,id_login;
     int jmlProd=0;
     
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -185,7 +216,7 @@ public class ECommerceController {
         DetailDto detailDto = detailService.getUpdateDataDetail(kode_detail);
         kodeDetail=detailDto.getKode_detail();
         kodeProd=detailDto.getKode_produk();
-        List<PembeliDto> listPembeliDtoSelect = pembeliService.getListPembeliSelect(id_pembeli);
+        List<PembeliDto> listPembeliDtoSelect = pembeliService.getListPembeliSelect(id);
         model.addAttribute("listPembeliDtoSelect", listPembeliDtoSelect);
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         model.addAttribute("listCartDto", listCartDto);
@@ -194,23 +225,57 @@ public class ECommerceController {
     }
     
     @RequestMapping(value = "/detailKeranjang", method = RequestMethod.GET)
-    public String viewDetailKeranjang(ModelMap model,PesananDto pesananDto){
+    public String viewDetailKeranjang(ModelMap model,PesananDto pesananDto) throws Exception{
         KategoriDto dto = null;     
             dto = new KategoriDto();
             model.addAttribute("kategoriDto", dto);
        
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         List<PenerimaDto> listPenerimaDto=penerimaService.getListPenerimaById(id);
+        List<ProvinsiDto> listProvinsi = provinsiService.getListProvinsi();
+        List<KotaDto> listKota=kotaService.getListKota();
+        List<KecamatanDto> listKecamatan=kecamatanService.getListKecamatan();
         PenerimaDto penerimaDto=new PenerimaDto();
         try {
             model.addAttribute("listCartDto", listCartDto);
             model.addAttribute("pesananDto", pesananDto);
-              model.addAttribute("listPenerimaDto", listPenerimaDto);
+            model.addAttribute("listPenerimaDto", listPenerimaDto);
             model.addAttribute("penerimaDto",penerimaDto);
+            model.addAttribute("listProvinsi", listProvinsi);
+            model.addAttribute("listKota", listKota);
+            model.addAttribute("listKecamatan", listKecamatan);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "detailKeranjang";
+    }
+    
+    @RequestMapping(value = "/getDataKotaByProvinsi", method = RequestMethod.GET)
+    @ResponseBody
+    public String getDataKotaByProvinsi(String id_provinsi) {
+        List<KotaDto> listKota = kotaService.getKotaById(id_provinsi);
+        return new Gson().toJson(listKota);
+    }
+
+    @RequestMapping(value = "/getKota2", method = RequestMethod.GET)
+    @ResponseBody
+    public String getKota2(String Prov, String Kota) {
+        List<TampMainDto> listNama = kotaService.getNama(Prov, Kota);
+        return new Gson().toJson(listNama);
+    }
+    
+    @RequestMapping(value = "/getDataKecamatanByKota", method = RequestMethod.GET)
+    @ResponseBody
+    public String getDataKecamatanByKota(String id_kota) {
+        List<KecamatanDto> listKecamatan = kecamatanService.getListKecamatanById(id_kota);
+        return new Gson().toJson(listKecamatan);
+    }
+
+    @RequestMapping(value = "/getKecamatan2", method = RequestMethod.GET)
+    @ResponseBody
+    public String getKecamatan2(String Kota, String Kec) {
+        List<TampMainDto> listNama = kotaService.getNama(Kota, Kec);
+        return new Gson().toJson(listNama);
     }
     
     
@@ -281,6 +346,7 @@ public class ECommerceController {
     @RequestMapping(value = "/savePenerima", method = RequestMethod.POST)
     public String saveDataPenerima(PenerimaDto penerimaDto, ModelMap model) throws Exception{                
         ModelAndView mdl = new ModelAndView();
+        penerimaDto.setId_penerima(id);
         penerimaService.saveDataPenerima(penerimaDto);                
         return "redirect:detailKeranjang.htm?id_pembeli="+id;
     }
@@ -388,21 +454,35 @@ public class ECommerceController {
         return "redirect:tabelKategori.htm";
     }
     
-     @RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
+    @RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
     public String Pesan(PesananDto pesananDto,ModelMap model) throws Exception{
-        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBB");
-        System.out.println(pesananDto.getKodeChart().length);
-         for (int i = 0; i < pesananDto.getKodeChart().length; i++) {
-             System.out.println(pesananDto.getKodeChart()[i]);
-         }   
+        System.out.println(pesananDto.getKode_detail());
+        System.out.println(pesananDto.getKodeChart());
+        System.out.println(pesananDto.getJumlah_belanja());
+        System.out.println(pesananDto.getHarga());
+         
         try {
-            System.out.println(pesananDto.getTotal_pesanan());
+            String[] detail=pesananDto.getKode_detail().split(",");
+            String[] chart=pesananDto.getKodeChart().split(",");
+            String[] stok=pesananDto.getJumlah_belanja().split(",");
+            String[] harga=pesananDto.getHarga().split(",");
+            
+            for (int i = 0; i < detail.length; i++) {
+                DetailPesananDto data=new DetailPesananDto();
+                DetailModel detailPesanan=detailService.getDetailById(detail[i]);
+                detailPesanan.setStok(detailPesanan.getStok()- Integer.parseInt(stok[i]));
+                detailDao.updateDetail(detailPesanan);
+                cartService.deleteDataCart(chart[i]);
+                data.setKode_detail(detail[i]);
+                data.setKuantitas(Integer.parseInt(stok[i]));
+                data.setTotal(Integer.parseInt(harga[i]));
+                detailPesananService.saveDataDetailPesanan(data);
+            }
             pesananService.saveDataBelanja(pesananDto,pp);
         } catch (Exception e) {
             System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBB");
             e.printStackTrace();
         }
-        System.out.println("KODE PESANAN = "+pesananDto.getKode_pesanan());
         return "redirect:pesananPembeli.htm?id_pembeli="+id+"&kode_pesanan="+pesananDto.getKode_pesanan();
     }
     
@@ -612,18 +692,30 @@ public class ECommerceController {
     @RequestMapping(value = "/tabelPesanan", method = RequestMethod.GET)
     public String viewTabelPesanan(ModelMap model){
         try {
-            List<PesananDto> listPesananDto = pesananService.getListBelanja();
+            List<PesananDto> listPesananDto = pesananService.getPesananStatusBaru();
             model.addAttribute("listPesananDto", listPesananDto);
+            List<PesananDto> listPesananRejectDto = pesananService.getPesananStatusReject();
+            model.addAttribute("listPesananRejectDto", listPesananRejectDto);
         } catch (Exception e) {
             e.printStackTrace();
         } 
         return "tabelPesanan";
     }
+    @RequestMapping(value = "/updateConfirm", method = RequestMethod.GET)
+    public String updateConfirm(String kode_pesanan, ModelMap model) throws Exception {
+        pesananService.Confirm(kode_pesanan);
+        return "redirect:tabelPesanan.htm";
+    }
+    @RequestMapping(value = "/updateReject", method = RequestMethod.GET)
+    public String updateReject(String kode_pesanan, ModelMap model) throws Exception {
+        pesananService.Reject(kode_pesanan);
+        return "redirect:tabelPesanan.htm";
+    }
     
     @RequestMapping(value = "/tabelPesanan2", method = RequestMethod.GET)
     public String viewTabelPesanan2(ModelMap model){
         try {
-            List<PesananDto> listPesananDto = pesananService.getListBelanja();
+            List<PesananDto> listPesananDto = pesananService.getPesananStatusSudahBayar();
             model.addAttribute("listPesananDto", listPesananDto);
         } catch (Exception e) {
             e.printStackTrace();
@@ -634,7 +726,7 @@ public class ECommerceController {
     @RequestMapping(value = "/tabelPesanan3", method = RequestMethod.GET)
     public String viewTabelPesanan3(ModelMap model){
         try {
-            List<PesananDto> listPesananDto = pesananService.getListBelanja();
+            List<PesananDto> listPesananDto = pesananService.getPesananStatusBelumBayar();
             model.addAttribute("listPesananDto", listPesananDto);
         } catch (Exception e) {
             e.printStackTrace();
@@ -690,7 +782,7 @@ public class ECommerceController {
     public String saveDataKeranjang(CartDto cartDto,String kode_detail,ModelMap model) throws Exception{
         jmlProd=cartDto.getKuantitas();
         kode_detail=kodeDetail;
-        cartService.saveDataCart(cartDto,kode_detail,kodeProd,pp,jmlProd);
+        cartService.saveDataCart(cartDto,kode_detail,kodeProd,id,jmlProd);
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         model.addAttribute("listCartDto", listCartDto);
         return "redirect:menuBaru.htm?id_pembeli="+id;
@@ -698,13 +790,17 @@ public class ECommerceController {
     
     
     @RequestMapping(value = "/menuAdmin", method = RequestMethod.GET)
-    public String viewMenuAdm(ModelMap model,NotivDto notivDto){
+    public String viewMenuAdm(ModelMap model,NotivDto notivDto) throws Exception{
         if(cek==1){
              notivDto.setSukses(x);
              notivDto.setAkses(akses);
          }
         cek=0;
         model.addAttribute("notivDto", notivDto);
+        LoginDto login=loginService.getUpdateDataLogin(id_login);
+        model.addAttribute("id_login", id_login);
+        List<PesananDto> listPesananDto = pesananService.getPesananStatusBaru();
+            model.addAttribute("listPesananDto", listPesananDto);
         return "menuAdmin";
     }
     
@@ -739,7 +835,6 @@ public class ECommerceController {
         cek=0;
         model.addAttribute("notivDto", notivDto);
         try {
-            id=id_pembeli;
             List<DetailDto> listDetailDto = detailService.getListDetail();
             model.addAttribute("listDetailDto", listDetailDto);
             List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
@@ -811,14 +906,16 @@ public class ECommerceController {
                     if(ddm.getAkses().equalsIgnoreCase("Admin")){   
                         x=ddm.getUsername();
                         cek=1;
+                        id_login=ddm.getId_login();
                         akses=ddm.getAkses();
-                        return"redirect:menuAdmin.htm";   
+                        return"redirect:menuAdmin.htm?id_login="+id_login;   
                     }else if(ddm.getAkses().equalsIgnoreCase("Owner")){
                         x=ddm.getUsername();
                         cek=1;
                         akses=ddm.getAkses();
                         return"redirect:menuOwner.htm";
                     }else if(ddm.getAkses().equalsIgnoreCase("Pembeli")){
+                        id=ddm.getId_pembeli();
                         x=ddm.getUsername();
                         cek=1;
                         akses=ddm.getAkses();
@@ -1236,5 +1333,18 @@ public class ECommerceController {
             e.printStackTrace();
         }
         return "pesananPembeli";
+    }
+    
+    @RequestMapping(value = "/getDataUpdateLogin", method = RequestMethod.GET)
+    public String getUpdateDataLogin(ModelMap model) throws Exception{   
+        LoginDto loginDto =loginService.getUpdateDataLogin(id_login);
+        model.addAttribute("loginDto", loginDto);
+        return "changePassword";
+    }
+    
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+    public String editData(LoginDto loginDto) throws Exception{
+        loginService.doUpdateDataLogin(loginDto);
+        return "redirect:menuAdmin.htm";
     }
 }
