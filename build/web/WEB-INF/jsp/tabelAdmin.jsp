@@ -264,8 +264,8 @@
                             <li><a href="#"></a></li>
                             <li><a href="#"></a></li>
                             <li><a href="${home}">Home</a></li>
-                            <li><a href="${kategori}">Akun Admin</a></li>
-                            <li><a href="${produk}">Data Pengeluaran</a></li>
+                            <li><a href="${admin}">Akun Admin</a></li>
+                            <li><a href="${pengeluaran}">Data Pengeluaran</a></li>
                             <li><a href="#">Laporan</a></li>
                         </ul>
                     </div>

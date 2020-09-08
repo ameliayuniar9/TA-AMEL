@@ -47,6 +47,7 @@ public class DetailServiceImpl implements DetailService{
                         detailDto.setKode_produk(model.getKode_produk());
                         List <ProdukModel> listDataProd = produkDao.getListProdukUpdate(model.getKode_produk());
                         for(ProdukModel prod : listDataProd){
+                            detailDto.setKode_kategori(prod.getKode_kategori());
                             detailDto.setNama_produk(prod.getNama_produk());
                             detailDto.setHarga_jual(prod.getHarga_jual());
                             detailDto.setKeterangan_produk(prod.getKeterangan_produk());
@@ -168,6 +169,34 @@ public class DetailServiceImpl implements DetailService{
             e.printStackTrace();
         }
         detailDao.updateDetail(detailModel);
+    }
+
+    @Override
+    public List<DetailDto> getProdukByKategori(String kode_kategori) throws Exception {
+        List <DetailDto> listDataDto = new ArrayList<>();
+        List <Object[]> listData = detailDao.getListProdukByKategori(kode_kategori);
+        DetailDto detailDto = null;
+        try {
+            if(listData != null){
+                for(Object[] model : listData){
+                    detailDto = new DetailDto();
+                    detailDto.setKode_detail(model[0].toString());
+                    detailDto.setKode_produk(model[1].toString());
+                    detailDto.setWarna(model[2].toString());
+                    detailDto.setGambar(model[3].toString());
+                    detailDto.setStok(Integer.parseInt(model[4].toString()));
+                    detailDto.setKode_kategori(model[5].toString());
+                    detailDto.setNama_produk(model[6].toString());
+                    detailDto.setHarga_jual(Integer.parseInt(model[7].toString()));
+                    detailDto.setKeterangan_produk(model[8].toString());
+                    
+                    listDataDto.add(detailDto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
     }
     
 }

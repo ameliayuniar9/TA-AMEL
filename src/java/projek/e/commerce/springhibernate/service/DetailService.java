@@ -20,4 +20,5 @@ public interface DetailService {
     public void deleteDataDetail(String kode_detail) throws Exception;
     public DetailDto getUpdateDataDetail(String kode_produk) throws Exception;
     public void doUpdateDataDetail(DetailDto detailDto) throws Exception;
+     public List<DetailDto> getProdukByKategori(String kode_kategori) throws Exception;
 }

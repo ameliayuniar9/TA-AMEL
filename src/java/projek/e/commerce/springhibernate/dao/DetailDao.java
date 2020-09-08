@@ -20,4 +20,5 @@ public interface DetailDao {
     public void updateDetail(DetailModel detailModel);
     public void saveDataDetail(DetailModel detailModel);
     public List<DetailModel> getListDetailUpdate(String kode_detail);
+    public List<Object[]> getListProdukByKategori(String kode_kategori);
 }
