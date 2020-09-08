@@ -120,4 +120,15 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         return listData;
     }
     
+     @Override
+    public List<Object[]> getProdukForGrafik() throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT c.kode_detail,b.nama_produk,a.warna,SUM(c.kuantitas) FROM tb_detail_pesanan c " +
+                     "JOIN tb_pesanan d ON c.kode_pesanan=d.kode_pesanan JOIN tb_detail a " +
+                     "ON a.kode_detail=c.kode_detail JOIN tb_produk b ON a.kode_produk=b.kode_produk WHERE d.status='SUDAH BAYAR' GROUP BY c.kode_detail ORDER BY SUM(kuantitas) DESC LIMIT 5";
+        Query query = createNativeQuery(sql);
+        listData = query.list();
+        return listData;
+    }
+    
 }

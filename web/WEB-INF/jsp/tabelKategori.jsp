@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">

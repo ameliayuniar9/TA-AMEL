@@ -13,8 +13,14 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class PesananDto {
    String kode_pesanan,id_pembeli,status,bukti_pembayaran,tanggal_pesan,id_penerima,tanggal_pembayaran,nama,nama_penerima;
+<<<<<<< HEAD
    Integer total_pesanan;
    String kodeChart,kode_detail,jumlah_belanja,harga;
+=======
+   String nama_produk,warna,kode_detail;
+   Integer total_pesanan,kuantitas;
+   String[] kodeChart;
+>>>>>>> menuAdmin
     MultipartFile file;
     public String getHarga() {
         return harga;
@@ -134,4 +140,37 @@ public class PesananDto {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
+    public String getNama_produk() {
+        return nama_produk;
+    }
+
+    public void setNama_produk(String nama_produk) {
+        this.nama_produk = nama_produk;
+    }
+
+    public String getWarna() {
+        return warna;
+    }
+
+    public void setWarna(String warna) {
+        this.warna = warna;
+    }
+
+    public String getKode_detail() {
+        return kode_detail;
+    }
+
+    public void setKode_detail(String kode_detail) {
+        this.kode_detail = kode_detail;
+    }
+
+    public Integer getKuantitas() {
+        return kuantitas;
+    }
+
+    public void setKuantitas(Integer kuantitas) {
+        this.kuantitas = kuantitas;
+    }
+    
 }

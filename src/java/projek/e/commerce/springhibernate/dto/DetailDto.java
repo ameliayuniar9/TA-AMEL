@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author HP
  */
 public class DetailDto {
-    String kode_detail, kode_produk,nama_produk,warna,gambar,keterangan_produk;
+    String kode_detail, kode_produk,nama_produk,warna,gambar,keterangan_produk,kode_kategori;
     Integer stok,harga_jual;
     MultipartFile file;
 
@@ -87,5 +87,15 @@ public class DetailDto {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
+    public String getKode_kategori() {
+        return kode_kategori;
+    }
+
+    public void setKode_kategori(String kode_kategori) {
+        this.kode_kategori = kode_kategori;
+    }
+    
+    
     
 }

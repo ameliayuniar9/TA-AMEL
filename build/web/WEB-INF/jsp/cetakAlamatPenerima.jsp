@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Tabel Akun Admin</title>
+    <title>Tabel Kategori</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -42,27 +42,28 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
-    <script type="text/javascript">
-            $(document).ready(function () {
-                // Activate tooltips
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // Filter table rows based on searched term
-                $("#search").on("keyup", function () {
-                    var term = $(this).val().toLowerCase();
-                    $("table tbody tr").each(function () {
-                        $row = $(this);
-                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
-                        console.log(name);
-                        if (name.search(term) < 0) {
-                            $row.hide();
-                        } else {
-                            $row.show();
-                        }
-                    });
-                });
+    <script>
+        $(document).ready(function () {
+            $("#print").click(function () {
+                var mode = 'iframe'; //popup
+                var close = mode == "popup";
+                var options = {
+                    mode: mode,
+                    popClose: close
+                };
+                $("div.printableArea").printArea(options);
             });
-        </script>
+        });
+    </script>
+    <script>
+        function printContent(el) {
+            var restorepage = document.body.innerHTML;
+            var printcontent = document.getElementById(el).innerHTML;
+            document.body.innerHTML = printcontent;
+            window.print();
+            document.body.innerHTML = restorepage;
+        }
+    </script>
     <style type="text/css">
         .searchNama{
             width: 130px;
@@ -167,21 +168,13 @@
                         <!-- Account -->
                         <li class="header-account dropdown default-dropdown">
                                 <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon">
-                                        <i class="fa fa-user-o"></i>
-                                    </div>
+                                    
                                     <c:url var="login" value="/index.htm"></c:url>
-                                    <a href="${login}" class="text-uppercase">LOGOUT</a>
-                                </div>
-                                <!--<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
-                                <ul class="custom-menu">
-                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                    <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                    <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                    <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                                </ul>-->
+                                    <a href="${login}" class="text-uppercase"><div class="header-btns-icon">
+                                        <i class="fa fa-user-o"></i></div>
+                                        <strong>LOGOUT</strong></a><br>
+                                </div>      
+                               
                             </li>
                         <!-- /Account -->
 
@@ -240,35 +233,38 @@
         <div class="container">
             <div id="responsive-nav">
                 <!-- category nav -->
-<!--                <div class="category-nav show-on-click">
-                    <span class="category-header">E-COMMERCE</span>
-                </div>-->
+                <!--                <div class="category-nav show-on-click">
+                                    <span class="category-header">E-COMMERCE</span>
+                                </div>-->
                 <!-- /category nav -->
 
                 <!-- menu nav -->
-                    <c:url var="home" value="/menuOwner.htm"/>
-                    <c:url var="admin" value="/tabelAdmin.htm"/>
-                    <c:url var="pengeluaran" value="/tabelPengeluaranForOwner.htm"/>
-                    <div class="menu-nav">
-                        <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-                        <ul class="menu-list">
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="${home}">Home</a></li>
-                            <li><a href="${admin}">Akun Admin</a></li>
-                            <li><a href="${pengeluaran}">Data Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
-                        </ul>
-                    </div>
+                <c:url var="home" value="/menuAdmin.htm"/>
+                <c:url var="produk" value="/tabelProduk.htm"/>
+                <c:url var="kategori" value="/tabelKategori.htm"/>
+                <c:url var="detail" value="/tabelDetail.htm"/>
+                <c:url var="pembeli" value="/tabelPembeli.htm"/>
+                <c:url var="ongkir" value="/tabelOngkir.htm"/>
+                <c:url var="ulasan" value="/tabelUlasan.htm"/>
+                <c:url var="pesanan" value="/tabelPesanan.htm"/>
+                <c:url var="akun" value="/tabelAkun.htm"/>
+                <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                <div class="menu-nav">
+                    <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+                    <ul class="menu-list">
+                        <li><a href="${home}">Home</a></li>
+                        <li><a href="${kategori}">Kategori</a></li>
+                        <li><a href="${produk}">Produk</a></li>
+                        <li><a href="${detail}">DetailProduk</a></li>
+                        <li><a href="${pembeli}">Pembeli</a></li>
+                        <li><a href="${ongkir}">Ongkir</a></li>
+                        <li><a href="${ulasan}">Ulasan</a></li>
+                        <li><a href="${pesanan}">Pesanan</a></li>
+                        <li><a href="${akun}">Akun</a></li>
+                        <li><a href="${pengeluaran}">Pengeluaran</a></li>
+                        <li><a href="#">Laporan</a></li>
+                    </ul>
+                </div>
                 <!-- menu nav -->
             </div>
         </div>
@@ -297,42 +293,26 @@
     <!-- /footer widget -->
 
     <!-- footer subscribe -->
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <c:url var="tambahDataAdmin" value="/doTambahDataAdmin.htm">        
-     </c:url>
-    <p align="center" style = "font-family:courier;"><u><a href="${tambahDataAdmin}">Tambah</a></u></p>
-    <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
-     <form>
-        <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Username"/><br><br></center>
-    </form>
-            <table align="center" class="table1" border="1">
-                <thead>
-                <tr>
-                    <th>No</th> 
-                    <th>Nama Lengkap</th>            
-                    <th>Username</th>  
-                    <th colspan="2">action</th>
-                </tr></thead>
-                <tbody>
-                <c:set var="index" value="1"/>
-                <c:forEach var="listAdmin" items="${listAdminDto}">
-                    <tr>  
-                        <td>${index}</td>
-                        <td>${listAdmin.nama_lengkap}</td>
-                        <td>${listAdmin.username}</td>
-                        <c:url var="deleteAdmin" value="/deleteDataAdmin.htm">
-                            <c:param name="id_login" value="${listAdmin.id_login}"/>
-                        </c:url>
-                        <c:url var="updateAdmin" value="/getDataUpdateAdmin.htm">
-                            <c:param name="id_login" value="${listAdmin.id_login}"/>
-                        </c:url>
-                        <td><a href="${deleteAdmin}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
-                        <td><a href="${updateAdmin}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
-                    </tr>            
-                    <c:set var="index" value="${index+1}"/>
-                </c:forEach>
-                </tbody>
-            </table>
+    <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+                        <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+                            <div class="printableArea">
+                                <div class="print" id="lap">
+                                    <p>Silahkan transfer ke nomor rekening dibawah ini : </p><br>
+                                    <p>Nama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<b>Itsmostly Hijab</b><br>
+                                        Bank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;BCA<br>
+                                        No Rekening :&nbsp;8310147720 
+                                    </p><br><br>
+                                    <p>Nama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<b>Itsmostly Hijab</b><br>
+                                        Bank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Mandiri<br>
+                                        No Rekening :&nbsp;118-00-1088463-2 
+                                    </p><br><br>
+
+
+                                </div>
+
+                                <button id="print" class="btn btn-default btn-outline" type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button>
+                            </div></div>
+                    </div>
     <!--</div>-->
 </div>
 
