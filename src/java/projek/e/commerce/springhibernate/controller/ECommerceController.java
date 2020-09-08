@@ -206,6 +206,15 @@ public class ECommerceController {
         return "tentang";
     }
 
+    @RequestMapping(value = "/pembayaran", method = RequestMethod.GET)
+    public String viewPembayaran(String id_pembeli,String kode_pesanan,ModelMap model) throws Exception{
+        List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
+        model.addAttribute("listCartDto", listCartDto);
+        PesananDto pesananDto =pesananService.getUpdateDataBelanja(kode_pesanan);
+        model.addAttribute("pesananDto", pesananDto);
+        return "pembayaran";
+    }
+    
     @RequestMapping(value = "/kontak", method = RequestMethod.GET)
     public String viewKontak(){
         return "kontak";
@@ -227,8 +236,8 @@ public class ECommerceController {
     @RequestMapping(value = "/detailKeranjang", method = RequestMethod.GET)
     public String viewDetailKeranjang(ModelMap model,PesananDto pesananDto) throws Exception{
         KategoriDto dto = null;     
-            dto = new KategoriDto();
-            model.addAttribute("kategoriDto", dto);
+        dto = new KategoriDto();
+        model.addAttribute("kategoriDto", dto);
        
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         List<PenerimaDto> listPenerimaDto=penerimaService.getListPenerimaById(id);
@@ -336,6 +345,8 @@ public class ECommerceController {
         model.addAttribute("ongkirDto", ongkirDto);
         return "updateOngkir";
     }
+    
+    
     
     @RequestMapping(value = "/updateOngkir", method = RequestMethod.POST)
     public String editDataOngkir(OngkirDto ongkirDto) throws Exception{
@@ -463,7 +474,7 @@ public class ECommerceController {
          
         try {
             String[] detail=pesananDto.getKode_detail().split(",");
-            String[] chart=pesananDto.getKodeChart().split(",");
+            String[] chart=pesananDto.getKodeCart().split(",");
             String[] stok=pesananDto.getJumlah_belanja().split(",");
             String[] harga=pesananDto.getHarga().split(",");
             
@@ -704,8 +715,16 @@ public class ECommerceController {
     @RequestMapping(value = "/updateConfirm", method = RequestMethod.GET)
     public String updateConfirm(String kode_pesanan, ModelMap model) throws Exception {
         pesananService.Confirm(kode_pesanan);
-        return "redirect:tabelPesanan.htm";
+        return "redirect:cetak.htm";
     }
+    
+    @RequestMapping(value = "/cetak", method = RequestMethod.GET)
+    public String viewCetak(ModelMap model){
+        List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
+        model.addAttribute("listCartDto", listCartDto);
+        return "cetakAlamatPenerima";
+    }
+    
     @RequestMapping(value = "/updateReject", method = RequestMethod.GET)
     public String updateReject(String kode_pesanan, ModelMap model) throws Exception {
         pesananService.Reject(kode_pesanan);
@@ -839,11 +858,28 @@ public class ECommerceController {
             model.addAttribute("listDetailDto", listDetailDto);
             List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
             model.addAttribute("listCartDto", listCartDto);
-            
+            List<KategoriDto> listKategoriDto=kategoriService.getListKategori();
+            model.addAttribute("listKategoriDto", listKategoriDto);
         } catch (Exception e) {
             e.printStackTrace();
         } 
         return "menuBaru";
+    }
+    
+    
+    @RequestMapping(value = "/getProdukByKategori", method = RequestMethod.GET)
+    public String getProdukByKategori(String kode_kategori,String id_pembeli, ModelMap model) throws Exception{
+        try {
+            List<DetailDto> listDetailDto = detailService.getProdukByKategori(kode_kategori);
+            model.addAttribute("listDetailDto", listDetailDto);
+            List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id_pembeli);
+            model.addAttribute("listCartDto", listCartDto);
+            List<KategoriDto> listKategoriDto=kategoriService.getListKategori();
+            model.addAttribute("listKategoriDto", listKategoriDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return "produkByKategori";
     }
     
     @RequestMapping(value = "/loginPembeli", method = RequestMethod.GET)
@@ -1324,6 +1360,7 @@ public class ECommerceController {
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         List<PenerimaDto> listPenerimaDto=penerimaService.getListPenerimaById(id);
         List<PesananDto> listPesananDto=pesananService.getBelanjaByIdPembeli(id);
+        //List<PesananDto> listPesananDto=pesananService.getListPesananByIdPembeli(id);
         PenerimaDto penerimaDto=new PenerimaDto();
         try {
             model.addAttribute("listCartDto", listCartDto);
@@ -1331,6 +1368,7 @@ public class ECommerceController {
             model.addAttribute("listPenerimaDto", listPenerimaDto);
             model.addAttribute("listPesananDto", listPesananDto);
             model.addAttribute("penerimaDto",penerimaDto);
+            model.addAttribute("listPesananDto", listPesananDto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1349,9 +1387,14 @@ public class ECommerceController {
         loginService.doUpdateDataLogin(loginDto);
         return "redirect:menuAdmin.htm";
     }
-    
     @RequestMapping(value = "/uploadBuktiTransfer", method = RequestMethod.GET)
     public String viewUpload(ModelMap model,LoginDto loginDto,NotivDto notivDto){
         return "uploadBuktiTransfer";
+    }
+    @RequestMapping(value = "/getGrafik", method = RequestMethod.GET)
+    @ResponseBody
+    public String getDataGrafik() throws Exception {
+        List<PesananDto> listGrafik = pesananService.GrafikProdukToko();
+        return new Gson().toJson(listGrafik);
     }
 }

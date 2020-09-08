@@ -300,33 +300,21 @@
             <div class="container">
                 <div class="flex-w flex-sb-m p-b-52">
                     <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-                            Semua Produk
-                        </button>
-
-                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-                            Women
-                        </button>
-
-                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-                            Men
-                        </button>
-
-                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-                            Bag
-                        </button>
-
-                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
-                            Shoes
-                        </button>
-
-                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
-                            Watches
-                        </button>
+                        <c:url var="menu" value="/menuBaru.htm"></c:url>
+                        <a href="${menu}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                            SEMUA PRODUK
+                        </a>
+                         
+                        <c:forEach var="listKategori" items="${listKategoriDto}">
+                                 <c:url var="getKategori" value="/getProdukByKategori.htm">
+                                    <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
+                                </c:url>
+                                 <a href="${getKategori}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">${listKategori.nama_kategori}</a>
+                        </c:forEach>
                         <c:url var="ulasan" value="/ulasanVideo.htm"></c:url>
-                            <a href="${ulasan}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
-                                Ulasan
-                            </a>
+                        <a href="${ulasan}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                            ULASAN
+                        </a>
                     </div>
 
                     <div class="flex-w flex-c-m m-tb-10">

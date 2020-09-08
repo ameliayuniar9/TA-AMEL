@@ -1,19 +1,17 @@
 <%-- 
-    Document   : detailProduk
-    Created on : Aug 30, 2019, 9:34:32 AM
+    Document   : menuBaru
+    Created on : Aug 28, 2019, 11:26:27 PM
     Author     : HP
 --%>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Product Detail</title>
+        <title>Product</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--===============================================================================================-->	
@@ -77,8 +75,7 @@
                             <img src="./a/img/logo mostly.png" alt="IMG-LOGO">
                         </a>
 
-                        <!-- Menu desktop -->
-                       <c:url var="home" value="/home.htm"/>
+                        <c:url var="home" value="/home.htm"/>
                         <c:url var="produk" value="/menuBaru.htm"/>
                         <c:url var="tentang" value="/tentang.htm"/>
                         <c:url var="kontak" value="/kontak.htm"/>
@@ -116,7 +113,7 @@
                                     <a href="${billings}">Pesanan</a>
                                 </li>
                             </ul>
-                        </div>		
+                        </div>	
 
                         <!-- Icon header -->
                         <div class="wrap-icon-header flex-w flex-r-m">
@@ -137,7 +134,7 @@
             <div class="wrap-header-mobile">
                 <!-- Logo moblie -->		
                 <div class="logo-mobile">
-                    <a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+                    <a href="index.html"><img src="./a/img/logo mostly.png" alt="IMG-LOGO"></a>
                 </div>
 
                 <!-- Icon header -->
@@ -186,9 +183,9 @@
                             <a href="#" class="flex-c-m p-lr-10 trans-04">
                                 EN
                             </a>
-                            <c:url var="logout" value="/index.htm"></c:url>
-                            <a href="${logout}" class="flex-c-m trans-04 p-lr-25">
-                                LOGOUT
+
+                            <a href="#" class="flex-c-m p-lr-10 trans-04">
+                                USD
                             </a>
                         </div>
                     </li>
@@ -264,21 +261,21 @@
                 <c:set var="total" value="${0}"></c:set>
                     <div class="header-cart-content flex-w js-pscroll">
                         <ul class="header-cart-wrapitem w-full">
-                        <c:forEach var="cart" items="${listCartDto}">
+                        <c:forEach var="listCart" items="${listCartDto}">
                             <li class="header-cart-item flex-w flex-t m-b-12">
                                 <div class="header-cart-item-img">
-                                    <img src="b/img/${cart.gambar}" alt="IMG">
+                                    <img src="b/img/${listCart.gambar}" alt="IMG">
                                 </div>
 
                                 <div class="header-cart-item-txt p-t-8">
                                     <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                        ${cart.nama_produk}
+                                        ${listCart.nama_produk}
                                     </a>
 
                                     <span class="header-cart-item-info">
-                                        ${cart.kuantitas} x Rp. <fmt:formatNumber type="number" groupingUsed="true" value="${cart.harga_jual}"/>
+                                        ${listCart.kuantitas} x <fmt:formatNumber type="number" groupingUsed="true" value="${listCart.harga_jual}" />
                                     </span>
-                                    <c:set var="jml" value="${cart.kuantitas*cart.harga_jual}"></c:set>
+                                    <c:set var="jml" value="${listCart.kuantitas*listCart.harga_jual}"></c:set>
                                     <c:set var="total" value="${total+jml}"></c:set>
                                     </div>
                                 </li>
@@ -287,7 +284,8 @@
 
                     <div class="w-full">
                         <div class="header-cart-total w-full p-tb-40">
-                            Total : Rp.<fmt:formatNumber type="number" groupingUsed="true" value="${total}" />
+                            Total : Rp.<fmt:formatNumber type="number" groupingUsed="true" value="${total}"/>
+
                         </div>
                         <c:url var="detailCart" value="/detailKeranjang.htm"></c:url>
                             <div class="header-cart-buttons flex-w w-full">
@@ -295,108 +293,291 @@
                                 Lihat Keranjang
                             </a>
                         </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
 
-        <!-- breadcrumb -->
-        <div class="container">
-            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <c:set var="prod" value="${produkDto}"/>
-                <span class="stext-109 cl4">
-                    <c:out value="${prod.nama_produk}"/>
-                </span>
-
-            </div>
-        </div>
-        <c:set var="produk" value="${detailDto}"/>
-
-        <!-- Product Detail -->
-        <section class="sec-product-detail bg0 p-t-65 p-b-60">
+        <!-- Product -->
+        <div class="bg0 m-t-23 p-b-140">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-lg-7 p-b-30">
-                        <div class="p-l-25 p-r-30 p-lr-0-lg">
-                            <div class="wrap-slick3 flex-sb flex-w">
-                                <div class="wrap-slick3-dots"></div>
-                                <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-                                        <div class="wrap-pic-w pos-relative">
-                                            <img src="b/img/<c:out value='${produk.gambar}'/>" alt="IMG-PRODUCT">
+                <div class="flex-w flex-sb-m p-b-52">
+                    <div class="flex-w flex-l-m filter-tope-group m-tb-10">
+                        <c:url var="menu" value="/menuBaru.htm">
+                            <c:param name="id_pembeli" value="${id_pembeli}"/>
+                        </c:url>
+                        <a href="${menu}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                            SEMUA PRODUK
+                        </a>
+                         
+                        <c:forEach var="listKategori" items="${listKategoriDto}">
+                                 <c:url var="getKategori" value="/getProdukByKategori.htm">
+                                    <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
+                                </c:url>
+                                 <a href="${getKategori}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">${listKategori.nama_kategori}</a>
+                        </c:forEach>
+                        <c:url var="ulasan" value="/ulasanVideo.htm"></c:url>
+                        <a href="${ulasan}" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                            ULASAN
+                        </a>
+                    </div>
 
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="b/img/<c:out value='${produk.gambar}'/>">
-                                                <i class="fa fa-expand"></i>
-                                            </a>
-                                        </div>
-                            </div>
+                    <div class="flex-w flex-c-m m-tb-10">
+                        <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
+                            <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+                            <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+                            Filter
+                        </div>
+
+                        <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+                            <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+                            <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+                            Search
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-5 p-b-30"> 
-                        <div class="p-r-50 p-t-5 p-lr-0-lg">
-                            <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                                <c:out value="${produk.nama_produk}"/>
-                            </h4>
+                    <!-- Search product -->
+                    <div class="dis-none panel-search w-full p-t-10 p-b-15">
+                        <div class="bor8 dis-flex p-l-15">
+                            <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+                                <i class="zmdi zmdi-search"></i>
+                            </button>
 
-                            <span class="mtext-106 cl2">
-                                Rp <c:out value="${produk.harga_jual}"/>
-                            </span>
+                            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+                        </div>	
+                    </div>
 
-                            <p class="stext-102 cl3 p-t-23">
-                                <c:out value="${produk.keterangan_produk}"/>
-                            </p>
-
-                            <!--  -->
-                            <div class="p-t-33">
-                                <div class="flex-w flex-r-m p-b-10">
-                                    <div class="size-203 flex-c-m respon6">
-                                        Stok
-                                    </div>
-
-                                    <div class="size-204 respon6-next">
-                                        <c:out value="${produk.stok}"/>
-                                    </div>
+                    <!-- Filter -->
+                    <div class="dis-none panel-filter w-full p-t-10">
+                        <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+                            <div class="filter-col1 p-r-15 p-b-27">
+                                <div class="mtext-102 cl2 p-b-15">
+                                    Sort By
                                 </div>
 
-                                <div class="flex-w flex-r-m p-b-10">
-                                    <div class="size-203 flex-c-m respon6">
-                                        Warna
-                                    </div>
+                                <ul>
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            Default
+                                        </a>
+                                    </li>
 
-                                    <div class="size-204 respon6-next">
-                                        <c:out value="${produk.warna}"/>
-                                    </div>
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            Popularity
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            Average rating
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                            Newness
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            Price: Low to High
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            Price: High to Low
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="filter-col2 p-r-15 p-b-27">
+                                <div class="mtext-102 cl2 p-b-15">
+                                    Price
                                 </div>
-                                <div class="flex-w flex-r-m p-b-10">
-                                    <div class="size-203 flex-c-m respon6">
-                                        Jumlah
-                                    </div>
 
-                                    <div class="size-204 respon6-next">
-                                        <form:form id="keranjang" action="saveKeranjang.htm" modelAttribute="cartDto"  method="POST">
-                                                <form:input type="number" path="kuantitas" min="1" max="${produk.stok}"/>
-                                    </div>
+                                <ul>
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                            All
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            $0.00 - $50.00
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            $50.00 - $100.00
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            $100.00 - $150.00
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            $150.00 - $200.00
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            $200.00+
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="filter-col3 p-r-15 p-b-27">
+                                <div class="mtext-102 cl2 p-b-15">
+                                    Color
                                 </div>
-                                        
-                                         
-                                            
 
+                                <ul>
+                                    <li class="p-b-6">
+                                        <span class="fs-15 lh-12 m-r-6" style="color: #222;">
+                                            <i class="zmdi zmdi-circle"></i>
+                                        </span>
 
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            Black
+                                        </a>
+                                    </li>
 
-                                            <form:button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-                                                Tambah ke Keranjang
-                                            </form:button>
-                                        </form:form>
-                                    
+                                    <li class="p-b-6">
+                                        <span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
+                                            <i class="zmdi zmdi-circle"></i>
+                                        </span>
+
+                                        <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                            Blue
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
+                                            <i class="zmdi zmdi-circle"></i>
+                                        </span>
+
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            Grey
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">
+                                            <i class="zmdi zmdi-circle"></i>
+                                        </span>
+
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            Green
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">
+                                            <i class="zmdi zmdi-circle"></i>
+                                        </span>
+
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            Red
+                                        </a>
+                                    </li>
+
+                                    <li class="p-b-6">
+                                        <span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
+                                            <i class="zmdi zmdi-circle-o"></i>
+                                        </span>
+
+                                        <a href="#" class="filter-link stext-106 trans-04">
+                                            White
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="filter-col4 p-b-27">
+                                <div class="mtext-102 cl2 p-b-15">
+                                    Tags
+                                </div>
+
+                                <div class="flex-w p-t-4 m-r--5">
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Fashion
+                                    </a>
+
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Lifestyle
+                                    </a>
+
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Denim
+                                    </a>
+
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Streetstyle
+                                    </a>
+
+                                    <a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+                                        Crafts
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="row isotope-grid"><c:forEach var="listProduk" items="${listDetailDto}">
+                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                            <!-- Block2 -->
+                            <c:url var="detailproduk" value="/detailProduk.htm">
+                                <c:param name="kode_produk" value="${listProduk.kode_produk}"/>
+                                <c:param name="kode_detail" value="${listProduk.kode_detail}"/>
+                            </c:url>
+                            <div class="blSock2">
+                                <div class="block2-pic hov-img0">
+                                    <img src="b/img/${listProduk.gambar}" width="150px" height="250px" alt="IMG-PRODUCT">
+                                    <a href="${detailproduk}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                                        Lihat Detail
+                                    </a>
+                                </div>
+
+                                <div class="block2-txt flex-w flex-t p-t-14">
+                                    <div class="block2-txt-child1 flex-col-l ">
+                                        <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                            ${listProduk.nama_produk} 
+                                        </a>
+
+                                        <span class="stext-105 cl3">
+                                            Rp ${listProduk.harga_jual}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div></c:forEach>
+
+                </div>
+
+                <!-- Load more -->
+                <div class="flex-c-m flex-w w-full p-t-45">
+                    <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+                        Load More
+                    </a>
+                </div>
             </div>
-        </section>
+        </div>
+
 
         <!-- Footer -->
         <footer class="bg3 p-t-75 p-b-32">
@@ -459,69 +640,14 @@
             </div>
         </footer>
 
+
+
         <!-- Back to top -->
         <div class="btn-back-to-top" id="myBtn">
             <span class="symbol-btn-back-to-top">
                 <i class="zmdi zmdi-chevron-up"></i>
             </span>
         </div>
-
-        <!-- Modal1 -->
-        <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
-            <div class="overlay-modal1 js-hide-modal1"></div>
-
-            <div class="container">
-                <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-                    <button class="how-pos3 hov3 trans-04 js-hide-modal1">
-                        <img src="b/images/icons/icon-close.png" alt="CLOSE">
-                    </button>
-
-                    <div class="row">
-                        <div class="col-md-6 col-lg-7 p-b-30">
-                            <div class="p-l-25 p-r-30 p-lr-0-lg">
-                                <div class="wrap-slick3 flex-sb flex-w">
-                                    <div class="wrap-slick3-dots"></div>
-                                    <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
-                                    <div class="slick3 gallery-lb">
-                                        <div class="item-slick3" data-thumb="b/images/product-detail-01.jpg">
-                                            <div class="wrap-pic-w pos-relative">
-                                                <img src="b/images/product-detail-01.jpg" alt="IMG-PRODUCT">
-
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
-                                                    <i class="fa fa-expand"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="item-slick3" data-thumb="b/images/product-detail-02.jpg">
-                                            <div class="wrap-pic-w pos-relative">
-                                                <img src="b/images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
-                                                    <i class="fa fa-expand"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div class="item-slick3" data-thumb="b/images/product-detail-03.jpg">
-                                            <div class="wrap-pic-w pos-relative">
-                                                <img src="b/images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="b/images/product-detail-03.jpg">
-                                                    <i class="fa fa-expand"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!--===============================================================================================-->	
         <script src="b/vendor/jquery/jquery-3.2.1.min.js"></script>
         <!--===============================================================================================-->
@@ -543,7 +669,7 @@
         <script src="b/vendor/daterangepicker/moment.min.js"></script>
         <script src="b/vendor/daterangepicker/daterangepicker.js"></script>
         <!--===============================================================================================-->
-        <script src="b/vendor/slick/slick.min.js"></script>
+        <script src="vendor/slick/slick.min.js"></script>
         <script src="b/js/slick-custom.js"></script>
         <!--===============================================================================================-->
         <script src="b/vendor/parallax100/parallax100.js"></script>
@@ -599,7 +725,7 @@
             $('.js-addcart-detail').each(function () {
                 var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
                 $(this).on('click', function () {
-                    swal(nameProduct, "berhasil ditambahkan !", "success");
+                    swal(nameProduct, "is added to cart !", "success");
                 });
             });
 

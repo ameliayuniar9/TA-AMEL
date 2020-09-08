@@ -339,34 +339,14 @@
                             Total : Rp.<fmt:formatNumber type="number" groupingUsed="true" value="${total}" />
                         </div>
 
-                        <div class="header-cart-buttons flex-w w-full">
-                            <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-                                View Cart
-                            </a>
-
-                            <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-                                Check Out
+                        <c:url var="detailCart" value="/detailKeranjang.htm"></c:url>
+                            <div class="header-cart-buttons flex-w w-full">
+                                <a href="${detailCart}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                                Lihat Keranjang
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-        <!-- breadcrumb -->
-        <div class="container">
-            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Home
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
-
-                <a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Shopping Cart
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
-
             </div>
         </div>
         <!-- Shoping Cart -->
@@ -391,23 +371,13 @@
                                 </div>
 
                                 <button id="print" class="btn btn-default btn-outline" type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button>
-
-
-
-
-                                <%--<form:input path="nama_kategori" class="input"/>--%>
-                                <%--<c:url var="address" value="/settingAddress.htm"></c:url>--%>
-                                <!--<a href="${address}" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">-->
-                                <!--</a>-->
-
-                                <!--<input type="submit" value="PESAN" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"/></p>-->
-                                <!--</form>-->
                             </div></div>
                     </div>
                     <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                         <div class="m-l-25 m-r--38 m-lr-0-xl">
                             <div class="wrap-table-shopping-cart">
                                 <table class="table-shopping-cart">
+<<<<<<< HEAD
                                     <thead>
                                         <tr class="table_head">
                                             <th class="column-1">Kode Pesanan</th>
@@ -433,6 +403,27 @@
                                             <c:set var="index" value="${index+1}"/>
                                         </c:forEach>                          
                                     </tbody>
+=======
+                                    <tr class="table_head">
+                                        <th class="column-1">Kode Pesanan</th>
+                                        <th class="column-2">Total Pesanan</th>
+                                        <th class="column-3">Tanggal Pesan</th>
+                                        <th class="column-4">Status</th>
+                                        <th class="column-5">Action</th>
+                                    </tr>   
+                                    <c:forEach var="listPesanan" items="${listPesananDto}">
+                                        <tr class="table_row">  
+                                            <td class="column-1">${listPesanan.kode_pesanan}</td>
+                                            <td class="column-2">${listPesanan.total_pesanan}</td>
+                                            <td class="column-3">${listPesanan.tanggal_pesan}</td>
+                                            <td class="column-4">${listPesanan.status}</td>
+                                            <c:url var="pembayaran" value="/pembayaran.htm">
+                                                <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
+                                            </c:url>
+                                            <td class="column-5"><a class="btn btn-primary" href="${pembayaran}">BAYAR</a></td>
+                                        </tr> 
+                                    </c:forEach>
+>>>>>>> 58c6cf458f27af6cf5f2df8347834509740e0015
                                 </table>
 
                             </div>

@@ -336,7 +336,7 @@
             <div class="header-cart flex-col-l p-l-65 p-r-25">
                 <div class="header-cart-title flex-w flex-sb-m p-b-8">
                     <span class="mtext-103 cl2">
-                        Your Cart
+                        Keranjang
                     </span>
 
                     <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
@@ -373,34 +373,14 @@
                             Total : Rp.<fmt:formatNumber type="number" groupingUsed="true" value="${total}" />
                         </div>
 
-                        <div class="header-cart-buttons flex-w w-full">
-                            <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-                                View Cart
-                            </a>
-
-                            <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-                                Check Out
+                        <c:url var="detailCart" value="/detailKeranjang.htm"></c:url>
+                            <div class="header-cart-buttons flex-w w-full">
+                                <a href="${detailCart}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                                Lihat Keranjang
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-        <!-- breadcrumb -->
-        <div class="container">
-            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Home
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
-
-                <a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Shopping Cart
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
-
             </div>
         </div>
 
@@ -414,11 +394,11 @@
                                 <div class="wrap-table-shopping-cart">
                                     <table class="table-shopping-cart">
                                         <tr class="table_head">
-                                            <th class="column-2"></th>
-                                            <th class="column-1">Produk</th>
-                                            <th class="column-2"></th>
-                                            <th class="column-3">Harga</th>
-                                            <th class="column-4">Kuantitas</th>
+                                            <th class="column-1"></th>
+                                            <th class="column-2">Produk</th>
+                                            <th class="column-3"></th>
+                                            <th class="column-4">Harga</th>
+                                            <th class="column-5">Kuantitas</th>
                                             <th class="column-5">Total</th>
                                         </tr>
                                     <c:set var="totalCart" value="${0}"></c:set>
@@ -429,14 +409,14 @@
                                                 <td class="column-1">
                                                     <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual},'${listCart.kode_detail}','${listCart.kuantitas}');getAlamat(value,0);"/>
                                             </td>
-                                            <td class="column-1">
+                                            <td class="column-2">
                                                 <div class="how-itemcart1">
                                                     <img src="b/img/${listCart.gambar}" alt="IMG">
                                                 </div>
                                             </td>
-                                            <td class="column-2">${listCart.nama_produk}</td>
-                                            <td class="column-3"><fmt:formatNumber type="number" groupingUsed="true" value="${listCart.harga_jual}"/></td>
-                                            <td class="column-4">${listCart.kuantitas}</td>
+                                            <td class="column-3">${listCart.nama_produk}</td>
+                                            <td class="column-4"><fmt:formatNumber type="number" groupingUsed="true" value="${listCart.harga_jual}"/></td>
+                                            <td class="column-5">${listCart.kuantitas}</td>
                                             <td class="column-5"><fmt:formatNumber type="number" groupingUsed="true" value="${jumlah}"/></td>
 
                                         </tr>
@@ -659,9 +639,10 @@
                                     </table>
                                 </div>
                             </c:forEach>
-                            Harga Product : &nbsp<input type="label" id="hargaBarangz" value=""/>
-                            Harga Ongkir &nbsp: &nbsp<input type="label" id="ongkirz" value=""/>
-                            Harga total &nbsp&nbsp: &nbsp<input type="label" id="z" value="" />
+                            <br><br>
+                            Subtotal Produk : &nbsp<input type="label" id="hargaBarangz" value=""/><br>
+                            Subtotal pengiriman &nbsp: &nbsp<input type="label" id="ongkirz" value=""/><br>
+                            Total Pembayaran &nbsp&nbsp: &nbsp<input type="label" id="z" value="" /><br>
                         </div>
                         <form:form id="pesanan" action="savePesanan.htm" modelAttribute="pesananDto" method="POST">
                             <form:hidden path="total_pesanan" id="totalPesanan"></form:hidden>

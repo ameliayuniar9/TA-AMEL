@@ -71,5 +71,16 @@ public class DetailDaoImpl extends HibernateUtil implements DetailDao{
         dataList = query.list();
         return dataList;
     }
+
+    @Override
+    public List<Object[]> getListProdukByKategori(String kode_kategori) {
+        List<Object[]> listData = null;
+        String sql = "SELECT a.kode_detail, a.kode_produk,a.warna,a.gambar,a.stok,b.kode_kategori,b.nama_produk,\n" +
+                     "b.harga_jual,b.keterangan_produk FROM tb_detail a JOIN tb_produk b ON a.kode_produk=b.kode_produk JOIN\n" +
+                     "tb_kategori c ON b.kode_kategori=c.kode_kategori WHERE  c.kode_kategori=:id";
+        Query query = createNativeQuery(sql).setParameter("id", kode_kategori);
+        listData = query.list();
+        return listData;
+    }
     
 }
