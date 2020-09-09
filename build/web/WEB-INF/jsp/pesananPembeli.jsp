@@ -377,33 +377,7 @@
                         <div class="m-l-25 m-r--38 m-lr-0-xl">
                             <div class="wrap-table-shopping-cart">
                                 <table class="table-shopping-cart">
-<<<<<<< HEAD
                                     <thead>
-                                        <tr class="table_head">
-                                            <th class="column-1">Kode Pesanan</th>
-                                            <th class="column-2">Total Pesanan</th>
-                                            <th class="column-3">Tanggal Pesan</th>
-                                            <th class="column-4">Status</th>
-                                            <th class="column-5">Action</th>
-                                        </tr> </thead>
-                                    <tbody>
-                                        <c:set var="index" value="1"/>
-                                        <c:forEach var="listPesanan" items="${listPesananDto}">
-                                            <tr>  
-                                                <td>${index}</td>
-                                                <td>${listPesanan.kode_pesanan}</td>
-                                                <td>${listPesanan.total_pesanan}</td>
-                                                <td>${listPesanan.tanggal_pesan}</td>
-                                                <td>${listPesanan.status}</td>
-                                                <td><c:url var="upload" value="/uploadBuktiTransfer.htm">
-                                                     <c:param name="kode_pengeluaran" value="${listPengeluaran.kode_pengeluaran}"/>
-                                                    </c:url></td>
-                                                    <td align="center"><a class="btn btn-warning" href="${upload}">Bayar</a>
-                                            </tr>            
-                                            <c:set var="index" value="${index+1}"/>
-                                        </c:forEach>                          
-                                    </tbody>
-=======
                                     <tr class="table_head">
                                         <th class="column-1">Kode Pesanan</th>
                                         <th class="column-2">Total Pesanan</th>
@@ -411,6 +385,8 @@
                                         <th class="column-4">Status</th>
                                         <th class="column-5">Action</th>
                                     </tr>   
+                                    </thead>
+                                    <tbody>
                                     <c:forEach var="listPesanan" items="${listPesananDto}">
                                         <tr class="table_row">  
                                             <td class="column-1">${listPesanan.kode_pesanan}</td>
@@ -423,7 +399,7 @@
                                             <td class="column-5"><a class="btn btn-primary" href="${pembayaran}">BAYAR</a></td>
                                         </tr> 
                                     </c:forEach>
->>>>>>> 58c6cf458f27af6cf5f2df8347834509740e0015
+                                    </tbody>
                                 </table>
 
                             </div>

@@ -58,7 +58,7 @@
                             Selamat datang di Mostly Hijab. Selamat Berbelanja
                         </div>
 
-                        <div class="right-top-bar flex-w h-full">
+                        <div class="right-top-bar">
                             <c:url var="logout" value="/index.htm"></c:url>
                             <a href="${logout}" class="flex-c-m trans-04 p-lr-25">
                                 LOGOUT
@@ -117,10 +117,6 @@
 
                         <!-- Icon header -->
                         <div class="wrap-icon-header flex-w flex-r-m">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                <i class="zmdi zmdi-search"></i>
-                            </div>
-
                             <c:set var="listCart" value="${listCartDto}"/>
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
                                 <i class="zmdi zmdi-shopping-cart"></i>
