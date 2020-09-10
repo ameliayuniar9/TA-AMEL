@@ -1,5 +1,5 @@
 <%-- 
-    Document   : tabelDetail
+    Document   : tabelPesanan
     Created on : Jul 7, 2019, 12:45:44 AM
     Author     : HP
 --%>
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Tabel Detail</title>
+    <title>Tabel Pesanan</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -99,7 +99,6 @@
             border-collapse: collapse;
             width: 50%;
             border: 1px solid #f2f5f7;
-            margin-left:auto;margin-right:auto;
         }
 
         .table1 tr th{
@@ -165,23 +164,23 @@
                     <ul class="header-btns">
                         <!-- Account -->
                         <li class="header-account dropdown default-dropdown">
-                                <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon">
-                                        <i class="fa fa-user-o"></i>
-                                    </div>
-                                    <c:url var="login" value="/index.htm"></c:url>
-                                    <a href="${login}" class="text-uppercase">LOGOUT</a>
+                            <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-user-o"></i>
                                 </div>
-                                <!--<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
-                                <ul class="custom-menu">
-                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                    <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                    <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                    <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                                </ul>-->
-                            </li>
+                                <c:url var="login" value="/index.htm"></c:url>
+                                <a href="${login}" class="text-uppercase">LOGOUT</a>
+                            </div>
+                            <!--<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
+                            <ul class="custom-menu">
+                                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
+                                <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
+                                <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                                <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                            </ul>-->
+                        </li>
                         <!-- /Account -->
 
                         <!-- Cart -->
@@ -239,13 +238,13 @@
         <div class="container">
             <div id="responsive-nav">
                 <!-- category nav -->
-<!--                <div class="category-nav show-on-click">
-                    <span class="category-header">E-COMMERCE</span>
-                </div>-->
+                <!--                <div class="category-nav show-on-click">
+                                    <span class="category-header">E-COMMERCE</span>
+                                </div>-->
                 <!-- /category nav -->
 
                 <!-- menu nav -->
-                    <c:url var="home" value="/menuAdmin.htm"/>
+               <c:url var="home" value="/menuAdmin.htm"/>
                     <c:url var="produk" value="/tabelProduk.htm"/>
                     <c:url var="kategori" value="/tabelKategori.htm"/>
                     <c:url var="detail" value="/tabelDetail.htm"/>
@@ -300,49 +299,84 @@
 
     <!-- footer subscribe -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <c:url var="tambahDataDetail" value="/doTambahDataDetail.htm">        
-    </c:url>
-    <p align="center" style = "font-family:courier;"><u><a href="${tambahDataDetail}">Tambah</a></u></p>
-    <form>
-        <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Kode Produk"/><br><br></center>
-    </form>
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
-        <table  align="center" class="table1" border="1">
-            <thead>
-            <tr>
-                <th>No</th> 
-                <th>Kode Detail</th>
-                <th>Kode Produk</th>            
-                <th>Warna</th>
-                <th>Gambar</th>
-                <th>Stok</th>
-                <th colspan="2">action</th>
-            </tr></thead>
-            <tbody>
-            <c:set var="index" value="1"/>
-            <c:forEach var="listDetail" items="${listDetailDto}">
-                <tr>  
-                    <td>${index}</td>
-                    <td>${listDetail.kode_detail}</td>
-                    <td>${listDetail.kode_produk}</td>
-                    <td>${listDetail.warna}</td>
-                    <td>${listDetail.gambar}</td>
-                    <td>${listDetail.stok}</td>
-                    <c:url var="deleteDetail" value="/deleteDataDetail.htm">
-                        <c:param name="kode_detail" value="${listDetail.kode_detail}"/>
-                    </c:url>
-                    <c:url var="updateDetail" value="/getDataUpdateDetail.htm">
-                        <c:param name="kode_detail" value="${listDetail.kode_detail}"/>
-                    </c:url>
-                    <td><a href="${deleteDetail}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
-                    <td><a href="${updateDetail}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
-                </tr>            
-                <c:set var="index" value="${index+1}"/>
-            </c:forEach>
-            </tbody>
-        </table>
-    <!--</div>-->
+    <c:url var="tabelDetailPesanan" value="/tabelDetailPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan" value="/tabelPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan2" value="/tabelPesanan2.htm">        
+    </c:url>
+    <c:url var="tabelPesanan3" value="/tabelPesanan3.htm">        
+    </c:url>
+    <p align="center" style = "font-family:courier;"><u><a href="${tabelDetailPesanan}">Laporan Penjualan</a></u>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U><a href="${tabelPesanan}">Laporan Laba Rugi</a></u>
+    </p>
+    <div id="page-wrapper" >
+                <div id="page-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <center><h2 > Lihat Laporan<h2>   </center>
 
+                        </div>
+                    </div> 
+                    <!-- /. ROW  -->
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Form Select Laporan
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form role="form" action="getDataLaporan.htm" modelAttribute="laporanDto" method="GET">
+                                                <div class="form-group">
+                                                    <label>Select Tahun</label>
+                                                    <select class="form-control" path="tanggal_pesan" name="tanggal_pesan">
+                                                        <option value="" class="validate validate[required]"  selected="true" disabled="true">Pilih Tahun</option>
+                                                        <c:forEach var="kk" items="${listKk}">
+                                                            <option value="${kk.tanggal_pesan}">${kk.tanggal_pesan}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Select Bulan</label>
+                                                    <select class="form-control" path="bulan" name="bulan">                                                       
+                                                        <option value="" class="validate validate[required]" id="bulan" selected="true" disabled="true">Pilih Bulan</option>
+                                                        <option value="Januari"  id="bulan" >Januari</option>
+                                                        <option value="Februari"  id="bulan" >Februari</option>
+                                                        <option value="Maret"  id="bulan" >Maret</option>
+                                                        <option value="April"  id="bulan" >April</option>
+                                                        <option value="Mei"  id="bulan" >Mei</option>
+                                                        <option value="Juni"  id="bulan" >Juni</option>
+                                                        <option value="Juli"  id="bulan" >Juli</option>
+                                                        <option value="Agustus"  id="bulan" >Agustus</option>
+                                                        <option value="September"  id="bulan" >September</option>
+                                                        <option value="Oktober"  id="bulan" >Oktober</option>
+                                                        <option value="November"  id="bulan" >November</option>
+                                                        <option value="Desember"  id="bulan" >Desember</option>
+                                                    </select>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-success" value="1">Laporan Laba Rugi</button>
+                                                <button type="submit" class="btn btn-success" value="2">Laporan Penjualan</button>
+                                                <button type="reset" class="btn btn-primary">Reset</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <!-- /. ROW  -->
+
+
+                </div>
+            
+    <!--</div>-->
 <!-- jQuery Plugins -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -352,5 +386,6 @@
 <script src="js/main.js"></script>
 
 </body>
+
 </html>
 

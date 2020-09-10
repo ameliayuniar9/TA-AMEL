@@ -26,5 +26,8 @@ public interface PesananDao {
     public List<PesananModel> getListBelanjaByIdPembeli(String id_pembeli);
     public List<Object[]> getProdukForGrafik() throws Exception;
     public List<PesananModel> getListDataPesananByIdPembeli(String id)throws Exception;
+    public List<Object[]> getMakeLaporanPenjualan(String tanggal_transaksi, String bulan_transaksi) throws Exception;
+    public List<Object[]> getProdukTerjual(String tanggal_transaksi, String bulan_transaksi) throws Exception;
+    public List<Object[]> getTahunToMakeLaporan() throws Exception;
    
 }

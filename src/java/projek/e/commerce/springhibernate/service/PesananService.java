@@ -6,6 +6,7 @@
 package projek.e.commerce.springhibernate.service;
 
 import java.util.List;
+import projek.e.commerce.springhibernate.dto.LaporanDto;
 import projek.e.commerce.springhibernate.dto.PesananDto;
 
 /**
@@ -27,5 +28,8 @@ public interface PesananService {
     public void Reject(String kode_pesanan) throws Exception;
     public List <PesananDto> getBelanjaByIdPembeli(String id);
     public List<PesananDto> GrafikProdukToko() throws Exception;
-     public List <PesananDto> getListPesananByIdPembeli(String id);
+    public List <PesananDto> getListPesananByIdPembeli(String id);
+    public List <PesananDto> getMakeLaporanPenjualan(String tanggal_transaksi, String bulan_transaksi);
+    public List <PesananDto> getProdukTerjual(String tanggal_transaksi, String bulan_transaksi);
+    public List <PesananDto> getTahunToMakeLaporan() throws Exception;
 }
