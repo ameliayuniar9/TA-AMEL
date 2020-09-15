@@ -32,4 +32,5 @@ public interface PesananService {
     public List <PesananDto> getMakeLaporanPenjualan(String tanggal_transaksi, String bulan_transaksi);
     public List <PesananDto> getProdukTerjual(String tanggal_transaksi, String bulan_transaksi);
     public List <PesananDto> getTahunToMakeLaporan() throws Exception;
+    public List <PesananDto> getDetailPesanan(String kode_pesanan) throws Exception;
 }

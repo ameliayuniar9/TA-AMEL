@@ -231,6 +231,7 @@
                     <c:url var="pesanan" value="/tabelPesanan.htm"/>
                     <c:url var="akun" value="/tabelAkun.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -244,7 +245,8 @@
                             <li><a href="${pesanan}">Pesanan</a></li>
                             <li><a href="${akun}">Akun</a></li>
                             <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
+                            </li>
                         </ul>
                     </div>
                 <!-- menu nav -->
@@ -292,13 +294,13 @@
                                   <center>  
                                   
                                    <label style=" font-size: 20px">TOKO ONLINE HIJAB ITSMOSTLY</label><br>
-                                  <label style="font-size: 20px">Laporan Laba Rugi</label><br>
-                                  <label style="font-size: 20px">Periode ${periodeBulan} ${periodeTahun}</label>
+                                  <label style="font-size: 18px">Gang H Hambali 1 No 93B Kecamatan Cicendo Kota Bandung</label><br>
+                                  <label style="font-size: 20px">Laporan Laba Rugi Periode ${periodeBulan} ${periodeTahun}</label><br>
                                   </center>
                             <hr id="customers">
  
 <!--                            <label style="margin-left: 50px;font-size: 18px">Pendapatan atas Penjualan : </label><br>-->
-                                  
+                                  <center>
                             <table style="margin-left: 80px" border="0">
                                 <tr>
                                     <th width="20"></th>
@@ -334,7 +336,7 @@
                                     <tr>
                                         <td></td>
                                         <td align="center"><label style="font-size: 18px">${index1}</label></td>
-                                        <td colspan="3" ><label style="font-size: 18px">${listPengeluaran.deskripsi}</label></td>
+                                        <td colspan="3" ><label style="font-size: 18px">${listPengeluaran.nama_akun}</label></td>
                                         <td><label style="font-size: 18px">Rp. ${listPengeluaran.jumlah}</label></td>
                                     </tr>            
                                     <c:set var="index1" value="${index+1}"/>
@@ -349,13 +351,12 @@
                                    <td ><label style="margin-left: 50px;font-size: 18px" class="over">Rp. ${labaRugi}</label></td>
                                </tr> 
                                         
-                            </table>
-                          </div>
-
-                                <br> <br>
-                                <c:url var="owner" value="/owner.htm">        
+                            </table></center><br>
+                               <c:url var="owner" value="/owner.htm">        
                                 </c:url>
-                                <button id="print" class="btn btn-default btn-outline" style="margin-left:250px " type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button>
+                          <center><button id="print" class="btn btn-default btn-outline" style="margin-left:250px " type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button></center>
+                          </div><br>
+                                
                             
 
                           </div>

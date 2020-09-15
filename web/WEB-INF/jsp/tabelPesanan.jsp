@@ -254,6 +254,7 @@
                     <c:url var="pesanan" value="/tabelPesanan.htm"/>
                     <c:url var="akun" value="/tabelAkun.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -267,7 +268,8 @@
                             <li><a href="${pesanan}">Pesanan</a></li>
                             <li><a href="${akun}">Akun</a></li>
                             <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
+                            </li>
                         </ul>
                     </div>
                 <!-- menu nav -->
@@ -341,7 +343,7 @@
                     <c:url var="confirmPesanan" value="/updateConfirm.htm">
                         <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                     </c:url>
-                    <td><a class="btn btn-primary" href="${confirmPesanan}">Confirm</td>
+                    <td><a class="btn btn-primary" href="${confirmPesanan}">Konfirmasi</td>
                     <td><a class="btn btn-danger" href="${rejectPesanan}">Reject</td>
                 </tr>            
                 <c:set var="index" value="${index+1}"/>

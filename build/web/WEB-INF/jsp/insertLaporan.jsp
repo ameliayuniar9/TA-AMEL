@@ -254,6 +254,7 @@
                     <c:url var="pesanan" value="/tabelPesanan.htm"/>
                     <c:url var="akun" value="/tabelAkun.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -267,7 +268,8 @@
                             <li><a href="${pesanan}">Pesanan</a></li>
                             <li><a href="${akun}">Akun</a></li>
                             <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
+                            </li>
                         </ul>
                     </div>
                 <!-- menu nav -->
@@ -308,9 +310,6 @@
     </c:url>
     <c:url var="tabelPesanan3" value="/tabelPesanan3.htm">        
     </c:url>
-    <p align="center" style = "font-family:courier;"><u><a href="${tabelDetailPesanan}">Laporan Penjualan</a></u>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U><a href="${tabelPesanan}">Laporan Laba Rugi</a></u>
-    </p>
     <div id="page-wrapper" >
                 <div id="page-inner">
                     <div class="row">
@@ -330,6 +329,7 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <c:url var="lapPenjualan" value="/doSelectTahunLaporanPenjualan.htm"></c:url>
                                             <form role="form" action="getDataLaporan.htm" modelAttribute="laporanDto" method="GET">
                                                 <div class="form-group">
                                                     <label>Select Tahun</label>
@@ -360,7 +360,7 @@
                                                 </div>
 
                                                 <button type="submit" class="btn btn-success" value="1">Laporan Laba Rugi</button>
-                                                <button type="submit" class="btn btn-success" value="2">Laporan Penjualan</button>
+                                                <a href="${lapPenjualan}" class="btn btn-success" value="2">Laporan Penjualan</a>
                                                 <button type="reset" class="btn btn-primary">Reset</button>
                                             </form>
                                         </div>

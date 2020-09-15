@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Tabel Pesanan</title>
+    <title>Laporan Laba Rugi</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -97,18 +97,16 @@
             font-family: sans-serif;
             color: #444;
             border-collapse: collapse;
-            width: 50%;
-            border: 1px solid #f2f5f7;
+            border: 1px #32CD32;
         }
 
         .table1 tr th{
-            background: #FF69B4;
+            background: #32CD32;
             color: #fff;
             font-weight: normal;
         }
 
         .table1, th, td {
-            padding: 8px 20px;
             text-align: center;
         }
 
@@ -119,28 +117,16 @@
         .table1 tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        #input1 {
-            height: 20px;
-            width: 200px;
-            float: left;
-        }
-        #input2 {
-            height: 30px;
-            width: 200px;
-            float: left;
-        }
-        #butcar{
-            height: 30px;
-            width: 100px;
-            font-size: 15px;
-            border-radius: 15px;
-            background-color: greenyellow;
-            vertical-align: bottom;
-        }
-        #butcar:hover{
-            background-color: yellow;
-        }
     </style>
+
+        <style type="text/css">
+            .under { text-decoration: underline; }
+            .over  { text-decoration: overline; }
+            .line  { text-decoration: line-through; }
+            .blink { text-decoration: blink; }
+            .all   { text-decoration: underline overline line-through; }
+            a      { text-decoration: none; }
+        </style>
 
 </head>
 
@@ -254,6 +240,7 @@
                     <c:url var="pesanan" value="/tabelPesanan.htm"/>
                     <c:url var="akun" value="/tabelAkun.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -267,7 +254,8 @@
                             <li><a href="${pesanan}">Pesanan</a></li>
                             <li><a href="${akun}">Akun</a></li>
                             <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
+                            </li>
                         </ul>
                     </div>
                 <!-- menu nav -->
@@ -308,65 +296,58 @@
     </c:url>
     <c:url var="tabelPesanan3" value="/tabelPesanan3.htm">        
     </c:url>
-    <p align="center" style = "font-family:courier;"><u><a href="${tabelDetailPesanan}">Laporan Penjualan</a></u>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<U><a href="${tabelPesanan}">Laporan Laba Rugi</a></u>
-    </p>
-    <div id="page-wrapper" >
-                <div id="page-inner">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <center><h2 > Lihat Laporan<h2>   </center>
+    <div class="row">
+                        <div class="table1">
+                          <div class="card card-body printableArea">
+                              <div id="lap">
+                                  <center>  
+                                  
+                                   <label style=" font-size: 20px">TOKO ONLINE HIJAB ITSMOSTLY</label><br>
+                                  <label style="font-size: 18px">Gang H Hambali 1 No 93B Kecamatan Cicendo Kota Bandung</label><br>
+                                  <label style="font-size: 20px">Laporan Penjualan Periode ${periodeBulan} ${periodeTahun}</label><br>
+                                  </center>
+                            <hr id="customers">
+ 
+<!--                            <label style="margin-left: 50px;font-size: 18px">Pendapatan atas Penjualan : </label><br>-->
+                                  
+                          <table align="center" border="1" id="table1">
+                                <tr>
+                                    <th width="50" style="font-size: 20px">NO</th>
+                                    <th width="200" style="font-size: 20px">TANGGAL PESAN</th>
+                                    <th width="200" style="font-size: 20px">KODE DETAIL</th>
+                                    <th width="300" style="font-size: 20px">NAMA PRODUK</th>
+                                    <th width="130" style="font-size: 20px">KUANTITAS</th>
+                                    <th width="200" style="font-size: 20px">TOTAL PESAN</th>
+                                    
+                                </tr>
+                                <c:set var="index" value="1"/>
+                                <c:forEach var="listProduk" items="${listProdukDto}">
+                                    <tr>  
+                                        <td  align="center"><label style="font-size: 18px">${index}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.tanggal_pesan}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.kode_detail}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.nama_produk}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.kuantitas}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.total_pesanan}</label></td>
+                                        
+                                    </tr> 
+                                    <c:set var="index" value="${index+1}"/>
+                                </c:forEach>  
+                                     <tr>  
+                                        <td  align="center" colspan="2"><label style="font-size: 18px">TOTAL</label></td>
+                                        <td align="center"colspan="3"><label style="font-size: 18px"></label></td>
+                                        <td align="center"><label style="font-size: 18px">${totalPesanan}</label></td>
+                                    </tr> 
+                            </table>
+                          </div>
 
-                        </div>
-                    </div> 
-                    <!-- /. ROW  -->
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    Form Select Laporan
-                                </div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <form role="form" action="getDataLaporan.htm" modelAttribute="laporanDto" method="GET">
-                                                <div class="form-group">
-                                                    <label>Select Produk</label>
-                                                    <select class="form-control" path="tanggal_penjualan" name="tanggal_penjualan">
-                                                        <option value="" class="validate validate[required]"  selected="true" disabled="true">Pilih Tahun</option>
-                                                        <c:forEach var="kk" items="${listKk}">
-                                                            <option value="${kk.tanggal_penjualan}">${kk.tanggal_penjualan}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Select Produk</label>
-                                                    <select class="form-control" path="bulan" name="bulan">                                                       
-                                                        <option value="" class="validate validate[required]" id="bulan" selected="true" disabled="true">Pilih Bulan</option>
-                                                        <option value="Januari"  id="bulan" >Januari</option>
-                                                        <option value="Februari"  id="bulan" >Februari</option>
-                                                        <option value="Maret"  id="bulan" >Maret</option>
-                                                        <option value="April"  id="bulan" >April</option>
-                                                        <option value="Mei"  id="bulan" >Mei</option>
-                                                        <option value="Juni"  id="bulan" >Juni</option>
-                                                        <option value="Juli"  id="bulan" >Juli</option>
-                                                        <option value="Agustus"  id="bulan" >Agustus</option>
-                                                        <option value="September"  id="bulan" >September</option>
-                                                        <option value="Oktober"  id="bulan" >Oktober</option>
-                                                        <option value="November"  id="bulan" >November</option>
-                                                        <option value="Desember"  id="bulan" >Desember</option>
-                                                    </select>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-success">Submit</button>
-                                                <button type="reset" class="btn btn-primary">Reset</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                <br> <br>
+                                <c:url var="owner" value="/owner.htm">        
+                                </c:url>
+                                <center><button id="print" class="btn btn-default btn-outline" style="margin-left:250px " type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button></center>
                             
+
+                          </div>
                         </div>
 
                     </div>
@@ -383,7 +364,29 @@
 <script src="js/nouislider.min.js"></script>
 <script src="js/jquery.zoom.min.js"></script>
 <script src="js/main.js"></script>
-
+<script src="js/jquery.PrintArea.js" type="text/JavaScript"></script>                       
+            <script>
+                 $(document).ready(function() {
+                    $("#print").click(function() {
+                        var mode = 'iframe'; //popup
+                        var close = mode == "popup";
+                        var options = {
+                            mode: mode,
+                            popClose: close
+                        };
+                        $("div.printableArea").printArea(options);
+                    });
+                 });
+            </script>
+            <script>
+                function printContent(el){
+                        var restorepage = document.body.innerHTML;
+                        var printcontent = document.getElementById(el).innerHTML;
+                        document.body.innerHTML = printcontent;
+                        window.print();
+                        document.body.innerHTML = restorepage;
+                }
+	</script>
 </body>
 
 </html>

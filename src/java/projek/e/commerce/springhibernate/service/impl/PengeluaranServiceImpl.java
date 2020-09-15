@@ -165,7 +165,9 @@ public class PengeluaranServiceImpl implements PengeluaranService{
                 for(Object[] model : listData){
                     pengeluaranDto = new PengeluaranDto();
                     pengeluaranDto.setJumlah(Integer.parseInt(model[0].toString()));
-                    pengeluaranDto.setDeskripsi(model[1].toString());
+                    System.out.println("asdjasdkjlashdfjsadhfj");
+                    System.out.println((Integer.parseInt(model[0].toString())));
+                    pengeluaranDto.setNama_akun(model[1].toString());
                     
                     listDataDto.add(pengeluaranDto);   
                 }

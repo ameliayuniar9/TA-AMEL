@@ -256,5 +256,31 @@ public class PenerimaServiceImpl implements PenerimaService{
         }        
         return listDataDto;
     }
+
+    @Override
+    public List<PenerimaDto> getPenerimaByKodePesanan(String kode_pesanan) throws Exception{
+        List <PenerimaDto> listDataDto = new ArrayList<>();
+        List <Object[]> listData = penerimaDao.getAlamatPenerima(kode_pesanan);
+        PenerimaDto penerimaDto = null;
+        try {
+            if(listData != null){
+                for(Object[] model : listData){
+                    penerimaDto = new PenerimaDto();
+                    penerimaDto.setNama_penerima(model[0].toString());
+                    penerimaDto.setNo_telp(model[1].toString());
+                    penerimaDto.setProvinsi(model[2].toString());
+                    penerimaDto.setKabupaten(model[3].toString());
+                    penerimaDto.setKecamatan(model[4].toString());
+                    penerimaDto.setAlamat_lengkap(model[5].toString());
+                    
+                    
+                    listDataDto.add(penerimaDto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
     
 }
