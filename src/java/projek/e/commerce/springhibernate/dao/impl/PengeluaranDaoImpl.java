@@ -75,7 +75,7 @@ public class PengeluaranDaoImpl extends HibernateUtil implements PengeluaranDao{
     @Override
     public List<Object[]> getExpenseValueToMakeLaporan(String tanggal_transaksi, String bulan_transaksi) throws Exception {
         List<Object[]> listData = null;
-        String sql = "SELECT SUM(IF( YEAR(a.tanggal) =:thn AND MONTH(a.tanggal) =:bln, jumlah, 0)) AS total, b.nama_akun \n" +
+        String sql = "SELECT SUM(IF( YEAR(a.tanggal) =:thn AND MONTH(a.tanggal) =:bln, jumlah, 0)) AS total, b.nama_akun " +
                      "FROM tb_pengeluaran a , tb_akun b WHERE a.status='Approved' and a.kode_akun=b.kode_akun GROUP BY a.kode_akun";
         Query query = createNativeQuery(sql).setParameter("thn", tanggal_transaksi);
         query.setParameter("bln", bulan_transaksi);

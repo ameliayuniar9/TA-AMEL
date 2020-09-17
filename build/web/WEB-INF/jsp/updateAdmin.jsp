@@ -49,7 +49,7 @@
                     <!-- Logo -->
                     <div class="header-logo">
                         <a class="logo" href="#">
-                            <img src="./a/img/logo.png" alt="">
+                            <img src="./a/img/logo mostly.png" alt="">
                         </a>
                     </div>
                     <!-- /Logo -->
@@ -140,8 +140,9 @@
                 <!-- /category nav -->
 
                 <!-- menu nav -->
-               <c:url var="home" value="/menuOwner.htm"/>
+              <c:url var="home" value="/menuOwner.htm"/>
                     <c:url var="admin" value="/tabelAdmin.htm"/>
+                    <c:url var="produk" value="/tabelProdukForOwner.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaranForOwner.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
@@ -155,10 +156,9 @@
                             <li><a href="#"></a></li>
                             <li><a href="#"></a></li>
                             <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
                             <li><a href="${home}">Home</a></li>
                             <li><a href="${admin}">Akun Admin</a></li>
+                            <li><a href="${produk}">Data Produk</a></li>
                             <li><a href="${pengeluaran}">Data Pengeluaran</a></li>
                             <li><a href="#">Laporan</a></li>
                         </ul>

@@ -18,6 +18,7 @@ import projek.e.commerce.springhibernate.dto.PesananDto;
 import projek.e.commerce.springhibernate.model.PesananModel;
 import projek.e.commerce.springhibernate.dao.PesananDao;
 import projek.e.commerce.springhibernate.dto.KategoriDto;
+import projek.e.commerce.springhibernate.dto.LaporanDto;
 import projek.e.commerce.springhibernate.service.PesananService;
 
 /**
@@ -147,18 +148,19 @@ public class PesananServiceImpl implements PesananService{
 
     @Override
     public void saveDataBelanja(PesananDto belanjaDto,String id_pembeli) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         PesananModel dataModel = new PesananModel();
         List<PesananModel> listData=belanjaDao.getListDataBelanja();
         int a=0;
         for(PesananModel model : listData){
             String tam=model.getKode_pesanan();
-            String tamp=tam.substring(4);
+            String tamp=tam.substring(8);
             if(a<Integer.parseInt(tamp)){
                 a=Integer.parseInt(tamp);
             }
         }
         a+=1;
-        String kode_bel="PEN-"+a+"";
+        String kode_bel=sdf.format(new Date())+a+"";
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         dataModel.setKode_pesanan(kode_bel);
         dataModel.setId_pembeli(id_pembeli);
@@ -467,4 +469,94 @@ public class PesananServiceImpl implements PesananService{
         }        
         return listDataDto; 
     }
+
+    @Override
+    public List<PesananDto> getMakeLaporanPenjualan(String tanggal_transaksi, String bulan_transaksi) {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        PesananDto pesananDto = null;
+        try {
+           List <Object[]> listData = belanjaDao.getMakeLaporanPenjualan(tanggal_transaksi, bulan_transaksi);
+           if(listData != null){
+                for(Object[] model : listData){
+                    pesananDto = new PesananDto();
+                    pesananDto.setKode_detail(model[0].toString());
+                    pesananDto.setNama_produk(model[1].toString());
+                    pesananDto.setKuantitas(Integer.parseInt(model[2].toString()));
+                    pesananDto.setTotal_pesanan(Integer.parseInt(model[3].toString()));
+                    pesananDto.setTanggal_pesan(model[4].toString());
+                    
+                    listDataDto.add(pesananDto);   
+                }
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
+
+    @Override
+    public List<PesananDto> getProdukTerjual(String tanggal_transaksi, String bulan_transaksi) {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        PesananDto pesananDto = null;
+        try {
+           List <Object[]> listData = belanjaDao.getProdukTerjual(tanggal_transaksi, bulan_transaksi);
+           if(listData != null){
+                for(Object[] model : listData){
+                    pesananDto = new PesananDto();
+                    pesananDto.setNama_produk(model[0].toString().toLowerCase());
+                    pesananDto.setTotal_pesanan(Integer.parseInt(model[1].toString()));
+                    
+                    listDataDto.add(pesananDto);   
+                }
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
+
+    @Override
+    public List<PesananDto> getTahunToMakeLaporan() throws Exception {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        PesananDto laporanDto = null;
+        try {
+           List <Object[]> listData = belanjaDao.getTahunToMakeLaporan();
+           System.out.println(listData);
+           if(listData != null){
+                for(Object[] model : listData){
+                    laporanDto = new PesananDto();
+                    laporanDto.setTanggal_pesan(model[1].toString());
+                   
+                    listDataDto.add(laporanDto);   
+                }
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
+
+    @Override
+    public List<PesananDto> getDetailPesanan(String kode_pesanan) throws Exception {
+        List <PesananDto> listDataDto = new ArrayList<>();
+        PesananDto pesananDto = null;
+        try {
+           List <Object[]> listData = belanjaDao.getDetailPesanan(kode_pesanan);
+           if(listData != null){
+                for(Object[] model : listData){
+                    pesananDto = new PesananDto();
+                    pesananDto.setKode_pesanan(model[0].toString());
+                    pesananDto.setNama_produk(model[1].toString().toLowerCase());
+                    pesananDto.setKuantitas(Integer.parseInt(model[2].toString()));
+                    
+                    listDataDto.add(pesananDto);   
+                }
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
+    
+   
 }

@@ -49,6 +49,7 @@ import projek.e.commerce.springhibernate.dto.DetailDto;
 import projek.e.commerce.springhibernate.dto.DetailPesananDto;
 import projek.e.commerce.springhibernate.dto.KecamatanDto;
 import projek.e.commerce.springhibernate.dto.KotaDto;
+import projek.e.commerce.springhibernate.dto.LaporanDto;
 import projek.e.commerce.springhibernate.dto.ListKodeDto;
 import projek.e.commerce.springhibernate.dto.PenerimaDto;
 import projek.e.commerce.springhibernate.dto.PengeluaranDto;
@@ -719,9 +720,13 @@ public class ECommerceController {
     }
     
     @RequestMapping(value = "/cetak", method = RequestMethod.GET)
-    public String viewCetak(ModelMap model){
+    public String viewCetak(String kode_pesanan,ModelMap model) throws Exception{
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         model.addAttribute("listCartDto", listCartDto);
+        List<PenerimaDto> listPenerima=penerimaService.getPenerimaByKodePesanan(kode_pesanan);
+        List<PesananDto> listProduk=pesananService.getDetailPesanan(kode_pesanan);
+        model.addAttribute("listPenerimaDto",listPenerima);
+        model.addAttribute("listProdukDto",listProduk);
         return "cetakAlamatPenerima";
     }
     
@@ -1396,5 +1401,147 @@ public class ECommerceController {
     public String getDataGrafik() throws Exception {
         List<PesananDto> listGrafik = pesananService.GrafikProdukToko();
         return new Gson().toJson(listGrafik);
+    }
+    
+    @RequestMapping(value = "/getDataLaporan", method = RequestMethod.GET)
+    public String getDataLaporan(LaporanDto laporanDto, ModelMap model) throws Exception {
+        try {
+            String bulan="";
+            if(laporanDto.getBulan().equalsIgnoreCase("Januari")){
+                bulan = "01";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Februari")){
+                bulan = "02"; 
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Maret")){
+                bulan = "03";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("April")){
+                bulan  = "04";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Mei")){
+                bulan = "05";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Juni")){
+                bulan = "06";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Juli")){
+                bulan = "07";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Agustus")){
+                bulan = "08";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("September")){
+                bulan = "09";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Oktober")){
+                bulan = "10";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Novenber")){
+                bulan = "11";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Desember")){
+                bulan = "12";
+            }
+           // String tahunBulan = customerDto.getTanggal_penjualan()+"-"+bulan+"%";
+            String periodeTahun = laporanDto.getTanggal_penjualan();
+            List<PesananDto> listProdukDto =pesananService.getProdukTerjual("2020","09");
+            model.addAttribute("listProdukDto", listProdukDto);
+            model.addAttribute("periodeBulan", laporanDto.getBulan());
+            model.addAttribute("periodeTahun", periodeTahun);
+            int jmlPenjualan=0;
+            for(PesananDto pesanan : listProdukDto){
+                jmlPenjualan+=pesanan.getTotal_pesanan();
+            }
+            model.addAttribute("totalPenjualan", jmlPenjualan);
+            
+            List<PengeluaranDto> listPengeluaranDto = pengeluaranService.doGetDataLaporanPengeluaran("2020","09");
+            model.addAttribute("listPengeluaranDto", listPengeluaranDto);
+            int jmlPengeluaran=0;
+            for(PengeluaranDto pengeluaran : listPengeluaranDto){
+                jmlPengeluaran+=pengeluaran.getJumlah();
+            }
+            model.addAttribute("totalPengeluaran", jmlPengeluaran);
+            model.addAttribute("labaRugi", jmlPenjualan-jmlPengeluaran);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "laporanLabaRugi";
+    }
+    
+    @RequestMapping(value = "/getDataLaporanPenjualan", method = RequestMethod.GET)
+    public String getDataLaporanPenjualan(LaporanDto laporanDto, ModelMap model) throws Exception {
+        try {
+            String bulan="";
+            if(laporanDto.getBulan().equalsIgnoreCase("Januari")){
+                bulan = "01";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Februari")){
+                bulan = "02"; 
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Maret")){
+                bulan = "03";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("April")){
+                bulan  = "04";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Mei")){
+                bulan = "05";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Juni")){
+                bulan = "06";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Juli")){
+                bulan = "07";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Agustus")){
+                bulan = "08";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("September")){
+                bulan = "09";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Oktober")){
+                bulan = "10";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Novenber")){
+                bulan = "11";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Desember")){
+                bulan = "12";
+            }
+           // String tahunBulan = customerDto.getTanggal_penjualan()+"-"+bulan+"%";
+            String periodeTahun = laporanDto.getTanggal_penjualan();
+            List<PesananDto> listProdukDto =pesananService.getMakeLaporanPenjualan("2020","09");
+            model.addAttribute("listProdukDto", listProdukDto);
+            model.addAttribute("periodeBulan", laporanDto.getBulan());
+            model.addAttribute("periodeTahun", periodeTahun);
+            int jmlPesanan=0;
+            for(PesananDto pesanan : listProdukDto ){
+                jmlPesanan+=pesanan.getTotal_pesanan();
+            }
+            model.addAttribute("totalPesanan", jmlPesanan);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "laporanPenjualan";
+    }
+    
+    @RequestMapping(value = "/doSelectTahunLaporan", method = RequestMethod.GET)
+    public String doSelectTahunLaporan(String value,ModelMap model) {
+        PesananDto dto = null;
+        List<PesananDto > listTahun = null;
+        try {
+            dto = new PesananDto();
+            model.addAttribute("laporanDto", dto);
+            listTahun = pesananService.getTahunToMakeLaporan();
+            model.addAttribute("listKk", listTahun);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "insertLaporan";
+    }
+    
+    @RequestMapping(value = "/doSelectTahunLaporanPenjualan", method = RequestMethod.GET)
+    public String doSelectTahunLaporanPenjualan(String value,ModelMap model) {
+        PesananDto dto = null;
+        List<PesananDto > listTahun = null;
+        try {
+            dto = new PesananDto();
+            model.addAttribute("laporanDto", dto);
+            listTahun = pesananService.getTahunToMakeLaporan();
+            model.addAttribute("listKk", listTahun);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "insertLaporanPenjualan";
+    }
+    
+    @RequestMapping(value = "/tabelProdukForOwner", method = RequestMethod.GET)
+    public String viewtabel(ModelMap model,String id_pembeli,NotivDto notivDto){
+        try {
+            List<DetailDto> listDetailDto = detailService.getListDetail();
+            model.addAttribute("listDetailDto", listDetailDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+        return "tabelProdukForOwner";
     }
 }

@@ -151,5 +151,55 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         }
         return listData;
     }
+
+    @Override
+    public List<Object[]> getMakeLaporanPenjualan(String tanggal_transaksi, String bulan_transaksi) throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT c.kode_detail,CONCAT(b.nama_produk,' ',a.warna) AS produk,SUM(c.kuantitas) AS kuantitas,SUM(d.total_pesanan) AS total,d.tanggal_pesan " +
+                     "FROM tb_detail_pesanan c JOIN tb_detail a " +
+                     "ON a.kode_detail=c.kode_detail JOIN tb_produk b ON a.kode_produk=b.kode_produk " +
+                     "JOIN tb_pesanan d ON c.kode_pesanan=d.kode_pesanan WHERE d.status='SUDAH BAYAR' AND YEAR(tanggal_pesan)=:thn " +
+                     "AND MONTH(tanggal_pesan)=:bln " +
+                     "GROUP BY c.kode_detail ORDER BY d.tanggal_pesan ASC";
+        Query query = createNativeQuery(sql).setParameter("thn", tanggal_transaksi);
+        query.setParameter("bln", bulan_transaksi);
+        listData = query.list();
+        return listData;
+    }
+
+    @Override
+    public List<Object[]> getProdukTerjual(String tanggal_transaksi, String bulan_transaksi) throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT CONCAT(b.nama_produk,' ',a.warna) AS produk,SUM(d.total_pesanan) AS total " +
+                     "FROM tb_detail_pesanan c JOIN tb_detail a " +
+                     "ON a.kode_detail=c.kode_detail JOIN tb_produk b ON a.kode_produk=b.kode_produk " +
+                     "JOIN tb_pesanan d ON c.kode_pesanan=d.kode_pesanan WHERE d.status='SUDAH BAYAR' AND YEAR(tanggal_pesan)=:thn " +
+                     "AND MONTH(tanggal_pesan)=:bl " +
+                     "GROUP BY c.kode_detail ORDER BY d.tanggal_pesan ASC";
+        Query query = createNativeQuery(sql).setParameter("thn", tanggal_transaksi);
+        query.setParameter("bl", bulan_transaksi);
+        listData = query.list();
+        return listData;
+    }
+
+    @Override
+    public List<Object[]> getTahunToMakeLaporan() throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT DISTINCT kode_pesanan,YEAR(tanggal_pesan) as tahun FROM tb_pesanan WHERE STATUS='SUDAH BAYAR' GROUP BY YEAR(tanggal_pesan) ";
+        Query query = createNativeQuery(sql);
+        listData = query.list();
+        return listData;
+    }
+
+    @Override
+    public List<Object[]> getDetailPesanan(String kode_pesanan) throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT a.kode_pesanan,CONCAT(b.nama_produk,' ',c.warna) AS produk,d.kuantitas FROM tb_pesanan a " +
+                     "JOIN tb_detail_pesanan d ON a.kode_pesanan=d.kode_pesanan JOIN tb_detail c " +
+                     "ON c.kode_detail=d.kode_detail JOIN tb_produk b ON c.kode_produk=c.kode_produk WHERE a.kode_pesanan=:kode GROUP BY c.kode_detail ";
+        Query query = createNativeQuery(sql).setParameter("kode", kode_pesanan);
+        listData = query.list();
+        return listData;
+    }
     
 }

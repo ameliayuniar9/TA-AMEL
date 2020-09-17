@@ -206,10 +206,6 @@
 
                         <!-- Icon header -->
                         <div class="wrap-icon-header flex-w flex-r-m">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                <i class="zmdi zmdi-search"></i>
-                            </div>
-
                             <c:set var="listCart" value="${listCartDto}"/>
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
                                 <i class="zmdi zmdi-shopping-cart"></i>
@@ -639,10 +635,61 @@
                                     </table>
                                 </div>
                             </c:forEach>
-                            <br><br>
-                            Subtotal Produk : &nbsp<input type="label" id="hargaBarangz" value=""/><br>
-                            Subtotal pengiriman &nbsp: &nbsp<input type="label" id="ongkirz" value=""/><br>
-                            Total Pembayaran &nbsp&nbsp: &nbsp<input type="label" id="z" value="" /><br>
+                            
+                            <table>
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td>    </td>
+                                    <td>  </td>
+                                    <td>   </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Subtotal Produk</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>:</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><input type="label" id="hargaBarangz" value=""/></td>
+                                    
+                                </tr>
+                                 <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Subtotal pengiriman</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>:</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><input type="label" id="ongkirz" value=""/></td>
+                                    
+                                </tr>
+                                 <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Total Pembayaran</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>:</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><input type="label" id="z" value="" /></td>
+                                    
+                                </tr>
+                            </table>
                         </div>
                         <form:form id="pesanan" action="savePesanan.htm" modelAttribute="pesananDto" method="POST">
                             <form:hidden path="total_pesanan" id="totalPesanan"></form:hidden>

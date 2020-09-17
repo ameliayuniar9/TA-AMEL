@@ -140,7 +140,7 @@
                 <!-- /category nav -->
 
                 <!-- menu nav -->
-                <c:url var="home" value="/menuAdmin.htm"/>
+               <c:url var="home" value="/menuAdmin.htm"/>
                     <c:url var="produk" value="/tabelProduk.htm"/>
                     <c:url var="kategori" value="/tabelKategori.htm"/>
                     <c:url var="detail" value="/tabelDetail.htm"/>
@@ -148,9 +148,9 @@
                     <c:url var="ongkir" value="/tabelOngkir.htm"/>
                     <c:url var="ulasan" value="/tabelUlasan.htm"/>
                     <c:url var="pesanan" value="/tabelPesanan.htm"/>
-                    <c:url var="detailPesanan" value="/tabelDetailPesanan.htm"/>
                     <c:url var="akun" value="/tabelAkun.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -162,10 +162,10 @@
                             <li><a href="${ongkir}">Ongkir</a></li>
                             <li><a href="${ulasan}">Ulasan</a></li>
                             <li><a href="${pesanan}">Pesanan</a></li>
-                            <li><a href="${detailPesanan}">Pesanan</a></li>
                             <li><a href="${akun}">Akun</a></li>
                             <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
+                            </li>
                         </ul>
                     </div>
                 <!-- menu nav -->

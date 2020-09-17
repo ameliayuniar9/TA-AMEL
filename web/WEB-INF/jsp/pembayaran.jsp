@@ -39,6 +39,34 @@
         <link rel="stylesheet" type="text/css" href="b/css/util.css">
         <link rel="stylesheet" type="text/css" href="b/css/main.css">
         <!--===============================================================================================-->
+        <style type="text/css">
+            .table1 {
+    font-family: sans-serif;
+    color: #444;
+    border-collapse: collapse;
+    width: 50%;
+    height: 50%;
+    border: 1px solid #f2f5f7;
+}
+ 
+.table1 tr th{
+    background: #FF69B4;
+    color: #fff;
+    font-weight: normal;
+}
+ 
+.table1, th, td {
+    padding: 30px 20px;
+}
+ 
+.table1 tr:hover {
+    background-color: #f5f5f5;
+}
+ 
+.table1 tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+        </style>
     </head>
     <body class="animsition">
 
@@ -135,9 +163,9 @@
                     </div>
 
                     <c:set var="listCart" value="${listCartDto}"/>
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </div>
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                    </div>
                 </div>
 
                 <!-- Button show menu -->
@@ -219,7 +247,7 @@
         <div class="wrap-header-cart js-panel-cart">
             <div class="s-full js-hide-cart"></div>
 
-             <div class="header-cart flex-col-l p-l-65 p-r-25">
+            <div class="header-cart flex-col-l p-l-65 p-r-25">
                 <div class="header-cart-title flex-w flex-sb-m p-b-8">
                     <span class="mtext-103 cl2">
                         Keranjang
@@ -281,47 +309,47 @@
 
         <!-- Content page -->
         <section class="bg0 p-t-75 p-b-120">
-            <div class="container">
-                <div class="row p-b-148">
-                    <div class="col-md-7 col-lg-8">
-                        <div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
-                           <center/> <h3 class="mtext-111 cl2 p-b-16">
+            <!--<div class="container">-->
+                <!--<div class="row p-b-148">-->
+                    <!--<div class="col-md-7 col-lg-8">-->
+                        <!--<div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">-->
+                            <center/> <h3 class="mtext-111 cl2 p-b-16">
                                 Pembayaran Pesanan
                             </h3>
 
-                            
-           <form:form id="pesanan" action="updatePesanan.htm" modelAttribute="pesananDto" method="POST" enctype="multipart/form-data">
-            <center>        <form:hidden path="kode_pesanan" value="${pesananDto.kode_pesanan}"></form:hidden>
-                            <form:hidden path="id_pembeli" value="${pesananDto.id_pembeli}"></form:hidden>
-                            <form:hidden path="total_pesanan" value="${pesananDto.total_pesanan}"></form:hidden>
-                            <form:hidden path="tanggal_pesan" value="${pesananDto.tanggal_pesan}"></form:hidden>
-                            <form:hidden path="status" value="${pesananDto.status}"></form:hidden>
-                            <form:hidden path="id_penerima" value="${pesananDto.id_penerima}"></form:hidden>
-                <table border="2">
-                    <tr>
-                        <td colspan="3">KONFIRMASI PEMBAYARAN KODE PESANAN ${pesananDto.kode_pesanan}</td>
-                    </tr>
-                    <tr>
-                        <td>TOTAL PESANAN</td>
-                        <td>&nbsp;&nbsp;</td>
-                        <td>${pesananDto.total_pesanan}</td>
-                    </tr>
-                    <tr>
-                        <td>BUKTI TRANSFER</td>
-                        <td>&nbsp;&nbsp;</td>
-                        <td><div class="form-group">
-                                <form:input type="file" path="file" id="input-file-now" class="dropify"  name="file" />
-                            </div></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <center/><form:button class="primary-btn" type="submit"><b>SIMPAN DATA</b></form:button>
-                        </td>
-                    </tr></table>
-                </form:form>
-                        </div>
-                    </div>
-            </div>
+
+                            <form:form id="pesanan" action="updatePesanan.htm" modelAttribute="pesananDto" method="POST" enctype="multipart/form-data">
+                                <center><form:hidden path="kode_pesanan" value="${pesananDto.kode_pesanan}"></form:hidden></center>
+                                    <form:hidden path="id_pembeli" value="${pesananDto.id_pembeli}"></form:hidden>
+                                    <form:hidden path="total_pesanan" value="${pesananDto.total_pesanan}"></form:hidden>
+                                    <form:hidden path="tanggal_pesan" value="${pesananDto.tanggal_pesan}"></form:hidden>
+                                    <form:hidden path="status" value="${pesananDto.status}"></form:hidden>
+                                    <form:hidden path="id_penerima" value="${pesananDto.id_penerima}"></form:hidden>
+                                        <table  class="table1">
+                                            <tr>
+                                                <th colspan="3" style="text-align:center;">KONFIRMASI PEMBAYARAN KODE PESANAN : ${pesananDto.kode_pesanan}</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:center;">TOTAL PESANAN</td>
+                                                <td>:</td>
+                                                <td>${pesananDto.total_pesanan}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:center;">BUKTI TRANSFER</td>
+                                                <td>:</td>
+                                                <td><div class="form-group">
+                                                    <form:input type="file" path="file" id="input-file-now" class="dropify"  name="file" />
+                                                </div></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                <center/><form:button class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10" type="submit"><b>SIMPAN DATA</b></form:button>
+                                            </td>
+                                            </tr></table>
+                                    </form:form>
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
         </section>	
 
         <!-- Footer -->
