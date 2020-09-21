@@ -133,6 +133,7 @@ public class CartServiceImpl implements CartService{
                             cartDto.setNama_produk(prod.getNama_produk());
                             cartDto.setGambar(listDataDetail.getGambar());
                             cartDto.setHarga_jual(prod.getHarga_jual());
+                            cartDto.setBerat(prod.getBerat());
                         }
                     }
                     if(model.getId_pembeli()!= null){

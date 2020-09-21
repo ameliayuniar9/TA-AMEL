@@ -11,6 +11,7 @@
 
 <script type="text/javascript">
     // Get the checkboxs
+    
     function getCheckbox() {
         var checkBox = document.getElementById("myCheck");
         var label = document.getElementById("myTotal");
@@ -32,7 +33,13 @@
     var yyy;
     var zzz;
     var vvv;
-    function getKodeCart(kode_cart, total,kode_detail,jumlah_belanja) {
+    var beratbarang=0;
+    var ongkosKirim=0;
+   
+    function getKodeCart(kode_cart, total,kode_detail,jumlah_belanja,berat,kuantitas) {
+        var xD= document.getElementById("ongkirz");
+        var CD= document.getElementById("a123");
+        var yy= document.getElementById("beratBarangz");
         var checkBox = document.getElementById(kode_cart);
         var label = document.getElementById("myTotal");
         var labelPs = document.getElementById("totalPesanan");
@@ -57,7 +64,8 @@
                 jumlahBelanjaList[0] = jumlah_belanja;
             } else
                 jumlahBelanjaList[jumlahBelanjaList.length] = jumlah_belanja;
-            tamp += total; 
+            tamp += total;
+            beratbarang+=(berat*kuantitas);
         } else {
             for (let i = 0; i < kodeCartList.length; i++) {
                 if (kodeCartList[i] == kode_cart) {
@@ -68,7 +76,8 @@
                     totalHarga.splice(i, 1);
                 }
             }
-        
+            
+            beratbarang-=(berat*kuantitas);
         }
         vvv=totalHarga.toString();
         xxx=kodeCartList.toString();
@@ -79,19 +88,39 @@
         kodeChart.value = xxx;
         kodeDetail.value = yyy;
         jumlahBelanja.value = zzz;
-        harga.value=vvv;
+        var barangberat=(beratbarang/1000).toFixed(0);
+        harga.value=vvv*barangberat;
+        CD.value=barangberat*ongkosKirim;
+        console.log(CD.value);
+        var xD1= document.getElementById("ongkirz1");
+        xD1.value=CD.value.toString();
+        xD.style.display="block";
+        xD1.style.display="none";
+        yy.value=barangberat;
+        var z= document.getElementById("z");
+        var y= document.getElementById("hargaBarangz").value;
+        z.value=xD1.value+y;
         return kodeCartList;
     }
-    
     var accept=false;
-    function getAlamat(id_penerima,ongkir) {
+    function getAlamat(id_penerima,ongkir,berat) {
+        if(ongkir!=0){
+            ongkosKirim=ongkir;
+        }
+        var xD= document.getElementById("ongkirz");
+        var xD1= document.getElementById("ongkirz1");
+        xD1.style.display="block";
+        console.log("getAlamat"+ongkosKirim);
         document.getElementById("id_penerima").value = id_penerima;
-        var x = document.getElementById("ongkirz");
         var y= document.getElementById("hargaBarangz");
         var z= document.getElementById("z");
         var labelPs = document.getElementById("totalPesanan");
-        x.value=ongkir;
+        var barangberat=(beratbarang/1000).toFixed(0);
+        xD1.style.display="block";
+        xD.style.display="none";
+        xD.value=ongkir*barangberat;
         y.value=tamp;
+        
         z.value=tamp+ongkir;
         labelPs.value=tamp+ongkir;
     }
@@ -363,7 +392,7 @@
                                 </li>
                         </c:forEach>
                     </ul>
-
+                        <input tytype="label" id="a123" hidden/>
                     <div class="w-full">
                         <div class="header-cart-total w-full p-tb-40">
                             Total : Rp.<fmt:formatNumber type="number" groupingUsed="true" value="${total}" />
@@ -403,7 +432,7 @@
                                             <c:set var="jumlah" value="${listCart.kuantitas*listCart.harga_jual}"></c:set>
 
                                                 <td class="column-1">
-                                                    <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual},'${listCart.kode_detail}','${listCart.kuantitas}');getAlamat(value,0);"/>
+                                                    <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual},'${listCart.kode_detail}','${listCart.kuantitas}',${listCart.berat},${listCart.kuantitas});getAlamat(value,0,${listCart.berat});"/>
                                             </td>
                                             <td class="column-2">
                                                 <div class="how-itemcart1">
@@ -611,7 +640,7 @@
                                 <div class="size-212 p-t-2">
                                     <table>
                                         <tr>
-                                            <td><input type="radio" name="alamat" onclick="getAlamat(value,${listPenerima.harga});" value="${listPenerima.id_penerima}" checked></td>
+                                            <td><input type="radio" name="alamat" onclick="getAlamat(value,${listPenerima.harga},-1);" value="${listPenerima.id_penerima}" checked></td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
                                             <td>
                                                 <strong>${listPenerima.nama_penerima}</strong>
@@ -652,6 +681,22 @@
                                     
                                 </tr>
                                 <tr>
+                                    <td>Berat Produk</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>:</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><input type="label" id="beratBarangz" value=""/></td>
+                                    <td>&nbsp;&nbsp;Kg</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                                <tr>
                                     <td>Subtotal Produk</td>
                                     <td>&nbsp;&nbsp;</td>
                                     <td>:</td>
@@ -671,7 +716,7 @@
                                     <td>&nbsp;&nbsp;</td>
                                     <td>:</td>
                                     <td>&nbsp;&nbsp;</td>
-                                    <td><input type="label" id="ongkirz" value=""/></td>
+                                    <td><input type="label" id="ongkirz" value="" style="display: none"/><input type="label" id="ongkirz1" value="" style="display: block"/></td>
                                     
                                 </tr>
                                  <tr>
