@@ -499,11 +499,36 @@ public class ECommerceController {
     }
     
     @RequestMapping(value = "/updatePesanan", method = RequestMethod.POST)
-    public String editData(PesananDto pesananDto,String kode_pesanan,ModelMap model) throws Exception{
-        PesananDto pesananDtoUpdate =pesananService.getUpdateDataBelanja(kode_pesanan);
-        model.addAttribute("pesananDto", pesananDtoUpdate);
-        pesananService.doUpdateDataBelanja(pesananDto);
-        return "redirect:settingAddress.htm?id_pembeli="+id;
+    public String editData(PesananDto pesananDto) throws Exception{
+         if (!pesananDto.getFile().isEmpty()) {
+            try {
+                byte[] bytes = pesananDto.getFile().getBytes();
+//                ServletContext context = session.getServletContext();  
+//                String rootPath = context.getRealPath("/b/img");
+                String rootPath = "E:\\Amelia\\E-Commerce\\web\\b\\img\\pembayaran" ;
+                // Creating the directory to store file
+                //String rootPath = "E:\\file" ;
+                File dir = new File(rootPath);//rootPath itu url nya..
+                if (!dir.exists())
+                        dir.mkdirs();//mkdirs() untuk membuat sebuah direktori baru, terdapat pd klas file
+                
+                File serverFile = new File(dir.getAbsolutePath()
+                                + File.separator + pesananDto.getFile().getOriginalFilename());
+                try (BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile)) //pembacaan data binary dari sebuah file
+                ) {
+                    stream.write(bytes);      
+                }
+                
+                ModelAndView mdl = new ModelAndView();
+                pesananService.doUpdateDataBelanja(pesananDto);
+                return "redirect:pesananPembeli.htm";
+            } catch (Exception e) {
+                    return "gagal upload " + pesananDto.getFile().getName() + " => " + e.getMessage();
+            }
+        } else {
+                return "file kosong " + pesananDto.getFile().getName();
+        }
     }
     
     @RequestMapping(value = "/saveProduk", method = RequestMethod.POST)
@@ -961,7 +986,7 @@ public class ECommerceController {
                         cek=1;
                         akses=ddm.getAkses();
                         pp=ddm.getId_pembeli(); 
-                        return"redirect:menuBaru.htm?id_pembeli="+pp;
+                        return"redirect:home.htm?id_pembeli="+pp;
                     }                        
                 }
             }
@@ -991,7 +1016,7 @@ public class ECommerceController {
                         model.addAttribute("listPembeliDtoSelect", dto);             
                         dd=pembeliService.getDataId(formDto.getUsername(),formDto.getPassword());
                         pp=dd.getId_pembeli();
-                        u="menuBaru.htm?id_pembeli="+pp;
+                        u="home.htm?id_pembeli="+pp;
                         
                 }
             }
@@ -1403,6 +1428,61 @@ public class ECommerceController {
         return new Gson().toJson(listGrafik);
     }
     
+    @RequestMapping(value = "/getDataLaporanOwner", method = RequestMethod.GET)
+    public String getDataLaporanOwner(LaporanDto laporanDto, ModelMap model) throws Exception {
+        try {
+            String bulan="";
+            if(laporanDto.getBulan().equalsIgnoreCase("Januari")){
+                bulan = "01";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Februari")){
+                bulan = "02"; 
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Maret")){
+                bulan = "03";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("April")){
+                bulan  = "04";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Mei")){
+                bulan = "05";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Juni")){
+                bulan = "06";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Juli")){
+                bulan = "07";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Agustus")){
+                bulan = "08";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("September")){
+                bulan = "09";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Oktober")){
+                bulan = "10";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Novenber")){
+                bulan = "11";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Desember")){
+                bulan = "12";
+            }
+           // String tahunBulan = customerDto.getTanggal_penjualan()+"-"+bulan+"%";
+            String periodeTahun = laporanDto.getTanggal_penjualan();
+            List<PesananDto> listProdukDto =pesananService.getProdukTerjual("2020","09");
+            model.addAttribute("listProdukDto", listProdukDto);
+            model.addAttribute("periodeBulan", laporanDto.getBulan());
+            model.addAttribute("periodeTahun", periodeTahun);
+            int jmlPenjualan=0;
+            for(PesananDto pesanan : listProdukDto){
+                jmlPenjualan+=pesanan.getTotal_pesanan();
+            }
+            model.addAttribute("totalPenjualan", jmlPenjualan);
+            
+            List<PengeluaranDto> listPengeluaranDto = pengeluaranService.doGetDataLaporanPengeluaran("2020","09");
+            model.addAttribute("listPengeluaranDto", listPengeluaranDto);
+            int jmlPengeluaran=0;
+            for(PengeluaranDto pengeluaran : listPengeluaranDto){
+                jmlPengeluaran+=pengeluaran.getJumlah();
+            }
+            model.addAttribute("totalPengeluaran", jmlPengeluaran);
+            model.addAttribute("labaRugi", jmlPenjualan-jmlPengeluaran);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "laporanLabaRugiOwner";
+    }
+    
     @RequestMapping(value = "/getDataLaporan", method = RequestMethod.GET)
     public String getDataLaporan(LaporanDto laporanDto, ModelMap model) throws Exception {
         try {
@@ -1458,6 +1538,52 @@ public class ECommerceController {
         return "laporanLabaRugi";
     }
     
+    @RequestMapping(value = "/getDataLaporanPenjualanOwner", method = RequestMethod.GET)
+    public String getDataLaporanPenjualanOwner(LaporanDto laporanDto, ModelMap model) throws Exception {
+        try {
+            String bulan="";
+            if(laporanDto.getBulan().equalsIgnoreCase("Januari")){
+                bulan = "01";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Februari")){
+                bulan = "02"; 
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Maret")){
+                bulan = "03";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("April")){
+                bulan  = "04";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Mei")){
+                bulan = "05";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Juni")){
+                bulan = "06";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Juli")){
+                bulan = "07";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Agustus")){
+                bulan = "08";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("September")){
+                bulan = "09";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Oktober")){
+                bulan = "10";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Novenber")){
+                bulan = "11";
+            }else if(laporanDto.getBulan().equalsIgnoreCase("Desember")){
+                bulan = "12";
+            }
+           // String tahunBulan = customerDto.getTanggal_penjualan()+"-"+bulan+"%";
+            String periodeTahun = laporanDto.getTanggal_penjualan();
+            List<PesananDto> listProdukDto =pesananService.getMakeLaporanPenjualan("2020","09");
+            model.addAttribute("listProdukDto", listProdukDto);
+            model.addAttribute("periodeBulan", laporanDto.getBulan());
+            model.addAttribute("periodeTahun", periodeTahun);
+            int jmlPesanan=0;
+            for(PesananDto pesanan : listProdukDto ){
+                jmlPesanan+=pesanan.getTotal_pesanan();
+            }
+            model.addAttribute("totalPesanan", jmlPesanan);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "laporanPenjualanOwner";
+    }
+    
     @RequestMapping(value = "/getDataLaporanPenjualan", method = RequestMethod.GET)
     public String getDataLaporanPenjualan(LaporanDto laporanDto, ModelMap model) throws Exception {
         try {
@@ -1504,6 +1630,21 @@ public class ECommerceController {
         return "laporanPenjualan";
     }
     
+    @RequestMapping(value = "/doSelectTahunLaporanOwner", method = RequestMethod.GET)
+    public String doSelectTahunLaporanOwner(String value,ModelMap model) {
+        PesananDto dto = null;
+        List<PesananDto > listTahun = null;
+        try {
+            dto = new PesananDto();
+            model.addAttribute("laporanDto", dto);
+            listTahun = pesananService.getTahunToMakeLaporan();
+            model.addAttribute("listKk", listTahun);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "insertLaporanOwner";
+    }
+    
     @RequestMapping(value = "/doSelectTahunLaporan", method = RequestMethod.GET)
     public String doSelectTahunLaporan(String value,ModelMap model) {
         PesananDto dto = null;
@@ -1517,6 +1658,21 @@ public class ECommerceController {
             e.printStackTrace();
         }
         return "insertLaporan";
+    }
+    
+    @RequestMapping(value = "/doSelectTahunLaporanPenjualanOwner", method = RequestMethod.GET)
+    public String doSelectTahunLaporanPenjualanOwner(String value,ModelMap model) {
+        PesananDto dto = null;
+        List<PesananDto > listTahun = null;
+        try {
+            dto = new PesananDto();
+            model.addAttribute("laporanDto", dto);
+            listTahun = pesananService.getTahunToMakeLaporan();
+            model.addAttribute("listKk", listTahun);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "insertLaporanPenjualanOwner";
     }
     
     @RequestMapping(value = "/doSelectTahunLaporanPenjualan", method = RequestMethod.GET)
@@ -1543,5 +1699,48 @@ public class ECommerceController {
             e.printStackTrace();
         } 
         return "tabelProdukForOwner";
+    }
+    
+    @RequestMapping(value = "/deleteDataKeranjang", method = RequestMethod.GET)
+    public String hapusData3(String kode_cart, ModelMap model) throws Exception{        
+        cartService.deleteDataCart(kode_cart);
+        return "redirect:menuBaru.htm";
+    }
+    
+    @RequestMapping(value = "/deleteDataPenerima", method = RequestMethod.GET)
+    public String hapusData4(String id_penerima, ModelMap model) throws Exception{        
+        penerimaService.deleteDataPenerima(id_penerima);
+        return "redirect:detailKeranjang.htm";
+    }
+    
+    @RequestMapping(value = "/getDataUpdatePenerima", method = RequestMethod.GET)
+    public String getUpdateDataPenerima(String id_penerima, ModelMap model) throws Exception{
+        PenerimaDto penerimaDto =penerimaService.getUpdateDataPenerima(id_penerima);
+        KategoriDto dto = null;     
+        dto = new KategoriDto();
+       
+        List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
+        List<PenerimaDto> listPenerimaDto=penerimaService.getListPenerimaById(id);
+        List<ProvinsiDto> listProvinsi = provinsiService.getListProvinsi();
+        List<KotaDto> listKota=kotaService.getListKota();
+        List<KecamatanDto> listKecamatan=kecamatanService.getListKecamatan();
+        try {
+            model.addAttribute("listCartDto", listCartDto);
+            model.addAttribute("kategoriDto", dto);
+            model.addAttribute("penerimaDto", penerimaDto);
+            model.addAttribute("listPenerimaDto", listPenerimaDto);
+            model.addAttribute("listProvinsi", listProvinsi);
+            model.addAttribute("listKota", listKota);
+            model.addAttribute("listKecamatan", listKecamatan);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "updatePenerima";
+    }
+    
+    @RequestMapping(value = "/updatePenerima", method = RequestMethod.POST)
+    public String editData1(PenerimaDto penerimaDto) throws Exception{
+        penerimaService.doUpdateDataPenerima(penerimaDto);
+        return "redirect:detailKeranjang.htm";
     }
 }

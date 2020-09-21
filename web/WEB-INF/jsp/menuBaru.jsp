@@ -259,9 +259,14 @@
                         <ul class="header-cart-wrapitem w-full">
                         <c:forEach var="listCart" items="${listCartDto}">
                             <li class="header-cart-item flex-w flex-t m-b-12">
-                                <div class="header-cart-item-img">
-                                    <img src="b/img/${listCart.gambar}" alt="IMG">
-                                </div>
+                                <c:url var="deleteCart" value="/deleteDataKeranjang.htm">
+                                    <c:param name="kode_cart" value="${listCart.kode_cart}"/>
+                                </c:url>
+                                <a href="${deleteCart}"><div class="header-cart-item-img">
+                                    
+                                        <img src="b/img/${listCart.gambar}" alt="IMG">
+                                    
+                                </div></a>  
 
                                 <div class="header-cart-item-txt p-t-8">
                                     <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">

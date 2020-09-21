@@ -203,11 +203,11 @@
                             </c:if>
                             <br><br>
                         </div>
-                            <div class="col-md-9 pl-5">
-                                <div class="ml-5">
+                            <!--<div class="col-md-9 pl-5">-->
+                                <center><div class="col-md-9 ">
                                     <canvas id="chart2" height="150" ></canvas>
-                                </div>
-                            </div>
+                                    </div></center>
+                            <!--</div>-->
                     <!--</div>-->
                     <!-- /banner -->
                 <!--</div>-->

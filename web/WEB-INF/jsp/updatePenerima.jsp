@@ -381,76 +381,6 @@
         </div>
 
         <!-- Shoping Cart -->
-        <form class="bg0 p-t-75 p-b-85">
-            <div class="container">
-                <div class="row">
-                    <c:set var="total1" value="${0}"></c:set>
-                        <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-                            <div class="m-l-25 m-r--38 m-lr-0-xl">
-                                <div class="wrap-table-shopping-cart">
-                                    <table class="table-shopping-cart">
-                                        <tr class="table_head">
-                                            <th class="column-1"></th>
-                                            <th class="column-2">Produk</th>
-                                            <th class="column-3"></th>
-                                            <th class="column-4">Harga</th>
-                                            <th class="column-5">Kuantitas</th>
-                                            <th class="column-5">Total</th>
-                                        </tr>
-                                    <c:set var="totalCart" value="${0}"></c:set>
-                                    <c:forEach var="listCart" items="${listCartDto}">
-                                        <tr class="table_row">
-                                            <c:set var="jumlah" value="${listCart.kuantitas*listCart.harga_jual}"></c:set>
-
-                                                <td class="column-1">
-                                                    <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual},'${listCart.kode_detail}','${listCart.kuantitas}');getAlamat(value,0);"/>
-                                            </td>
-                                            <td class="column-2">
-                                                <div class="how-itemcart1">
-                                                    <img src="b/img/${listCart.gambar}" alt="IMG">
-                                                </div>
-                                            </td>
-                                            <td class="column-3">${listCart.nama_produk}</td>
-                                            <td class="column-4"><fmt:formatNumber type="number" groupingUsed="true" value="${listCart.harga_jual}"/></td>
-                                            <td class="column-5">${listCart.kuantitas}</td>
-                                            <td class="column-5"><fmt:formatNumber type="number" groupingUsed="true" value="${jumlah}"/></td>
-
-                                        </tr>
-                                    </c:forEach>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-                        <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-                            <h4 class="mtext-109 cl2 p-b-30">
-                                TOTAL KERANJANG
-                            </h4>
-
-                            <!--<form action="/saveList.htm" method="POST">-->
-                            <div class="flex-w flex-t p-t-27 p-b-33">
-                                <div class="size-208">
-                                    <span class="mtext-110 cl2">
-                                        <input type="text"  type="text" value="0" id="myTotal" name="total">
-                                    </span>
-                                </div>
-                            </div>
-
-
-
-                            <%--<form:input path="nama_kategori" class="input"/>--%>
-                            <%--<c:url var="address" value="/settingAddress.htm"></c:url>--%>
-                            <!--<a href="${address}" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">-->
-                            <!--</a>-->
-
-                            <!--<input type="submit" value="PESAN" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"/></p>-->
-                            <!--</form>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>	
         <script>
             function isikota()
             {
@@ -559,19 +489,21 @@
             <div class="container">
                 <div class="flex-w flex-tr">
                     <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                        <form:form id="penerima" action="savePenerima.htm" modelAttribute="penerimaDto" method="POST">
+                        <form:form id="penerima" action="updatePenerima.htm" modelAttribute="penerimaDto" method="POST">
                             <h4 class="mtext-105 cl2 txt-center p-b-30">
-                                Tambah Alamat
+                                Update Alamat
                             </h4>
+                            <form:hidden path="id_penerima" value="${penerimaDto.id_penerima}" />
+                            <form:hidden path="id_pembeli" value="${penerimaDto.id_pembeli}" />
 
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="nama_penerima" placeholder="Nama Penerima/Nama Toko"/>
+                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="nama_penerima" value="${penerimaDto.nama_penerima}" placeholder="Nama Penerima/Nama Toko"/>
                             </div>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="no_telp" placeholder="Nomor Telepon"/>
+                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="no_telp" value="${penerimaDto.no_telp}" placeholder="Nomor Telepon"/>
                             </div>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:select  path="provinsi" name="provinsi_filter" id="id_provinsi" onchange="isikota()" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30">
+                                <form:select  path="provinsi" name="provinsi_filter" id="id_provinsi" onchange="isikota()" value="${penerimaDto.provinsi}" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30">
                                     <form:option value="0">-- Pilih Provinsi --</form:option>
                                     <c:forEach var="prov"  items="${listProvinsi}">
                                         <form:option  value="${prov.id_provinsi}">${prov.nama}</form:option>
@@ -580,17 +512,17 @@
                                     
                             </div>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:select path="kabupaten" name="kota_filter" id="id_kota" onchange="isikecamatan()" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30">
+                                <form:select path="kabupaten" name="kota_filter" id="id_kota" onchange="isikecamatan()" value="${penerimaDto.kabupaten}" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30">
                                     <form:option value="0" disabled="true" selected="true">-- Pilih Kabupaten/Kota --</form:option>
                                 </form:select>
                             </div>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:select name="kecamatan_filter" id="id_kecamatan" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" path="kecamatan">
+                                <form:select name="kecamatan_filter" id="id_kecamatan" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" value="${penerimaDto.kecamatan}" path="kecamatan">
                                     <form:option value="0" disabled="true" selected="true">-- Pilih Kecamatan --</form:option>
                                 </form:select>
                             </div>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-25" path="alamat_lengkap" placeholder="Alamat Lengkap"/>
+                                <form:input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-25" path="alamat_lengkap" value="${penerimaDto.alamat_lengkap}" placeholder="Alamat Lengkap"/>
                             </div>
 
                             <form:button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
@@ -600,122 +532,6 @@
                     </div>
                     <h3 id="hasilProv" style="text-decoration: blink;"></h3>
         <h3 id="hasilKota"></h3>
-
-                    <div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
-                        <div class="flex-w w-full p-b-42">
-                            <!--                            <span class="fs-18 cl5 txt-center size-211">
-                                                            <span class="lnr lnr-map-marker"></span>
-                                                        </span>-->
-
-                            <c:forEach var="listPenerima" items="${listPenerimaDto}">
-                                <div class="size-212 p-t-2">
-                                    <table>
-                                        <tr>
-                                            <td><input type="radio" name="alamat" onclick="getAlamat(value,${listPenerima.harga});" value="${listPenerima.id_penerima}" checked></td>
-                                            <td>&nbsp;&nbsp;&nbsp;</td>
-                                            <td>
-                                                <strong>${listPenerima.nama_penerima}</strong>
-                                            </td>
-                                            <c:url var="deletePenerima" value="/deleteDataPenerima.htm">
-                                                <c:param name="id_penerima" value="${listPenerima.id_penerima}"/>
-                                            </c:url>
-                                            <c:url var="updatePenerima" value="/getDataUpdatePenerima.htm">
-                                                <c:param name="id_penerima" value="${listPenerima.id_penerima}"/>
-                                            </c:url>
-                                            <td>&nbsp;&nbsp;&nbsp;</td>
-                                            <td>&nbsp;&nbsp;&nbsp;</td>
-                                            <td><a href="${deletePenerima}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
-                                            <td><a href="${updatePenerima}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>&nbsp;&nbsp;&nbsp;</td>
-                                            <td>${listPenerima.no_telp}<td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>&nbsp;&nbsp;&nbsp;</td>
-                                            <td>${listPenerima.alamat_lengkap} , ${listPenerima.kabupaten}<td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>&nbsp;&nbsp;&nbsp;</td>
-                                            <td>${listPenerima.provinsi}<td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </c:forEach>
-                            
-                            <table>
-                                <tr>
-                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td>    </td>
-                                    <td>  </td>
-                                    <td>   </td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>Subtotal Produk</td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td>:</td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td><input type="label" id="hargaBarangz" value=""/></td>
-                                    
-                                </tr>
-                                 <tr>
-                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>Subtotal pengiriman</td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td>:</td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td><input type="label" id="ongkirz" value=""/></td>
-                                    
-                                </tr>
-                                 <tr>
-                                    <td>&nbsp;&nbsp;&nbsp;</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>Total Pembayaran</td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td>:</td>
-                                    <td>&nbsp;&nbsp;</td>
-                                    <td><input type="label" id="z" value="" /></td>
-                                    
-                                </tr>
-                            </table>
-                        </div>
-                        <form:form id="pesanan" action="savePesanan.htm" modelAttribute="pesananDto" method="POST">
-                            <form:hidden path="total_pesanan" id="totalPesanan"></form:hidden>
-                            <form:hidden path="kodeChart" id="kodeCharts"></form:hidden>
-                            <form:hidden path="kode_detail" id="kode_details"></form:hidden>
-                            <form:hidden path="jumlah_belanja" id="jumlahbelanjas"></form:hidden>
-                            <form:hidden path="harga" id="hargas"></form:hidden>
-                            <form:hidden path="id_penerima" id="id_penerima"></form:hidden>
-                            <form:button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"  type="submit"><b>PESAN</b></form:button>
-                        </form:form>
-                        <%--<c:url var="savePesanan" value="/settingAddress.htm"></c:url>--%>
-                        <!--<a href="${savePesanan}" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">-->
-                        <!--Pesan-->
-                        <!--</a>-->
-
-                    </div>
                 </div>
         </section>
 

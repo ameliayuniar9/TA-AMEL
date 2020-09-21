@@ -99,9 +99,10 @@
                         </a>
 
                         <!-- Menu desktop -->
-                        <c:url var="home" value="/home.htm"/>
+                         <c:url var="home" value="/home.htm"/>
                         <c:url var="produk" value="/menuBaru.htm"/>
                         <c:url var="tentang" value="/tentang.htm"/>
+                        <c:url var="billings" value="/pesananPembeli.htm"/>
                         <!-- Menu desktop -->
                         <div class="menu-desktop">
                             <ul class="main-menu">
@@ -130,6 +131,9 @@
                                         <li><a href="https:wa.me/6285892166671" target="_blank"><image src="./b/images/icons/wa.png" width="30px" height="30px"> P. Jawa</a></li>
                                         <li><a href="https:wa.me/6285871109169" target="_blank"><image src="./b/images/icons/wa.png" width="30px" height="30px"> Luar P. Jawa</a>
                                     </ul>
+                                </li>
+                                <li>
+                                    <a href="${billings}">Pesanan</a>
                                 </li>
                             </ul>
                         </div>		

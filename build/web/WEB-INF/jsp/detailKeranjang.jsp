@@ -615,7 +615,17 @@
                                             <td>&nbsp;&nbsp;&nbsp;</td>
                                             <td>
                                                 <strong>${listPenerima.nama_penerima}</strong>
-                                                </span></td>
+                                            </td>
+                                            <c:url var="deletePenerima" value="/deleteDataPenerima.htm">
+                                                <c:param name="id_penerima" value="${listPenerima.id_penerima}"/>
+                                            </c:url>
+                                            <c:url var="updatePenerima" value="/getDataUpdatePenerima.htm">
+                                                <c:param name="id_penerima" value="${listPenerima.id_penerima}"/>
+                                            </c:url>
+                                            <td>&nbsp;&nbsp;&nbsp;</td>
+                                            <td>&nbsp;&nbsp;&nbsp;</td>
+                                            <td><a href="${deletePenerima}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
+                                            <td><a href="${updatePenerima}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
                                         </tr>
                                         <tr>
                                             <td></td>

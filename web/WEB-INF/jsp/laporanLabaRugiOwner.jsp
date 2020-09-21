@@ -1,5 +1,5 @@
 <%-- 
-    Document   : tabelProduk
+    Document   : tabelPesanan
     Created on : Jul 7, 2019, 12:45:44 AM
     Author     : HP
 --%>
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Tabel Produk</title>
+    <title>Laporan Laba Rugi</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -41,7 +41,8 @@
     <!--[if lt IE 9]>
               <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-            <![endif]--><script type="text/javascript">
+            <![endif]-->
+    <script type="text/javascript">
             $(document).ready(function () {
                 // Activate tooltips
                 $('[data-toggle="tooltip"]').tooltip();
@@ -51,7 +52,7 @@
                     var term = $(this).val().toLowerCase();
                     $("table tbody tr").each(function () {
                         $row = $(this);
-                        var name = $row.find("td:nth-child(4)").text().toUpperCase();
+                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
                         console.log(name);
                         if (name.search(term) < 0) {
                             $row.hide();
@@ -62,84 +63,61 @@
                 });
             });
         </script>
-    <style type="text/css">
-        .searchNama{
-            width: 130px;
-            box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            background-color: white;
-            background-image: url('./b/images/icons/search.png');
-            background-position: 10px 10px; 
-            background-repeat: no-repeat;
-            background-size: 30px 30px;
-            padding: 12px 20px 12px 40px;
-            -webkit-transition: width 0.4s ease-in-out;
-            transition: width 0.4s ease-in-out;
-        }
-        .searchNama:focus{
-            width: 50%;
-        }
-        #tombol{
-            padding: 15px 50px;
-            background: red;
-            color: white;
-            display: table;
-            transition: .3s ease-in;
-        }
-        #tombol:hover{
-            background: black;
-        }
+    <style>
+            #customers {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 50%;
+                padding-top: 5px;
+            }
 
-        .table1 {
-            font-family: sans-serif;
-            color: #444;
-            border-collapse: collapse;
-            width: 90%;
-            border: 1px solid #f2f5f7;
-        }
+            #customers td, #customers th {
+                border: 1px solid #FFFFFF;
+                padding: 5px;
+            }
 
-        .table1 tr th{
-            background: #FF69B4;
-            color: #fff;
-            font-weight: normal;
-        }
+            #customers tr:nth-child(even){background-color: #FFFFFF;}
 
-        .table1, th, td {
-            padding: 8px 20px;
-            text-align: center;
-        }
+            #customers tr:hover {background-color: #ddd; padding-top: 5px}
 
-        .table1 tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        .table1 tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        #input1 {
-            height: 20px;
-            width: 200px;
-            float: left;
-        }
-        #input2 {
-            height: 30px;
-            width: 200px;
-            float: left;
-        }
-        #butcar{
-            height: 30px;
-            width: 100px;
-            font-size: 15px;
-            border-radius: 15px;
-            background-color: greenyellow;
-            vertical-align: bottom;
-        }
-        #butcar:hover{
-            background-color: yellow;
-        }
-    </style>
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: center;
+                background-color: #FFFFFF;
+                color: white;
+            }
+             #customers hr {
+                padding-bottom: 12px;
+                text-align: center;
+                border: 1px solid #000000;
+                padding: 100px;
+                
+            }
+            p {
+                text-indent: 280px;
+                font-size: 13px;
+                
+            }
+            
+            h6 {
+                text-indent: 300px;
+                font-size: 13px;
+                
+            }
+            h5{
+                word-spacing: 5px;
+                letter-spacing: 2px;
+            }
+        </style>
+        <style type="text/css">
+            .under { text-decoration: underline; }
+            .over  { text-decoration: overline; }
+            .line  { text-decoration: line-through; }
+            .blink { text-decoration: blink; }
+            .all   { text-decoration: underline overline line-through; }
+            a      { text-decoration: none; }
+        </style>
 
 </head>
 
@@ -248,7 +226,7 @@
                     <c:url var="admin" value="/tabelAdmin.htm"/>
                     <c:url var="produk" value="/tabelProdukForOwner.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaranForOwner.htm"/>
-                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporanOwner.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -263,8 +241,7 @@
                     <!-- menu nav -->
                 </div>
             </div>
-            <!-- /container -->
-    <!-- /NAVIGATION -->
+        <!-- /NAVIGATION -->
 
 
     <!-- section -->
@@ -288,41 +265,97 @@
 
     <!-- footer subscribe -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <form>
-        <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Nama Produk"/><br><br></center>
-    </form>
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
-        <table  align="center" class="table1" border="1">
-            <thead> <tr>
-                <th>No</th> 
-                <th>Kode Detail</th>            
-                <th>Kode Kategori</th>            
-                <th>Nama Produk</th>
-                <th>Harga Jual</th>            
-                <th>Warna</th> 
-                <th>Gambar</th>            
-                <th>Stok</th>    
-            </tr></thead>
-            <tbody>
-            <c:set var="index" value="1"/>
-            <c:forEach var="listProduk" items="${listDetailDto}">
-                <tr>  
-                    <td>${index}</td>
-                    <td>${listProduk.kode_detail}</td>
-                    <td>${listProduk.kode_kategori}</td>
-                    <td>${listProduk.nama_produk}</td>
-                    <td>${listProduk.harga_jual}</td>
-                    <td>${listProduk.warna}</td>
-                    <td><a class="image-popup-vertical-fit" href="b/img/${listProduk.gambar}" >  <img src="b/img/${listProduk.gambar}" style="height: 50px; width: 75px"/></a></td>
-                    <td>${listProduk.stok}</td>
-                </tr>            
-                <c:set var="index" value="${index+1}"/>
-            </c:forEach>
-            </tbody>
-        </table>
-    <!--</div>-->
-</div>
+    <c:url var="tabelDetailPesanan" value="/tabelDetailPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan" value="/tabelPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan2" value="/tabelPesanan2.htm">        
+    </c:url>
+    <c:url var="tabelPesanan3" value="/tabelPesanan3.htm">        
+    </c:url>
+    <div class="row">
+                        <div class="customers">
+                          <div class="card card-body printableArea">
+                              <div id="lap">
+                                  <center>  
+                                  
+                                   <label style=" font-size: 20px">TOKO ONLINE HIJAB ITSMOSTLY</label><br>
+                                  <label style="font-size: 18px">Gang H Hambali 1 No 93B Kecamatan Cicendo Kota Bandung</label><br>
+                                  <label style="font-size: 20px">Laporan Laba Rugi Periode ${periodeBulan} ${periodeTahun}</label><br>
+                                  </center>
+                            <hr id="customers">
+ 
+<!--                            <label style="margin-left: 50px;font-size: 18px">Pendapatan atas Penjualan : </label><br>-->
+                                  <center>
+                            <table style="margin-left: 80px" border="0">
+                                <tr>
+                                    <th width="20"></th>
+                                    <th width="50"></th>
+                                    <th width="200"></th>
+                                    <th width="200"></th>
+                                    <th width="100"></th>
+                                    <th width="300"></th>
+                                </tr>
+                                <tr> 
+                                    <td colspan="6"> <label style="font-size: 18px">Pendapatan atas Penjualan : </label></td>
+                                </tr>
+                                <c:set var="index" value="1"/>
+                                <c:forEach var="listProduk" items="${listProdukDto}">
+                                    <tr>  
+                                        <td></td>
+                                        <td  align="center"><label style="font-size: 18px">${index}</label></td>
+                                        <td colspan="3" ><label style="font-size: 18px">${listProduk.nama_produk}</label></td>
+                                        <td ><label style="font-size: 18px">Rp. ${listProduk.total_pesanan}</label></td>
+                                    </tr>            
+                                    <c:set var="index" value="${index+1}"/>
+                                </c:forEach>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td colspan="3"><label style="margin-left: 25px;font-size: 18px">Total Penjualan</label></td>                                            
+                                   <td ><label style="margin-left: 50px;font-size: 18px">Rp. ${totalPenjualan}</label></td>
+                               </tr> 
+                               <tr> 
+                                   <td colspan="6"> <label style="font-size: 18px">Pengurangan atas Beban-beban : </label></td>
+                               </tr>
+                                <c:set var="index1" value="1"/>
+                                <c:forEach var="listPengeluaran" items="${listPengeluaranDto}">
+                                    <tr>
+                                        <td></td>
+                                        <td align="center"><label style="font-size: 18px">${index1}</label></td>
+                                        <td colspan="3" ><label style="font-size: 18px">${listPengeluaran.nama_akun}</label></td>
+                                        <td><label style="font-size: 18px">Rp. ${listPengeluaran.jumlah}</label></td>
+                                    </tr>            
+                                    <c:set var="index1" value="${index+1}"/>
+                                </c:forEach>
+                                 <tr>
+                                    <td colspan="2"></td>
+                                    <td colspan="3"><label style="margin-left: 25px;font-size: 18px">Total Beban-beban</label></td>                                            
+                                   <td ><label style="margin-left: 50px;font-size: 18px">Rp. ${totalPengeluaran}</label></td>
+                               </tr>
+                                <tr> 
+                                   <td colspan="5"> <label style="font-size: 18px">Laba / Rugi Perusahaan </label></td>                                                                         
+                                   <td ><label style="margin-left: 50px;font-size: 18px" class="over">Rp. ${labaRugi}</label></td>
+                               </tr> 
+                                        
+                            </table></center><br>
+                               <c:url var="owner" value="/owner.htm">        
+                                </c:url>
+                          <center><button id="print" class="btn btn-default btn-outline" style="margin-left:250px " type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button></center>
+                          </div><br>
+                                
+                            
 
+                          </div>
+                        </div>
+
+                    </div>
+                    <!-- /. ROW  -->
+
+
+                </div>
+            
+    <!--</div>-->
 <!-- jQuery Plugins -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -330,7 +363,29 @@
 <script src="js/nouislider.min.js"></script>
 <script src="js/jquery.zoom.min.js"></script>
 <script src="js/main.js"></script>
-
+<script src="js/jquery.PrintArea.js" type="text/JavaScript"></script>                       
+            <script>
+                 $(document).ready(function() {
+                    $("#print").click(function() {
+                        var mode = 'iframe'; //popup
+                        var close = mode == "popup";
+                        var options = {
+                            mode: mode,
+                            popClose: close
+                        };
+                        $("div.printableArea").printArea(options);
+                    });
+                 });
+            </script>
+            <script>
+                function printContent(el){
+                        var restorepage = document.body.innerHTML;
+                        var printcontent = document.getElementById(el).innerHTML;
+                        document.body.innerHTML = printcontent;
+                        window.print();
+                        document.body.innerHTML = restorepage;
+                }
+	</script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <%-- 
-    Document   : tabelProduk
+    Document   : tabelPesanan
     Created on : Jul 7, 2019, 12:45:44 AM
     Author     : HP
 --%>
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Tabel Produk</title>
+    <title>Tabel Pesanan</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -41,7 +41,8 @@
     <!--[if lt IE 9]>
               <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-            <![endif]--><script type="text/javascript">
+            <![endif]-->
+    <script type="text/javascript">
             $(document).ready(function () {
                 // Activate tooltips
                 $('[data-toggle="tooltip"]').tooltip();
@@ -51,7 +52,7 @@
                     var term = $(this).val().toLowerCase();
                     $("table tbody tr").each(function () {
                         $row = $(this);
-                        var name = $row.find("td:nth-child(4)").text().toUpperCase();
+                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
                         console.log(name);
                         if (name.search(term) < 0) {
                             $row.hide();
@@ -96,7 +97,7 @@
             font-family: sans-serif;
             color: #444;
             border-collapse: collapse;
-            width: 90%;
+            width: 50%;
             border: 1px solid #f2f5f7;
         }
 
@@ -232,7 +233,7 @@
     <!-- /HEADER -->
 
     <!-- NAVIGATION -->
-    <div id="navigation">
+     <div id="navigation">
             <!-- container -->
             <div class="container">
                 <div id="responsive-nav" class="text-center">
@@ -248,7 +249,7 @@
                     <c:url var="admin" value="/tabelAdmin.htm"/>
                     <c:url var="produk" value="/tabelProdukForOwner.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaranForOwner.htm"/>
-                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporanOwner.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -263,9 +264,7 @@
                     <!-- menu nav -->
                 </div>
             </div>
-            <!-- /container -->
-    <!-- /NAVIGATION -->
-
+        <!-- /NAVIGATION -->
 
     <!-- section -->
     <div class="section">
@@ -288,41 +287,79 @@
 
     <!-- footer subscribe -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <form>
-        <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Nama Produk"/><br><br></center>
-    </form>
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
-        <table  align="center" class="table1" border="1">
-            <thead> <tr>
-                <th>No</th> 
-                <th>Kode Detail</th>            
-                <th>Kode Kategori</th>            
-                <th>Nama Produk</th>
-                <th>Harga Jual</th>            
-                <th>Warna</th> 
-                <th>Gambar</th>            
-                <th>Stok</th>    
-            </tr></thead>
-            <tbody>
-            <c:set var="index" value="1"/>
-            <c:forEach var="listProduk" items="${listDetailDto}">
-                <tr>  
-                    <td>${index}</td>
-                    <td>${listProduk.kode_detail}</td>
-                    <td>${listProduk.kode_kategori}</td>
-                    <td>${listProduk.nama_produk}</td>
-                    <td>${listProduk.harga_jual}</td>
-                    <td>${listProduk.warna}</td>
-                    <td><a class="image-popup-vertical-fit" href="b/img/${listProduk.gambar}" >  <img src="b/img/${listProduk.gambar}" style="height: 50px; width: 75px"/></a></td>
-                    <td>${listProduk.stok}</td>
-                </tr>            
-                <c:set var="index" value="${index+1}"/>
-            </c:forEach>
-            </tbody>
-        </table>
-    <!--</div>-->
-</div>
+    <c:url var="tabelDetailPesanan" value="/tabelDetailPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan" value="/tabelPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan2" value="/tabelPesanan2.htm">        
+    </c:url>
+    <c:url var="tabelPesanan3" value="/tabelPesanan3.htm">        
+    </c:url>
+    <div id="page-wrapper" >
+                <div id="page-inner">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <center><h2 > Lihat Laporan<h2>   </center>
 
+                        </div>
+                    </div> 
+                    <!-- /. ROW  -->
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Form Select Laporan
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form role="form" action="getDataLaporanPenjualanOwner.htm" modelAttribute="laporanDto" method="GET">
+                                                <div class="form-group">
+                                                    <label>Select Tahun</label>
+                                                    <select class="form-control" path="tanggal_pesan" name="tanggal_pesan">
+                                                        <option value="" class="validate validate[required]"  selected="true" disabled="true">Pilih Tahun</option>
+                                                        <c:forEach var="kk" items="${listKk}">
+                                                            <option value="${kk.tanggal_pesan}">${kk.tanggal_pesan}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Select Bulan</label>
+                                                    <select class="form-control" path="bulan" name="bulan">                                                       
+                                                        <option value="" class="validate validate[required]" id="bulan" selected="true" disabled="true">Pilih Bulan</option>
+                                                        <option value="Januari"  id="bulan" >Januari</option>
+                                                        <option value="Februari"  id="bulan" >Februari</option>
+                                                        <option value="Maret"  id="bulan" >Maret</option>
+                                                        <option value="April"  id="bulan" >April</option>
+                                                        <option value="Mei"  id="bulan" >Mei</option>
+                                                        <option value="Juni"  id="bulan" >Juni</option>
+                                                        <option value="Juli"  id="bulan" >Juli</option>
+                                                        <option value="Agustus"  id="bulan" >Agustus</option>
+                                                        <option value="September"  id="bulan" >September</option>
+                                                        <option value="Oktober"  id="bulan" >Oktober</option>
+                                                        <option value="November"  id="bulan" >November</option>
+                                                        <option value="Desember"  id="bulan" >Desember</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-success" value="2">Laporan Penjualan</button>
+                                                <button type="reset" class="btn btn-primary">Reset</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <!-- /. ROW  -->
+
+
+                </div>
+            
+    <!--</div>-->
 <!-- jQuery Plugins -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

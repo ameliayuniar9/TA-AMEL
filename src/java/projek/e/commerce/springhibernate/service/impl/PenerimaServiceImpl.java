@@ -187,16 +187,19 @@ public class PenerimaServiceImpl implements PenerimaService{
     @Override
     public void doUpdateDataPenerima(PenerimaDto penerimaDto) throws Exception {
         PenerimaModel penerimaModel= new PenerimaModel();
+        ProvinsiModel provinsiModel=provinsiDao.getProvinsiModelById(penerimaDto.getProvinsi());
+        KotaModel kotaModel=kotaDao.getKotaModelById(penerimaDto.getKabupaten());
+        KecamatanModel kecamatanModel=kecamatanDao.getKecamatanModelById(penerimaDto.getKecamatan());
         try {
             penerimaModel.setId_penerima(penerimaDto.getId_penerima());
             penerimaModel.setId_pembeli(penerimaDto.getId_pembeli());
             penerimaModel.setNama_penerima(penerimaDto.getNama_penerima());
             penerimaModel.setNo_telp(penerimaDto.getNo_telp());
-            penerimaModel.setProvinsi(penerimaDto.getProvinsi());
-            penerimaModel.setKabupaten(penerimaDto.getKabupaten());
-            penerimaModel.setKecamatan(penerimaDto.getKecamatan());
+            penerimaModel.setProvinsi(provinsiModel.getNama());
+            penerimaModel.setKabupaten(kotaModel.getNama());
+            penerimaModel.setKecamatan(kecamatanModel.getNama());
             penerimaModel.setAlamat_lengkap(penerimaDto.getAlamat_lengkap());
-            penerimaModel.setStatus(penerimaDto.getStatus());
+            penerimaModel.setStatus("IN_ACTIVE");
         } catch (Exception e) {
             e.printStackTrace();
         }

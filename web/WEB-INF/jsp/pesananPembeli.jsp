@@ -390,7 +390,7 @@
                                     <c:forEach var="listPesanan" items="${listPesananDto}">
                                         <tr class="table_row">  
                                             <td class="column-1">${listPesanan.kode_pesanan}</td>
-                                            <td class="column-2">${listPesanan.total_pesanan}</td>
+                                            <td class="column-2" align="center">${listPesanan.total_pesanan}</td>
                                             <td class="column-3">${listPesanan.tanggal_pesan}</td>
                                             <td class="column-4">${listPesanan.status}</td>
                                             <c:url var="pembayaran" value="/pembayaran.htm">

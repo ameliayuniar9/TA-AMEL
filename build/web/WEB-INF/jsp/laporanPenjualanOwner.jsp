@@ -1,5 +1,5 @@
 <%-- 
-    Document   : tabelProduk
+    Document   : tabelPesanan
     Created on : Jul 7, 2019, 12:45:44 AM
     Author     : HP
 --%>
@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Tabel Produk</title>
+    <title>Laporan Penjualan</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -41,7 +41,8 @@
     <!--[if lt IE 9]>
               <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-            <![endif]--><script type="text/javascript">
+            <![endif]-->
+    <script type="text/javascript">
             $(document).ready(function () {
                 // Activate tooltips
                 $('[data-toggle="tooltip"]').tooltip();
@@ -51,7 +52,7 @@
                     var term = $(this).val().toLowerCase();
                     $("table tbody tr").each(function () {
                         $row = $(this);
-                        var name = $row.find("td:nth-child(4)").text().toUpperCase();
+                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
                         console.log(name);
                         if (name.search(term) < 0) {
                             $row.hide();
@@ -96,18 +97,16 @@
             font-family: sans-serif;
             color: #444;
             border-collapse: collapse;
-            width: 90%;
-            border: 1px solid #f2f5f7;
+            border: 1px #32CD32;
         }
 
         .table1 tr th{
-            background: #FF69B4;
+            background: #32CD32;
             color: #fff;
             font-weight: normal;
         }
 
         .table1, th, td {
-            padding: 8px 20px;
             text-align: center;
         }
 
@@ -118,28 +117,16 @@
         .table1 tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        #input1 {
-            height: 20px;
-            width: 200px;
-            float: left;
-        }
-        #input2 {
-            height: 30px;
-            width: 200px;
-            float: left;
-        }
-        #butcar{
-            height: 30px;
-            width: 100px;
-            font-size: 15px;
-            border-radius: 15px;
-            background-color: greenyellow;
-            vertical-align: bottom;
-        }
-        #butcar:hover{
-            background-color: yellow;
-        }
     </style>
+
+        <style type="text/css">
+            .under { text-decoration: underline; }
+            .over  { text-decoration: overline; }
+            .line  { text-decoration: line-through; }
+            .blink { text-decoration: blink; }
+            .all   { text-decoration: underline overline line-through; }
+            a      { text-decoration: none; }
+        </style>
 
 </head>
 
@@ -232,7 +219,7 @@
     <!-- /HEADER -->
 
     <!-- NAVIGATION -->
-    <div id="navigation">
+     <div id="navigation">
             <!-- container -->
             <div class="container">
                 <div id="responsive-nav" class="text-center">
@@ -248,7 +235,7 @@
                     <c:url var="admin" value="/tabelAdmin.htm"/>
                     <c:url var="produk" value="/tabelProdukForOwner.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaranForOwner.htm"/>
-                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporanOwner.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -263,8 +250,7 @@
                     <!-- menu nav -->
                 </div>
             </div>
-            <!-- /container -->
-    <!-- /NAVIGATION -->
+        <!-- /NAVIGATION -->
 
 
     <!-- section -->
@@ -288,41 +274,76 @@
 
     <!-- footer subscribe -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <form>
-        <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Nama Produk"/><br><br></center>
-    </form>
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
-        <table  align="center" class="table1" border="1">
-            <thead> <tr>
-                <th>No</th> 
-                <th>Kode Detail</th>            
-                <th>Kode Kategori</th>            
-                <th>Nama Produk</th>
-                <th>Harga Jual</th>            
-                <th>Warna</th> 
-                <th>Gambar</th>            
-                <th>Stok</th>    
-            </tr></thead>
-            <tbody>
-            <c:set var="index" value="1"/>
-            <c:forEach var="listProduk" items="${listDetailDto}">
-                <tr>  
-                    <td>${index}</td>
-                    <td>${listProduk.kode_detail}</td>
-                    <td>${listProduk.kode_kategori}</td>
-                    <td>${listProduk.nama_produk}</td>
-                    <td>${listProduk.harga_jual}</td>
-                    <td>${listProduk.warna}</td>
-                    <td><a class="image-popup-vertical-fit" href="b/img/${listProduk.gambar}" >  <img src="b/img/${listProduk.gambar}" style="height: 50px; width: 75px"/></a></td>
-                    <td>${listProduk.stok}</td>
-                </tr>            
-                <c:set var="index" value="${index+1}"/>
-            </c:forEach>
-            </tbody>
-        </table>
-    <!--</div>-->
-</div>
+    <c:url var="tabelDetailPesanan" value="/tabelDetailPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan" value="/tabelPesanan.htm">        
+    </c:url>
+    <c:url var="tabelPesanan2" value="/tabelPesanan2.htm">        
+    </c:url>
+    <c:url var="tabelPesanan3" value="/tabelPesanan3.htm">        
+    </c:url>
+    <div class="row">
+                        <div class="table1">
+                          <div class="card card-body printableArea">
+                              <div id="lap">
+                                  <center>  
+                                  
+                                   <label style=" font-size: 20px">TOKO ONLINE HIJAB ITSMOSTLY</label><br>
+                                  <label style="font-size: 18px">Gang H Hambali 1 No 93B Kecamatan Cicendo Kota Bandung</label><br>
+                                  <label style="font-size: 20px">Laporan Penjualan Periode ${periodeBulan} ${periodeTahun}</label><br>
+                                  </center>
+                            <hr id="customers">
+ 
+<!--                            <label style="margin-left: 50px;font-size: 18px">Pendapatan atas Penjualan : </label><br>-->
+                                  
+                          <table align="center" border="1" id="table1">
+                                <tr>
+                                    <th width="50" style="font-size: 20px">NO</th>
+                                    <th width="200" style="font-size: 20px">TANGGAL PESAN</th>
+                                    <th width="200" style="font-size: 20px">KODE DETAIL</th>
+                                    <th width="300" style="font-size: 20px">NAMA PRODUK</th>
+                                    <th width="130" style="font-size: 20px">KUANTITAS</th>
+                                    <th width="200" style="font-size: 20px">TOTAL PESAN</th>
+                                    
+                                </tr>
+                                <c:set var="index" value="1"/>
+                                <c:forEach var="listProduk" items="${listProdukDto}">
+                                    <tr>  
+                                        <td  align="center"><label style="font-size: 18px">${index}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.tanggal_pesan}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.kode_detail}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.nama_produk}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.kuantitas}</label></td>
+                                        <td align="center"><label style="font-size: 18px">${listProduk.total_pesanan}</label></td>
+                                        
+                                    </tr> 
+                                    <c:set var="index" value="${index+1}"/>
+                                </c:forEach>  
+                                     <tr>  
+                                        <td  align="center" colspan="2"><label style="font-size: 18px">TOTAL</label></td>
+                                        <td align="center"colspan="3"><label style="font-size: 18px"></label></td>
+                                        <td align="center"><label style="font-size: 18px">${totalPesanan}</label></td>
+                                    </tr> 
+                            </table>
+                          </div>
 
+                                <br> <br>
+                                <c:url var="owner" value="/owner.htm">        
+                                </c:url>
+                                <center><button id="print" class="btn btn-default btn-outline" style="margin-left:250px " type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button></center>
+                            
+
+                          </div>
+                        </div>
+
+                    </div>
+                    <!-- /. ROW  -->
+
+
+                </div>
+            
+    <!--</div>-->
 <!-- jQuery Plugins -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -330,7 +351,29 @@
 <script src="js/nouislider.min.js"></script>
 <script src="js/jquery.zoom.min.js"></script>
 <script src="js/main.js"></script>
-
+<script src="js/jquery.PrintArea.js" type="text/JavaScript"></script>                       
+            <script>
+                 $(document).ready(function() {
+                    $("#print").click(function() {
+                        var mode = 'iframe'; //popup
+                        var close = mode == "popup";
+                        var options = {
+                            mode: mode,
+                            popClose: close
+                        };
+                        $("div.printableArea").printArea(options);
+                    });
+                 });
+            </script>
+            <script>
+                function printContent(el){
+                        var restorepage = document.body.innerHTML;
+                        var printcontent = document.getElementById(el).innerHTML;
+                        document.body.innerHTML = printcontent;
+                        window.print();
+                        document.body.innerHTML = restorepage;
+                }
+	</script>
 </body>
 
 </html>

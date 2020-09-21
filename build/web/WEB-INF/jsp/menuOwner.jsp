@@ -188,6 +188,7 @@
                     <c:url var="admin" value="/tabelAdmin.htm"/>
                     <c:url var="produk" value="/tabelProdukForOwner.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaranForOwner.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporanOwner.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -195,15 +196,13 @@
                             <li><a href="${admin}">Akun Admin</a></li>
                             <li><a href="${produk}">Data Produk</a></li>
                             <li><a href="${pengeluaran}">Data Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
                         </ul>
                     </div>
                 </div>
                     <!-- menu nav -->
                 </div>
             </div>
-            <!-- /container -->
-        </div>
         <!-- /NAVIGATION -->
 
         <!-- HOME -->
@@ -227,12 +226,12 @@
                                 </div>
                             </c:if>
                             <br><br>
-                            <div class="row">
-                                <div class="col-md-9">
+                            <!--<div class="row">-->
+                                <center><div class="col-md-9">
                                     <canvas id="chart2" height="150" ></canvas>
-                                </div>
+                                    </div></center>
                             <!--</div>-->
-                            </div>
+                            <!--</div>-->
                         <!-- /banner -->
                     <!--</div>-->
                     <!-- /home slick -->

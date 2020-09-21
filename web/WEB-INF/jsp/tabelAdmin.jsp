@@ -236,46 +236,36 @@
 
     <!-- NAVIGATION -->
     <div id="navigation">
-        <!-- container -->
-        <div class="container">
-            <div id="responsive-nav">
-                <!-- category nav -->
-<!--                <div class="category-nav show-on-click">
-                    <span class="category-header">E-COMMERCE</span>
-                </div>-->
-                <!-- /category nav -->
+            <!-- container -->
+            <div class="container">
+                <div id="responsive-nav" class="text-center">
+<!--                <div id="responsive-nav">-->
+                    <!-- category nav -->
+                    <!--                    <div class="category-nav">
+                                            <span class="category-header">E-COMMERCE</span>
+                                        </div>-->
+                    <!-- /category nav -->
 
-                <!-- menu nav -->
+                    <!-- menu nav -->
                     <c:url var="home" value="/menuOwner.htm"/>
                     <c:url var="admin" value="/tabelAdmin.htm"/>
                     <c:url var="produk" value="/tabelProdukForOwner.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaranForOwner.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
                             <li><a href="${home}">Home</a></li>
                             <li><a href="${admin}">Akun Admin</a></li>
                             <li><a href="${produk}">Data Produk</a></li>
                             <li><a href="${pengeluaran}">Data Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
                         </ul>
                     </div>
-                <!-- menu nav -->
+                </div>
+                    <!-- menu nav -->
+                </div>
             </div>
-        </div>
-        <!-- /container -->
-    </div>
     <!-- /NAVIGATION -->
 
 
