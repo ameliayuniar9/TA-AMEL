@@ -208,13 +208,13 @@ public class PenerimaServiceImpl implements PenerimaService{
     
     @Override
     public List<PenerimaDto> getListPenerimaById(String id_pembeli){
+        System.out.println("paling ATAS SERVICE");
         List <PenerimaDto> listDataDto = new ArrayList<>();
         List <PenerimaModel> listData = penerimaDao.getListDataPenerimaById(id_pembeli);
-        PenerimaDto penerimaDto = null;
         try {
             if(listData != null){
                 for(PenerimaModel model : listData){
-                    penerimaDto = new PenerimaDto();
+                    PenerimaDto penerimaDto =  new PenerimaDto();
                     if(model.getId_penerima()!= null){
                         penerimaDto.setId_penerima(model.getId_penerima());
                     }
@@ -233,8 +233,12 @@ public class PenerimaServiceImpl implements PenerimaService{
                     if(model.getKabupaten()!= null){
                         penerimaDto.setKabupaten(model.getKabupaten());
                         try{
+                            System.out.println("PENERIMA  "+penerimaDto.getKabupaten());
+                            System.out.println("ATAS SERVICE");
                             OngkirModel dd=(OngkirModel) OngkirDao.getOngkir(penerimaDto.getKabupaten());
+                            System.out.println("sdasddddddddddddddddddd"+dd.getHarga());
                             penerimaDto.setHarga(dd.getHarga());
+                            System.out.println("sdasddddddddddddddddddd"+dd.getHarga());
                         }catch(Exception e){
                             penerimaDto.setHarga(0);
                         }
@@ -256,7 +260,9 @@ public class PenerimaServiceImpl implements PenerimaService{
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }        
+            System.out.println("ERRORR"+e);
+        }
+        System.out.println("paling BAWAH SERVICE");        
         return listDataDto;
     }
 

@@ -8,8 +8,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <!DOCTYPE html>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" a href="js/validation/css/validationEngine.jquery.css">
+<script type="text/javascript" src="js/validation/jquery.validationEngine-en.js"></script>
+<script type="text/javascript" src="js/validation/jquery.validationEngine.js"></script>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,26 +47,26 @@
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
     <script type="text/javascript">
-            $(document).ready(function () {
-                // Activate tooltips
-                $('[data-toggle="tooltip"]').tooltip();
+        $(document).ready(function () {
+            // Activate tooltips
+            $('[data-toggle="tooltip"]').tooltip();
 
-                // Filter table rows based on searched term
-                $("#search").on("keyup", function () {
-                    var term = $(this).val().toLowerCase();
-                    $("table tbody tr").each(function () {
-                        $row = $(this);
-                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
-                        console.log(name);
-                        if (name.search(term) < 0) {
-                            $row.hide();
-                        } else {
-                            $row.show();
-                        }
-                    });
+            // Filter table rows based on searched term
+            $("#search").on("keyup", function () {
+                var term = $(this).val().toLowerCase();
+                $("table tbody tr").each(function () {
+                    $row = $(this);
+                    var name = $row.find("td:nth-child(3)").text().toLowerCase();
+                    console.log(name);
+                    if (name.search(term) < 0) {
+                        $row.hide();
+                    } else {
+                        $row.show();
+                    }
                 });
             });
-        </script>
+        });
+    </script>
     <style type="text/css">
         .searchNama{
             width: 130px;
@@ -197,32 +200,32 @@
 
                 <!-- menu nav -->
                 <c:url var="home" value="/menuAdmin.htm"/>
-                    <c:url var="produk" value="/tabelProduk.htm"/>
-                    <c:url var="kategori" value="/tabelKategori.htm"/>
-                    <c:url var="detail" value="/tabelDetail.htm"/>
-                    <c:url var="pembeli" value="/tabelPembeli.htm"/>
-                    <c:url var="ongkir" value="/tabelOngkir.htm"/>
-                    <c:url var="ulasan" value="/tabelUlasan.htm"/>
-                    <c:url var="pesanan" value="/tabelPesanan.htm"/>
-                    <c:url var="akun" value="/tabelAkun.htm"/>
-                    <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
-                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
-                    <div class="menu-nav">
-                        <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-                        <ul class="menu-list">
-                            <li><a href="${home}">Home</a></li>
-                            <li><a href="${kategori}">Kategori</a></li>
-                            <li><a href="${produk}">Produk</a></li>
-                            <li><a href="${detail}">DetailProduk</a></li>
-                            <li><a href="${pembeli}">Pembeli</a></li>
-                            <li><a href="${ongkir}">Ongkir</a></li>
-                            <li><a href="${ulasan}">Ulasan</a></li>
-                            <li><a href="${pesanan}">Pesanan</a></li>
-                            <li><a href="${akun}">Akun</a></li>
-                            <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="${laporan}">Laporan</a>
-                            </li>
-                        </ul>
+                <c:url var="produk" value="/tabelProduk.htm"/>
+                <c:url var="kategori" value="/tabelKategori.htm"/>
+                <c:url var="detail" value="/tabelDetail.htm"/>
+                <c:url var="pembeli" value="/tabelPembeli.htm"/>
+                <c:url var="ongkir" value="/tabelOngkir.htm"/>
+                <c:url var="ulasan" value="/tabelUlasan.htm"/>
+                <c:url var="pesanan" value="/tabelPesanan.htm"/>
+                <c:url var="akun" value="/tabelAkun.htm"/>
+                <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
+                <div class="menu-nav">
+                    <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+                    <ul class="menu-list">
+                        <li><a href="${home}">Home</a></li>
+                        <li><a href="${kategori}">Kategori</a></li>
+                        <li><a href="${produk}">Produk</a></li>
+                        <li><a href="${detail}">DetailProduk</a></li>
+                        <li><a href="${pembeli}">Pembeli</a></li>
+                        <li><a href="${ongkir}">Ongkir</a></li>
+                        <li><a href="${ulasan}">Ulasan</a></li>
+                        <li><a href="${pesanan}">Pesanan</a></li>
+                        <li><a href="${akun}">Akun</a></li>
+                        <li><a href="${pengeluaran}">Pengeluaran</a></li>
+                        <li><a href="${laporan}">Laporan</a>
+                        </li>
+                    </ul>
                 </div>
                 <!-- menu nav -->
             </div>
@@ -261,31 +264,32 @@
         <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Nama"/><br><br></center></form>
     <table align="center" class="table1" border="1">
         <thead>
-        <tr>
-            <th>No</th> 
-            <th>Kode Kategori</th>            
-            <th>Nama Kategori</th>            
-            <th colspan="2">action</th>
-        </tr>
+            <tr>
+                <th>No</th> 
+                <th>Kode Kategori</th>            
+                <th>Nama Kategori</th>            
+                <th colspan="2">action</th>
+            </tr>
         </thead>
         <tbody>
-        <c:set var="index" value="1"/>
-        <c:forEach var="listKategori" items="${listKategoriDto}">
-            <tr>  
-                <td>${index}</td>
-                <td>${listKategori.kode_kategori}</td>
-                <td>${listKategori.nama_kategori}</td>
+            <c:set var="index" value="1"/>
+            <c:forEach var="listKategori" items="${listKategoriDto}">
                 <c:url var="deleteKategori" value="/deleteDataKategori.htm">
                     <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
                 </c:url>
                 <c:url var="updateKategori" value="/getDataUpdateKategori.htm">
                     <c:param name="kode_kategori" value="${listKategori.kode_kategori}"/>
                 </c:url>
-                <td><a href="${deleteKategori}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
-                <td><a href="${updateKategori}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
-            </tr>            
-            <c:set var="index" value="${index+1}"/>
-        </c:forEach>
+                <tr>  
+                    <td>${index}</td>
+                    <td>${listKategori.kode_kategori}</td>
+                    <td>${listKategori.nama_kategori}</td>
+
+                    <td><a href="${deleteKategori}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
+                    <td><a href="${updateKategori}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
+                </tr>            
+                <c:set var="index" value="${index+1}"/>
+            </c:forEach>
         </tbody>
     </table>
     <!--</div>-->

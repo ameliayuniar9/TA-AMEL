@@ -4,6 +4,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
+
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" a href="js/validation/css/validationEngine.jquery.css">
+<script type="text/javascript" src="js/validation/jquery.validationEngine-en.js"></script>
+<script type="text/javascript" src="js/validation/jquery.validationEngine.js"></script>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -205,13 +210,13 @@
                         <td>NAMA KATEGORI</td>
                         <td>&nbsp;&nbsp;</td>
                         <td><div class="form-group">
-                                <form:input path="nama_kategori" class="input"/>
+                                <form:input path="nama_kategori" class="validate validate[required,maxSize[100],custom[onlyLetter]]"/>
                             </div></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td colspan="3">
-                            <form:button class="primary-btn" type="submit"><b>SIMPAN DATA</b></form:button>
+                            <form:button id="save" class="primary-btn" type="submit"><b>SIMPAN DATA</b></form:button>
                         </td>
                     </tr>
                 </form:form>
@@ -228,3 +233,21 @@
 </body>
 
 </html>
+<script type="text/javascript">
+    $(document).ready(
+            function (){
+                $("#save").click(
+                    function(evt){ //id tombol submit
+                        evt.preventDefault();
+                        var validate=$('#kategori').validationEngine('validate'); //id form
+                        if(validate){
+                            $('#kategori').submit();
+                        }else{
+                            return false;
+                        }
+                    }
+                );
+            }
+    );
+    
+</script>

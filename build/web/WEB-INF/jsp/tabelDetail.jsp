@@ -9,6 +9,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" a href="js/validation/css/validationEngine.jquery.css">
+<script type="text/javascript" src="js/validation/jquery.validationEngine-en.js"></script>
+<script type="text/javascript" src="js/validation/jquery.validationEngine.js"></script>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,26 +47,26 @@
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
     <script type="text/javascript">
-            $(document).ready(function () {
-                // Activate tooltips
-                $('[data-toggle="tooltip"]').tooltip();
+        $(document).ready(function () {
+            // Activate tooltips
+            $('[data-toggle="tooltip"]').tooltip();
 
-                // Filter table rows based on searched term
-                $("#search").on("keyup", function () {
-                    var term = $(this).val().toLowerCase();
-                    $("table tbody tr").each(function () {
-                        $row = $(this);
-                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
-                        console.log(name);
-                        if (name.search(term) < 0) {
-                            $row.hide();
-                        } else {
-                            $row.show();
-                        }
-                    });
+            // Filter table rows based on searched term
+            $("#search").on("keyup", function () {
+                var term = $(this).val().toLowerCase();
+                $("table tbody tr").each(function () {
+                    $row = $(this);
+                    var name = $row.find("td:nth-child(4)").text().toLowerCase();
+                    console.log(name);
+                    if (name.search(term) < 0) {
+                        $row.hide();
+                    } else {
+                        $row.show();
+                    }
                 });
             });
-        </script>
+        });
+    </script>
     <style type="text/css">
         .searchNama{
             width: 130px;
