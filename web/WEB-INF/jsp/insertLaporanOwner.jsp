@@ -320,7 +320,7 @@
                                             <form role="form" action="getDataLaporanOwner.htm" modelAttribute="laporanDto" method="GET">
                                                 <div class="form-group">
                                                     <label>Select Tahun</label>
-                                                    <select class="form-control" path="tanggal_pesan" name="tanggal_pesan">
+                                                    <select class="form-control" path="tanggal_penjualan" name="tanggal_penjualan">
                                                         <option value="" class="validate validate[required]"  selected="true" disabled="true">Pilih Tahun</option>
                                                         <c:forEach var="kk" items="${listKk}">
                                                             <option value="${kk.tanggal_pesan}">${kk.tanggal_pesan}</option>

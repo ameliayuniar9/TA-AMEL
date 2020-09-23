@@ -241,7 +241,9 @@ public class ECommerceController {
         model.addAttribute("kategoriDto", dto);
        
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
+        System.out.println("controllerrrrrrrrrrr");
         List<PenerimaDto> listPenerimaDto=penerimaService.getListPenerimaById(id);
+        System.out.println("controllerrrrrrrrrrr"+listPenerimaDto.size());
         List<ProvinsiDto> listProvinsi = provinsiService.getListProvinsi();
         List<KotaDto> listKota=kotaService.getListKota();
         List<KecamatanDto> listKecamatan=kecamatanService.getListKecamatan();
@@ -361,20 +363,6 @@ public class ECommerceController {
         penerimaDto.setId_penerima(id);
         penerimaService.saveDataPenerima(penerimaDto);                
         return "redirect:detailKeranjang.htm?id_pembeli="+id;
-    }
-    
-    @RequestMapping(value = "/doTambahDataPenerima", method = RequestMethod.GET)
-    public String doTambahDataPenerima(ModelMap model){
-        PenerimaDto dto = null;     
-        try {
-            dto = new PenerimaDto();
-            model.addAttribute("penerimaDto", dto);
-            List<PenerimaDto> listPenerimaDto = penerimaService.getListPenerimaById("202003");
-            model.addAttribute("listPenerimaDto", listPenerimaDto);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "settingAddress";
     }
     
     @RequestMapping(value = "/tabelKategori", method = RequestMethod.GET)
@@ -1459,7 +1447,7 @@ public class ECommerceController {
             }
            // String tahunBulan = customerDto.getTanggal_penjualan()+"-"+bulan+"%";
             String periodeTahun = laporanDto.getTanggal_penjualan();
-            List<PesananDto> listProdukDto =pesananService.getProdukTerjual("2020","09");
+            List<PesananDto> listProdukDto =pesananService.getProdukTerjual(periodeTahun,bulan);
             model.addAttribute("listProdukDto", listProdukDto);
             model.addAttribute("periodeBulan", laporanDto.getBulan());
             model.addAttribute("periodeTahun", periodeTahun);
@@ -1469,7 +1457,7 @@ public class ECommerceController {
             }
             model.addAttribute("totalPenjualan", jmlPenjualan);
             
-            List<PengeluaranDto> listPengeluaranDto = pengeluaranService.doGetDataLaporanPengeluaran("2020","09");
+            List<PengeluaranDto> listPengeluaranDto = pengeluaranService.doGetDataLaporanPengeluaran(periodeTahun,bulan);
             model.addAttribute("listPengeluaranDto", listPengeluaranDto);
             int jmlPengeluaran=0;
             for(PengeluaranDto pengeluaran : listPengeluaranDto){
@@ -1514,7 +1502,7 @@ public class ECommerceController {
             }
            // String tahunBulan = customerDto.getTanggal_penjualan()+"-"+bulan+"%";
             String periodeTahun = laporanDto.getTanggal_penjualan();
-            List<PesananDto> listProdukDto =pesananService.getProdukTerjual("2020","09");
+            List<PesananDto> listProdukDto =pesananService.getProdukTerjual(periodeTahun,bulan);
             model.addAttribute("listProdukDto", listProdukDto);
             model.addAttribute("periodeBulan", laporanDto.getBulan());
             model.addAttribute("periodeTahun", periodeTahun);
@@ -1524,7 +1512,7 @@ public class ECommerceController {
             }
             model.addAttribute("totalPenjualan", jmlPenjualan);
             
-            List<PengeluaranDto> listPengeluaranDto = pengeluaranService.doGetDataLaporanPengeluaran("2020","09");
+            List<PengeluaranDto> listPengeluaranDto = pengeluaranService.doGetDataLaporanPengeluaran(periodeTahun,bulan);
             model.addAttribute("listPengeluaranDto", listPengeluaranDto);
             int jmlPengeluaran=0;
             for(PengeluaranDto pengeluaran : listPengeluaranDto){
@@ -1569,7 +1557,7 @@ public class ECommerceController {
             }
            // String tahunBulan = customerDto.getTanggal_penjualan()+"-"+bulan+"%";
             String periodeTahun = laporanDto.getTanggal_penjualan();
-            List<PesananDto> listProdukDto =pesananService.getMakeLaporanPenjualan("2020","09");
+            List<PesananDto> listProdukDto =pesananService.getMakeLaporanPenjualan(periodeTahun,bulan);
             model.addAttribute("listProdukDto", listProdukDto);
             model.addAttribute("periodeBulan", laporanDto.getBulan());
             model.addAttribute("periodeTahun", periodeTahun);
@@ -1613,9 +1601,9 @@ public class ECommerceController {
             }else if(laporanDto.getBulan().equalsIgnoreCase("Desember")){
                 bulan = "12";
             }
-           // String tahunBulan = customerDto.getTanggal_penjualan()+"-"+bulan+"%";
+            
             String periodeTahun = laporanDto.getTanggal_penjualan();
-            List<PesananDto> listProdukDto =pesananService.getMakeLaporanPenjualan("2020","09");
+            List<PesananDto> listProdukDto =pesananService.getMakeLaporanPenjualan(periodeTahun,bulan);
             model.addAttribute("listProdukDto", listProdukDto);
             model.addAttribute("periodeBulan", laporanDto.getBulan());
             model.addAttribute("periodeTahun", periodeTahun);

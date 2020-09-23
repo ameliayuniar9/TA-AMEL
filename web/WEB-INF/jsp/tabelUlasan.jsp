@@ -9,6 +9,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" a href="js/validation/css/validationEngine.jquery.css">
+<script type="text/javascript" src="js/validation/jquery.validationEngine-en.js"></script>
+<script type="text/javascript" src="js/validation/jquery.validationEngine.js"></script>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,27 +46,6 @@
               <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
-    <script type="text/javascript">
-            $(document).ready(function () {
-                // Activate tooltips
-                $('[data-toggle="tooltip"]').tooltip();
-
-                // Filter table rows based on searched term
-                $("#search").on("keyup", function () {
-                    var term = $(this).val().toLowerCase();
-                    $("table tbody tr").each(function () {
-                        $row = $(this);
-                        var name = $row.find("td:nth-child(3)").text().toUpperCase();
-                        console.log(name);
-                        if (name.search(term) < 0) {
-                            $row.hide();
-                        } else {
-                            $row.show();
-                        }
-                    });
-                });
-            });
-        </script>
     <style type="text/css">
         .searchNama{
             width: 130px;
@@ -142,7 +125,6 @@
             background-color: yellow;
         }
     </style>
-
 </head>
 
 <body>
@@ -165,23 +147,23 @@
                     <ul class="header-btns">
                         <!-- Account -->
                         <li class="header-account dropdown default-dropdown">
-                                <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon">
-                                        <i class="fa fa-user-o"></i>
-                                    </div>
-                                    <c:url var="login" value="/index.htm"></c:url>
-                                    <a href="${login}" class="text-uppercase">LOGOUT</a>
+                            <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-user-o"></i>
                                 </div>
-                                <!--<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
-                                <ul class="custom-menu">
-                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                    <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                    <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                    <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                                </ul>-->
-                            </li>
+                                <c:url var="login" value="/index.htm"></c:url>
+                                <a href="${login}" class="text-uppercase">LOGOUT</a>
+                            </div>
+                            <!--<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
+                            <ul class="custom-menu">
+                                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
+                                <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
+                                <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                                <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                            </ul>-->
+                        </li>
                         <!-- /Account -->
 
                         <!-- Cart -->
@@ -239,40 +221,40 @@
         <div class="container">
             <div id="responsive-nav">
                 <!-- category nav -->
-<!--                <div class="category-nav show-on-click">
-                    <span class="category-header">E-COMMERCE</span>
-                </div>-->
+                <!--                <div class="category-nav show-on-click">
+                                    <span class="category-header">E-COMMERCE</span>
+                                </div>-->
                 <!-- /category nav -->
 
                 <!-- menu nav -->
                 <c:url var="home" value="/menuAdmin.htm"/>
-                    <c:url var="produk" value="/tabelProduk.htm"/>
-                    <c:url var="kategori" value="/tabelKategori.htm"/>
-                    <c:url var="detail" value="/tabelDetail.htm"/>
-                    <c:url var="pembeli" value="/tabelPembeli.htm"/>
-                    <c:url var="ongkir" value="/tabelOngkir.htm"/>
-                    <c:url var="ulasan" value="/tabelUlasan.htm"/>
-                    <c:url var="pesanan" value="/tabelPesanan.htm"/>
-                    <c:url var="akun" value="/tabelAkun.htm"/>
-                    <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
-                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
-                    <div class="menu-nav">
-                        <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-                        <ul class="menu-list">
-                            <li><a href="${home}">Home</a></li>
-                            <li><a href="${kategori}">Kategori</a></li>
-                            <li><a href="${produk}">Produk</a></li>
-                            <li><a href="${detail}">DetailProduk</a></li>
-                            <li><a href="${pembeli}">Pembeli</a></li>
-                            <li><a href="${ongkir}">Ongkir</a></li>
-                            <li><a href="${ulasan}">Ulasan</a></li>
-                            <li><a href="${pesanan}">Pesanan</a></li>
-                            <li><a href="${akun}">Akun</a></li>
-                            <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="${laporan}">Laporan</a>
-                            </li>
-                        </ul>
-                    </div>
+                <c:url var="produk" value="/tabelProduk.htm"/>
+                <c:url var="kategori" value="/tabelKategori.htm"/>
+                <c:url var="detail" value="/tabelDetail.htm"/>
+                <c:url var="pembeli" value="/tabelPembeli.htm"/>
+                <c:url var="ongkir" value="/tabelOngkir.htm"/>
+                <c:url var="ulasan" value="/tabelUlasan.htm"/>
+                <c:url var="pesanan" value="/tabelPesanan.htm"/>
+                <c:url var="akun" value="/tabelAkun.htm"/>
+                <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
+                <div class="menu-nav">
+                    <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+                    <ul class="menu-list">
+                        <li><a href="${home}">Home</a></li>
+                        <li><a href="${kategori}">Kategori</a></li>
+                        <li><a href="${produk}">Produk</a></li>
+                        <li><a href="${detail}">DetailProduk</a></li>
+                        <li><a href="${pembeli}">Pembeli</a></li>
+                        <li><a href="${ongkir}">Ongkir</a></li>
+                        <li><a href="${ulasan}">Ulasan</a></li>
+                        <li><a href="${pesanan}">Pesanan</a></li>
+                        <li><a href="${akun}">Akun</a></li>
+                        <li><a href="${pengeluaran}">Pengeluaran</a></li>
+                        <li><a href="${laporan}">Laporan</a>
+                        </li>
+                    </ul>
+                </div>
                 <!-- menu nav -->
             </div>
         </div>
@@ -303,42 +285,43 @@
     <!-- footer subscribe -->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <c:url var="tambahDataUlasan" value="/doTambahDataUlasan.htm">        
-     </c:url>
+    </c:url>
     <p align="center" style = "font-family:courier;"><u><a href="${tambahDataUlasan}">Tambah</a></u></p>
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
     <form>
         <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Keterangan"/><br><br></center>
     </form>
-            <table  align="center" class="table1" border="1">
-                <thead><tr>
-                    <th>No</th> 
-                    <th>Kode Ulasan</th>            
-                    <th>Video</th>            
-                    <th>Keterangan</th>
-                    <th colspan="2">action</th>
-                    </tr></thead>
-                <tbody>
-                <c:set var="index" value="1"/>
-                <c:forEach var="listUlasan" items="${listUlasanDto}">
-                    <tr>  
-                        <td>${index}</td>
-                        <td>${listUlasan.kode_ulasan}</td>
-                        <td><video controls width="200" height="200px">
-                                        <source src="b/img/video/${listUlasan.video}" type="video/mp4">
-                                    </video></td>
-                        <td>${listUlasan.keterangan}</td>
-                        <c:url var="deleteUlasan" value="/deleteDataUlasan.htm">
-                            <c:param name="kode_ulasan" value="${listUlasan.kode_ulasan}"/>
-                        </c:url>
-                        <c:url var="updateUlasan" value="/getDataUpdateUlasan.htm">
-                            <c:param name="kode_ulasan" value="${listUlasan.kode_ulasan}"/>
-                        </c:url>
-                        <td><a href="${deleteUlasan}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
-                        <td><a href="${updateUlasan}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
-                    </tr>            
-                    <c:set var="index" value="${index+1}"/>
-                </c:forEach></tbody>
-            </table>
+    <table  align="center" class="table1" border="1">
+        <thead><tr>
+                <th>No</th> 
+                <th>Kode Ulasan</th>            
+                <th>Video</th>            
+                <th>Keterangan</th>
+                <th colspan="2">action</th>
+            </tr></thead>
+        <tbody>
+            <c:set var="index" value="1"/>
+            <c:forEach var="listUlasan" items="${listUlasanDto}">
+                <c:url var="deleteUlasan" value="/deleteDataUlasan.htm">
+                    <c:param name="kode_ulasan" value="${listUlasan.kode_ulasan}"/>
+                </c:url>
+                <c:url var="updateUlasan" value="/getDataUpdateUlasan.htm">
+                    <c:param name="kode_ulasan" value="${listUlasan.kode_ulasan}"/>
+                </c:url>
+                <tr>  
+                    <td>${index}</td>
+                    <td>${listUlasan.kode_ulasan}</td>
+                    <td><video controls width="200" height="200px">
+                            <source src="b/img/video/${listUlasan.video}" type="video/mp4">
+                        </video></td>
+                    <td>${listUlasan.keterangan}</td>
+                    <td><a href="${deleteUlasan}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
+                    <td><a href="${updateUlasan}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
+                </tr>            
+                <c:set var="index" value="${index+1}"/>
+            </c:forEach>
+        </tbody>
+    </table>
     <!--</div>-->
 </div>
 
