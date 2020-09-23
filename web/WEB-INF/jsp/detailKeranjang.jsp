@@ -38,6 +38,7 @@
    
     function getKodeCart(kode_cart, total,kode_detail,jumlah_belanja,berat,kuantitas) {
         var xD= document.getElementById("ongkirz");
+        var xD1= document.getElementById("ongkirz1");
         var CD= document.getElementById("a123");
         var yy= document.getElementById("beratBarangz");
         var checkBox = document.getElementById(kode_cart);
@@ -74,11 +75,13 @@
                     kodeCartList.splice(i, 1);
                     jumlahBelanjaList.splice(i, 1);
                     totalHarga.splice(i, 1);
+                    beratbarang-=(berat*kuantitas);
                 }
             }
             
-            beratbarang-=(berat*kuantitas);
         }
+        
+        console.log("berat barang "+berat+"ass "+kuantitas);
         vvv=totalHarga.toString();
         xxx=kodeCartList.toString();
         yyy=kodeDetailList.toString();
@@ -90,38 +93,36 @@
         jumlahBelanja.value = zzz;
         var barangberat=(beratbarang/1000).toFixed(0);
         harga.value=vvv*barangberat;
+        
+        console.log("berat barang  "+barangberat);
+        
+        console.log("ongkir "+ongkosKirim);
         CD.value=barangberat*ongkosKirim;
         console.log(CD.value);
-        var xD1= document.getElementById("ongkirz1");
         xD1.value=CD.value.toString();
-        xD.style.display="block";
-        xD1.style.display="none";
         yy.value=barangberat;
         var z= document.getElementById("z");
         var y= document.getElementById("hargaBarangz").value;
-        z.value=xD1.value+y;
+        z.value=parseInt(xD.value)+parseInt(y);
         return kodeCartList;
     }
     var accept=false;
     function getAlamat(id_penerima,ongkir,berat) {
-        if(ongkir!=0){
+        if(ongkir!=0 && ongkir!=-1){
             ongkosKirim=ongkir;
         }
         var xD= document.getElementById("ongkirz");
         var xD1= document.getElementById("ongkirz1");
-        xD1.style.display="block";
         console.log("getAlamat"+ongkosKirim);
         document.getElementById("id_penerima").value = id_penerima;
         var y= document.getElementById("hargaBarangz");
         var z= document.getElementById("z");
         var labelPs = document.getElementById("totalPesanan");
         var barangberat=(beratbarang/1000).toFixed(0);
-        xD1.style.display="block";
-        xD.style.display="none";
-        xD.value=ongkir*barangberat;
+        xD.value=ongkosKirim*barangberat;
         y.value=tamp;
         
-        z.value=tamp+ongkir;
+        z.value=parseInt(tamp)+parseInt(xD.value);
         labelPs.value=tamp+ongkir;
     }
 </script>
@@ -726,7 +727,7 @@
                                     <td>&nbsp;&nbsp;</td>
                                     <td>:</td>
                                     <td>&nbsp;&nbsp;</td>
-                                    <td><input type="label" id="ongkirz" value="" style="display: none"/><input type="label" id="ongkirz1" value="" style="display: block"/></td>
+                                    <td><input type="label" id="ongkirz" value="" style="display: block"/><input type="label" id="ongkirz1" value="" style="display: none"/></td>
                                     
                                 </tr>
                                  <tr>
