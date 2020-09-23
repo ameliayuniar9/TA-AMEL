@@ -3,8 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/KD/TA-AMEL/src/java/projek/e/commerce/springhibernate/controller/ECommerceController.java</file>
-            <file>file:/F:/KD/TA-AMEL/src/java/projek/e/commerce/springhibernate/service/impl/PenerimaServiceImpl.java</file>
+            <file>file:/E:/Amelia/E-Commerce/web/WEB-INF/jsp/menuPembeli.jsp</file>
+            <file>file:/E:/Amelia/E-Commerce/web/WEB-INF/jdbc.properties</file>
+            <file>file:/E:/Amelia/E-Commerce/src/java/projek/e/commerce/springhibernate/service/PesananService.java</file>
+            <file>file:/E:/Amelia/E-Commerce/web/WEB-INF/jsp/tabelPesanan.jsp</file>
+            <file>file:/E:/Amelia/E-Commerce/src/java/projek/e/commerce/springhibernate/controller/ECommerceController.java</file>
+            <file>file:/E:/Amelia/E-Commerce/web/WEB-INF/jsp/tabelPesanan2.jsp</file>
+            <file>file:/E:/Amelia/E-Commerce/src/java/hibernate.cfg.xml</file>
+            <file>file:/E:/Amelia/E-Commerce/src/java/projek/e/commerce/springhibernate/dao/PesananDao.java</file>
+            <file>file:/E:/Amelia/E-Commerce/web/WEB-INF/jsp/menuAdmin.jsp</file>
+            <file>file:/E:/Amelia/E-Commerce/src/java/projek/e/commerce/springhibernate/dao/impl/PesananDaoImpl.java</file>
+            <file>file:/E:/Amelia/E-Commerce/web/WEB-INF/jsp/home.jsp</file>
         </group>
     </open-files>
 </project-private>

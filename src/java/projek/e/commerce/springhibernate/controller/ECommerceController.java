@@ -10,6 +10,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -456,14 +457,14 @@ public class ECommerceController {
     
     @RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
     public String Pesan(PesananDto pesananDto,ModelMap model) throws Exception{
-        System.out.println(pesananDto.getKode_detail());
-        System.out.println(pesananDto.getKodeChart());
-        System.out.println(pesananDto.getJumlah_belanja());
-        System.out.println(pesananDto.getHarga());
+        System.out.println("KODE DETAIL "+pesananDto.getKode_detail());
+        System.out.println("KODE CART "+pesananDto.getKodeChart());
+        System.out.println("JUMLAH BELANJA"+pesananDto.getJumlah_belanja());
+        System.out.println("HARGA :"+pesananDto.getHarga());
          
         try {
             String[] detail=pesananDto.getKode_detail().split(",");
-            String[] chart=pesananDto.getKodeCart().split(",");
+            String[] chart=pesananDto.getKodeChart().split(",");
             String[] stok=pesananDto.getJumlah_belanja().split(",");
             String[] harga=pesananDto.getHarga().split(",");
             

@@ -7,6 +7,7 @@ package projek.e.commerce.springhibernate.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -170,6 +171,9 @@ public class PesananServiceImpl implements PesananService{
         dataModel.setBukti_pembayaran("");
         dataModel.setId_penerima(belanjaDto.getId_penerima());
         dataModel.setTanggal_pembayaran("");
+        Date today = new Date();
+        Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+        dataModel.setTgl_max_bayar(String.valueOf(dt.format(tomorrow)));
 
         belanjaDao.saveDataBelanja(dataModel);
     }
@@ -390,6 +394,9 @@ public class PesananServiceImpl implements PesananService{
                     }
                     if(model.getTanggal_pembayaran()!= null){
                         belanjaDto.setTanggal_pembayaran(model.getTanggal_pembayaran());
+                    }
+                    if(model.getTgl_max_bayar()!= null){
+                        belanjaDto.setTgl_max_bayar(model.getTgl_max_bayar());
                     }
                     
                     listDataDto.add(belanjaDto);

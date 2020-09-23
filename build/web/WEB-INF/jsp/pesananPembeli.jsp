@@ -383,7 +383,8 @@
                                         <th class="column-2">Total Pesanan</th>
                                         <th class="column-3">Tanggal Pesan</th>
                                         <th class="column-4">Status</th>
-                                        <th class="column-5">Action</th>
+                                        <th class="column-5">Tanggal Maksimal Bayar</th>
+                                        <th class="column-6">Action</th>
                                     </tr>   
                                     </thead>
                                     <tbody>
@@ -393,10 +394,11 @@
                                             <td class="column-2" align="center">${listPesanan.total_pesanan}</td>
                                             <td class="column-3">${listPesanan.tanggal_pesan}</td>
                                             <td class="column-4">${listPesanan.status}</td>
+                                            <td class="column-5">${listPesanan.tgl_max_bayar}</td>
                                             <c:url var="pembayaran" value="/pembayaran.htm">
                                                 <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                                             </c:url>
-                                            <td class="column-5"><a class="btn btn-primary" href="${pembayaran}">BAYAR</a></td>
+                                            <td class="column-6"><a class="btn btn-primary" href="${pembayaran}">BAYAR</a></td>
                                         </tr> 
                                     </c:forEach>
                                     </tbody>

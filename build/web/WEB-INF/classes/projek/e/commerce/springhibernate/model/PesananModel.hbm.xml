@@ -12,5 +12,6 @@
     <property column="bukti_pembayaran" name="bukti_pembayaran"/>
     <property column="id_penerima" name="id_penerima"/>
     <property column="tanggal_pembayaran" name="tanggal_pembayaran"/>
+    <property column="tgl_max_bayar" name="tgl_max_bayar"/>
   </class>
 </hibernate-mapping>

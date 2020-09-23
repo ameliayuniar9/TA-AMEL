@@ -92,8 +92,8 @@
         kodeDetail.value = yyy;
         jumlahBelanja.value = zzz;
         var barangberat=(beratbarang/1000).toFixed(0);
-        harga.value=vvv*barangberat;
-        
+        harga.value=vvv;
+        console.log("HARGA  "+totalHarga.toString());
         console.log("berat barang  "+barangberat);
         
         console.log("ongkir "+ongkosKirim);

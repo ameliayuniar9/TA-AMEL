@@ -11,7 +11,7 @@ package projek.e.commerce.springhibernate.model;
  * @author HP
  */
 public class PesananModel {
-   String kode_pesanan,id_pembeli,status,bukti_pembayaran,tanggal_pesan,id_penerima,tanggal_pembayaran;
+   String kode_pesanan,id_pembeli,status,bukti_pembayaran,tanggal_pesan,id_penerima,tanggal_pembayaran,tgl_max_bayar;
    Integer total_pesanan;
 
     public String getKode_pesanan() {
@@ -77,5 +77,12 @@ public class PesananModel {
     public void setTotal_pesanan(Integer total_pesanan) {
         this.total_pesanan = total_pesanan;
     }
-    
+
+    public String getTgl_max_bayar() {
+        return tgl_max_bayar;
+    }
+
+    public void setTgl_max_bayar(String tgl_max_bayar) {
+        this.tgl_max_bayar = tgl_max_bayar;
+    }
 }
