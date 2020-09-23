@@ -11,6 +11,7 @@
 
 <script type="text/javascript">
     // Get the checkboxs
+    
     function getCheckbox() {
         var checkBox = document.getElementById("myCheck");
         var label = document.getElementById("myTotal");
@@ -24,42 +25,104 @@
     }
 
     var kodeCartList = [];
+    var kodeDetailList =[];
+    var jumlahBelanjaList =[];
     var totalHarga = [];
     var tamp = 0;
-
-    function getKodeCart(kode_cart, total) {
+    var xxx;
+    var yyy;
+    var zzz;
+    var vvv;
+    var beratbarang=0;
+    var ongkosKirim=0;
+   
+    function getKodeCart(kode_cart, total,kode_detail,jumlah_belanja,berat,kuantitas) {
+        var xD= document.getElementById("ongkirz");
+        var CD= document.getElementById("a123");
+        var yy= document.getElementById("beratBarangz");
         var checkBox = document.getElementById(kode_cart);
         var label = document.getElementById("myTotal");
         var labelPs = document.getElementById("totalPesanan");
         var kodeChart = document.getElementById("kodeCharts");
-
+        var kodeDetail= document.getElementById("kode_details");
+        var jumlahBelanja= document.getElementById("jumlahbelanjas");
+        var harga= document.getElementById("hargas");
         if (checkBox.checked == true) {
             if (kodeCartList.length == 0)
                 kodeCartList[0] = kode_cart;
             else
                 kodeCartList[kodeCartList.length] = kode_cart;
             if (totalHarga.length == 0) {
-                totalHarga[0] = total;
+                totalHarga[0] = total.toString();
             } else
-                totalHarga[totalHarga.length] = total;
+                totalHarga[totalHarga.length] = total.toString();
+            if (kodeDetailList.length == 0) {
+                kodeDetailList[0] = kode_detail;
+            } else
+                kodeDetailList[kodeDetailList.length] = kode_detail;
+            if (jumlahBelanjaList.length == 0) {
+                jumlahBelanjaList[0] = jumlah_belanja;
+            } else
+                jumlahBelanjaList[jumlahBelanjaList.length] = jumlah_belanja;
             tamp += total;
+            beratbarang+=(berat*kuantitas);
         } else {
             for (let i = 0; i < kodeCartList.length; i++) {
                 if (kodeCartList[i] == kode_cart) {
                     tamp -= total;
+                    kodeDetailList.splice(i, 1);
                     kodeCartList.splice(i, 1);
+                    jumlahBelanjaList.splice(i, 1);
                     totalHarga.splice(i, 1);
                 }
             }
+            
+            beratbarang-=(berat*kuantitas);
         }
+        vvv=totalHarga.toString();
+        xxx=kodeCartList.toString();
+        yyy=kodeDetailList.toString();
+        zzz=jumlahBelanjaList.toString();
         label.value = tamp;
         labelPs.value = tamp;
-        kodeChart.value = kodeChartList;
+        kodeChart.value = xxx;
+        kodeDetail.value = yyy;
+        jumlahBelanja.value = zzz;
+        var barangberat=(beratbarang/1000).toFixed(0);
+        harga.value=vvv*barangberat;
+        CD.value=barangberat*ongkosKirim;
+        console.log(CD.value);
+        var xD1= document.getElementById("ongkirz1");
+        xD1.value=CD.value.toString();
+        xD.style.display="block";
+        xD1.style.display="none";
+        yy.value=barangberat;
+        var z= document.getElementById("z");
+        var y= document.getElementById("hargaBarangz").value;
+        z.value=xD1.value+y;
         return kodeCartList;
     }
-
-    function getAlamat(id_penerima) {
+    var accept=false;
+    function getAlamat(id_penerima,ongkir,berat) {
+        if(ongkir!=0){
+            ongkosKirim=ongkir;
+        }
+        var xD= document.getElementById("ongkirz");
+        var xD1= document.getElementById("ongkirz1");
+        xD1.style.display="block";
+        console.log("getAlamat"+ongkosKirim);
         document.getElementById("id_penerima").value = id_penerima;
+        var y= document.getElementById("hargaBarangz");
+        var z= document.getElementById("z");
+        var labelPs = document.getElementById("totalPesanan");
+        var barangberat=(beratbarang/1000).toFixed(0);
+        xD1.style.display="block";
+        xD.style.display="none";
+        xD.value=ongkir*barangberat;
+        y.value=tamp;
+        
+        z.value=tamp+ongkir;
+        labelPs.value=tamp+ongkir;
     }
 </script>
 <!DOCTYPE html>
@@ -172,10 +235,6 @@
 
                         <!-- Icon header -->
                         <div class="wrap-icon-header flex-w flex-r-m">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                <i class="zmdi zmdi-search"></i>
-                            </div>
-
                             <c:set var="listCart" value="${listCartDto}"/>
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
                                 <i class="zmdi zmdi-shopping-cart"></i>
@@ -302,7 +361,7 @@
             <div class="header-cart flex-col-l p-l-65 p-r-25">
                 <div class="header-cart-title flex-w flex-sb-m p-b-8">
                     <span class="mtext-103 cl2">
-                        Your Cart
+                        Keranjang
                     </span>
 
                     <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
@@ -333,40 +392,20 @@
                                 </li>
                         </c:forEach>
                     </ul>
-
+                        <input tytype="label" id="a123" hidden/>
                     <div class="w-full">
                         <div class="header-cart-total w-full p-tb-40">
                             Total : Rp.<fmt:formatNumber type="number" groupingUsed="true" value="${total}" />
                         </div>
 
-                        <div class="header-cart-buttons flex-w w-full">
-                            <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-                                View Cart
-                            </a>
-
-                            <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-                                Check Out
+                        <c:url var="detailCart" value="/detailKeranjang.htm"></c:url>
+                            <div class="header-cart-buttons flex-w w-full">
+                                <a href="${detailCart}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                                Lihat Keranjang
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-        <!-- breadcrumb -->
-        <div class="container">
-            <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Home
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
-
-                <a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Shopping Cart
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
-
             </div>
         </div>
 
@@ -380,11 +419,11 @@
                                 <div class="wrap-table-shopping-cart">
                                     <table class="table-shopping-cart">
                                         <tr class="table_head">
-                                            <th class="column-2"></th>
-                                            <th class="column-1">Produk</th>
-                                            <th class="column-2"></th>
-                                            <th class="column-3">Harga</th>
-                                            <th class="column-4">Kuantitas</th>
+                                            <th class="column-1"></th>
+                                            <th class="column-2">Produk</th>
+                                            <th class="column-3"></th>
+                                            <th class="column-4">Harga</th>
+                                            <th class="column-5">Kuantitas</th>
                                             <th class="column-5">Total</th>
                                         </tr>
                                     <c:set var="totalCart" value="${0}"></c:set>
@@ -393,16 +432,16 @@
                                             <c:set var="jumlah" value="${listCart.kuantitas*listCart.harga_jual}"></c:set>
 
                                                 <td class="column-1">
-                                                    <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual});"/>
+                                                    <input type="checkbox" class="input" id="${listCart.kode_cart}" onclick="getKodeCart('${listCart.kode_cart}',${listCart.kuantitas*listCart.harga_jual},'${listCart.kode_detail}','${listCart.kuantitas}',${listCart.berat},${listCart.kuantitas});getAlamat(value,0,${listCart.berat});"/>
                                             </td>
-                                            <td class="column-1">
+                                            <td class="column-2">
                                                 <div class="how-itemcart1">
                                                     <img src="b/img/${listCart.gambar}" alt="IMG">
                                                 </div>
                                             </td>
-                                            <td class="column-2">${listCart.nama_produk}</td>
-                                            <td class="column-3"><fmt:formatNumber type="number" groupingUsed="true" value="${listCart.harga_jual}"/></td>
-                                            <td class="column-4">${listCart.kuantitas}</td>
+                                            <td class="column-3">${listCart.nama_produk}</td>
+                                            <td class="column-4"><fmt:formatNumber type="number" groupingUsed="true" value="${listCart.harga_jual}"/></td>
+                                            <td class="column-5">${listCart.kuantitas}</td>
                                             <td class="column-5"><fmt:formatNumber type="number" groupingUsed="true" value="${jumlah}"/></td>
 
                                         </tr>
@@ -601,11 +640,21 @@
                                 <div class="size-212 p-t-2">
                                     <table>
                                         <tr>
-                                            <td><input type="radio" name="alamat" onclick="getAlamat(value);" value="${listPenerima.id_penerima}"></td>
+                                            <td><input type="radio" name="alamat" onclick="getAlamat(value,${listPenerima.harga},-1);" value="${listPenerima.id_penerima}" checked></td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
                                             <td>
                                                 <strong>${listPenerima.nama_penerima}</strong>
-                                                </span></td>
+                                            </td>
+                                            <c:url var="deletePenerima" value="/deleteDataPenerima.htm">
+                                                <c:param name="id_penerima" value="${listPenerima.id_penerima}"/>
+                                            </c:url>
+                                            <c:url var="updatePenerima" value="/getDataUpdatePenerima.htm">
+                                                <c:param name="id_penerima" value="${listPenerima.id_penerima}"/>
+                                            </c:url>
+                                            <td>&nbsp;&nbsp;&nbsp;</td>
+                                            <td>&nbsp;&nbsp;&nbsp;</td>
+                                            <td><a href="${deletePenerima}"><img src="./b/images/icons/icon hapus.png" alt="" width="20px" height="20px"></a></td>
+                                            <td><a href="${updatePenerima}"><img src="./b/images/icons/icon edit.png" alt="" width="20px" height="20px"></a></td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -625,13 +674,86 @@
                                     </table>
                                 </div>
                             </c:forEach>
-
+                            
+                            <table>
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td>    </td>
+                                    <td>  </td>
+                                    <td>   </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Berat Produk</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>:</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><input type="label" id="beratBarangz" value=""/></td>
+                                    <td>&nbsp;&nbsp;Kg</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Subtotal Produk</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>:</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><input type="label" id="hargaBarangz" value=""/></td>
+                                    
+                                </tr>
+                                 <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Subtotal pengiriman</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>:</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><input type="label" id="ongkirz" value="" style="display: none"/><input type="label" id="ongkirz1" value="" style="display: block"/></td>
+                                    
+                                </tr>
+                                 <tr>
+                                    <td>&nbsp;&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Total Pembayaran</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>:</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td><input type="label" id="z" value="" /></td>
+                                    
+                                </tr>
+                            </table>
                         </div>
                         <form:form id="pesanan" action="savePesanan.htm" modelAttribute="pesananDto" method="POST">
                             <form:hidden path="total_pesanan" id="totalPesanan"></form:hidden>
                             <form:hidden path="kodeChart" id="kodeCharts"></form:hidden>
+                            <form:hidden path="kode_detail" id="kode_details"></form:hidden>
+                            <form:hidden path="jumlah_belanja" id="jumlahbelanjas"></form:hidden>
+                            <form:hidden path="harga" id="hargas"></form:hidden>
                             <form:hidden path="id_penerima" id="id_penerima"></form:hidden>
-                            <form:button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="submit"><b>PESAN</b></form:button>
+                            <form:button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"  type="submit"><b>PESAN</b></form:button>
                         </form:form>
                         <%--<c:url var="savePesanan" value="/settingAddress.htm"></c:url>--%>
                         <!--<a href="${savePesanan}" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">-->

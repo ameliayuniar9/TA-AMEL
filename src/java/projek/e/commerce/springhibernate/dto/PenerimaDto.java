@@ -11,6 +11,14 @@ package projek.e.commerce.springhibernate.dto;
  */
 public class PenerimaDto {
     String id_penerima,id_pembeli,nama_penerima,no_telp,provinsi,kabupaten,kecamatan,alamat_lengkap,status;
+    int harga;
+    public void setHarga(int harga) {
+        this.harga = harga;
+    }
+    
+    public int getHarga() {
+        return harga;
+    }
 
     public String getId_penerima() {
         return id_penerima;

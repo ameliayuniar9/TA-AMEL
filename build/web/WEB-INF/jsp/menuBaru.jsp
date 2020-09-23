@@ -58,7 +58,7 @@
                             Selamat datang di Mostly Hijab. Selamat Berbelanja
                         </div>
 
-                        <div class="right-top-bar flex-w h-full">
+                        <div class="right-top-bar">
                             <c:url var="logout" value="/index.htm"></c:url>
                             <a href="${logout}" class="flex-c-m trans-04 p-lr-25">
                                 LOGOUT
@@ -117,10 +117,6 @@
 
                         <!-- Icon header -->
                         <div class="wrap-icon-header flex-w flex-r-m">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                <i class="zmdi zmdi-search"></i>
-                            </div>
-
                             <c:set var="listCart" value="${listCartDto}"/>
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
                                 <i class="zmdi zmdi-shopping-cart"></i>
@@ -263,9 +259,14 @@
                         <ul class="header-cart-wrapitem w-full">
                         <c:forEach var="listCart" items="${listCartDto}">
                             <li class="header-cart-item flex-w flex-t m-b-12">
-                                <div class="header-cart-item-img">
-                                    <img src="b/img/${listCart.gambar}" alt="IMG">
-                                </div>
+                                <c:url var="deleteCart" value="/deleteDataKeranjang.htm">
+                                    <c:param name="kode_cart" value="${listCart.kode_cart}"/>
+                                </c:url>
+                                <a href="${deleteCart}"><div class="header-cart-item-img">
+                                    
+                                        <img src="b/img/${listCart.gambar}" alt="IMG">
+                                    
+                                </div></a>  
 
                                 <div class="header-cart-item-txt p-t-8">
                                     <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
@@ -322,12 +323,6 @@
                     </div>
 
                     <div class="flex-w flex-c-m m-tb-10">
-                        <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
-                            <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-                            <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-                            Filter
-                        </div>
-
                         <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
                             <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
                             <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
@@ -565,13 +560,6 @@
                             </div>
                         </div></c:forEach>
 
-                </div>
-
-                <!-- Load more -->
-                <div class="flex-c-m flex-w w-full p-t-45">
-                    <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-                        Load More
-                    </a>
                 </div>
             </div>
         </div>

@@ -175,7 +175,8 @@
         <div id="navigation">
             <!-- container -->
             <div class="container">
-                <div id="responsive-nav">
+                <div id="responsive-nav" class="text-center">
+<!--                <div id="responsive-nav">-->
                     <!-- category nav -->
                     <!--                    <div class="category-nav">
                                             <span class="category-header">E-COMMERCE</span>
@@ -185,32 +186,23 @@
                     <!-- menu nav -->
                     <c:url var="home" value="/menuOwner.htm"/>
                     <c:url var="admin" value="/tabelAdmin.htm"/>
+                    <c:url var="produk" value="/tabelProdukForOwner.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaranForOwner.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporanOwner.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
                             <li><a href="${home}">Home</a></li>
                             <li><a href="${admin}">Akun Admin</a></li>
+                            <li><a href="${produk}">Data Produk</a></li>
                             <li><a href="${pengeluaran}">Data Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
                         </ul>
                     </div>
+                </div>
                     <!-- menu nav -->
                 </div>
             </div>
-            <!-- /container -->
-        </div>
         <!-- /NAVIGATION -->
 
         <!-- HOME -->
@@ -218,9 +210,9 @@
             <!-- container -->
             <div class="container">
                 <!-- home wrap -->
-                <div class="home-wrap">
+                <!--<div class="home-wrap">-->
                     <!-- home slick -->
-                    <div id="home-slick">
+                    <!--<div id="home-slick">-->
                         <!-- banner -->
                         <div class="banner banner-1">
                             <c:set var="indexCek" value="0"/>
@@ -234,15 +226,20 @@
                                 </div>
                             </c:if>
                             <br><br>
-                            <div class="row">
-                                <canvas id="chart2" height="150" ></canvas></div>
-                        </div>
+                            <!--<div class="row">-->
+                                <center><div class="col-md-9">
+                                    <canvas id="chart2" height="150" ></canvas>
+                                    </div></center>
+                            <!--</div>-->
+                            <!--</div>-->
                         <!-- /banner -->
-                    </div>
+                    <!--</div>-->
                     <!-- /home slick -->
-                </div>
+                <!--</div>-->
                 <!-- /home wrap -->
             </div>
+            </div>
+        </div>
             <!-- /container -->
         </div>
         <!-- /HOME -->

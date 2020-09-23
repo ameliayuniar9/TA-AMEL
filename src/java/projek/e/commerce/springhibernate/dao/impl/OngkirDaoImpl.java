@@ -71,4 +71,11 @@ public class OngkirDaoImpl extends HibernateUtil implements OngkirDao{
         dataList = query.list();
         return dataList;
     }   
+    
+    @Override
+    public OngkirModel getOngkir(String namakota) {
+        String sql = "select model from OngkirModel model where nama_kota=:namakota";
+        Query query = createQuery(sql).setParameter("namakota", namakota);
+       return (OngkirModel) query.uniqueResult();
+    }   
 }

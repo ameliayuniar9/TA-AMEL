@@ -167,57 +167,14 @@
                     <ul class="header-btns">
                         <!-- Account -->
                         <li class="header-account dropdown default-dropdown">
-                                <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                                    
-                                    <c:url var="login" value="/index.htm"></c:url>
-                                    <a href="${login}" class="text-uppercase"><div class="header-btns-icon">
-                                        <i class="fa fa-user-o"></i></div>
-                                        <strong>LOGOUT</strong></a><br>
-                                </div>      
-                               
-                            </li>
-                        <!-- /Account -->
-
-                        <!-- Cart -->
-                        <li class="header-cart dropdown default-dropdown">
-                            <div class="custom-menu">
-                                <div id="shopping-cart">
-                                    <div class="shopping-cart-list">
-                                        <div class="product product-widget">
-                                            <div class="product-thumb">
-                                                <img src="./img/thumb-product01.jpg" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                            </div>
-                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                        <div class="product product-widget">
-                                            <div class="product-thumb">
-                                                <img src="./img/thumb-product01.jpg" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                            </div>
-                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="shopping-cart-btns">
-                                        <button class="main-btn">View Cart</button>
-                                        <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
-                                    </div>
+                            <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-user-o"></i>
                                 </div>
+                                <c:url var="login" value="/index.htm"></c:url>
+                                <a href="${login}" class="text-uppercase">LOGOUT</a>
                             </div>
                         </li>
-                        <!-- /Cart -->
-
-                        <!-- Mobile nav toggle-->
-                        <li class="nav-toggle">
-                            <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
-                        </li>
-                        <!-- / Mobile nav toggle -->
                     </ul>
                 </div>
             </div>
@@ -240,30 +197,32 @@
 
                 <!-- menu nav -->
                 <c:url var="home" value="/menuAdmin.htm"/>
-                <c:url var="produk" value="/tabelProduk.htm"/>
-                <c:url var="kategori" value="/tabelKategori.htm"/>
-                <c:url var="detail" value="/tabelDetail.htm"/>
-                <c:url var="pembeli" value="/tabelPembeli.htm"/>
-                <c:url var="ongkir" value="/tabelOngkir.htm"/>
-                <c:url var="ulasan" value="/tabelUlasan.htm"/>
-                <c:url var="pesanan" value="/tabelPesanan.htm"/>
-                <c:url var="akun" value="/tabelAkun.htm"/>
-                <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
-                <div class="menu-nav">
-                    <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-                    <ul class="menu-list">
-                        <li><a href="${home}">Home</a></li>
-                        <li><a href="${kategori}">Kategori</a></li>
-                        <li><a href="${produk}">Produk</a></li>
-                        <li><a href="${detail}">DetailProduk</a></li>
-                        <li><a href="${pembeli}">Pembeli</a></li>
-                        <li><a href="${ongkir}">Ongkir</a></li>
-                        <li><a href="${ulasan}">Ulasan</a></li>
-                        <li><a href="${pesanan}">Pesanan</a></li>
-                        <li><a href="${akun}">Akun</a></li>
-                        <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                        <li><a href="#">Laporan</a></li>
-                    </ul>
+                    <c:url var="produk" value="/tabelProduk.htm"/>
+                    <c:url var="kategori" value="/tabelKategori.htm"/>
+                    <c:url var="detail" value="/tabelDetail.htm"/>
+                    <c:url var="pembeli" value="/tabelPembeli.htm"/>
+                    <c:url var="ongkir" value="/tabelOngkir.htm"/>
+                    <c:url var="ulasan" value="/tabelUlasan.htm"/>
+                    <c:url var="pesanan" value="/tabelPesanan.htm"/>
+                    <c:url var="akun" value="/tabelAkun.htm"/>
+                    <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
+                    <div class="menu-nav">
+                        <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+                        <ul class="menu-list">
+                            <li><a href="${home}">Home</a></li>
+                            <li><a href="${kategori}">Kategori</a></li>
+                            <li><a href="${produk}">Produk</a></li>
+                            <li><a href="${detail}">DetailProduk</a></li>
+                            <li><a href="${pembeli}">Pembeli</a></li>
+                            <li><a href="${ongkir}">Ongkir</a></li>
+                            <li><a href="${ulasan}">Ulasan</a></li>
+                            <li><a href="${pesanan}">Pesanan</a></li>
+                            <li><a href="${akun}">Akun</a></li>
+                            <li><a href="${pengeluaran}">Pengeluaran</a></li>
+                            <li><a href="${laporan}">Laporan</a>
+                            </li>
+                        </ul>
                 </div>
                 <!-- menu nav -->
             </div>

@@ -254,6 +254,7 @@
                     <c:url var="pesanan" value="/tabelPesanan.htm"/>
                     <c:url var="akun" value="/tabelAkun.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -267,7 +268,8 @@
                             <li><a href="${pesanan}">Pesanan</a></li>
                             <li><a href="${akun}">Akun</a></li>
                             <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
+                            </li>
                         </ul>
                     </div>
                 <!-- menu nav -->
@@ -323,6 +325,7 @@
                 <th width="300px">Tanggal Pesan</th>
                 <th>Bukti Pembayaran</th>
                 <th>Tanggal Pembayaran</th> 
+                <th></th>
             </tr>
             <c:set var="index" value="1"/>
             <c:forEach var="listPesanan" items="${listPesananDto}">
@@ -335,6 +338,10 @@
                     <c:set var="gambar" value="${listPesanan.bukti_pembayaran}"/>
                     <td><c:if test="${gambar != null}"><img src="./b/img/pembayaran/${listPesanan.bukti_pembayaran}" width="100px" height="130px"></c:if></td>
                     <td>${listPesanan.tanggal_pembayaran}</td>
+                    <c:url var="cetak" value="/cetak.htm">
+                        <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
+                    </c:url>
+                    <td><a class="btn btn-primary" href="${cetak}">Cetak Alamat</td>
                   </tr>            
                 <c:set var="index" value="${index+1}"/>
             </c:forEach>

@@ -81,5 +81,15 @@ public class PenerimaDaoImpl extends HibernateUtil implements PenerimaDao{
         listData = query.list();
         return listData;
     }
-    
+
+    @Override
+    public List<Object[]> getAlamatPenerima(String kode_pesanan) throws Exception {
+        List<Object[]> listData = null;
+        String sql = "SELECT a.nama_penerima,a.no_telp,a.provinsi,a.kabupaten,a.kecamatan,a.alamat_lengkap FROM tb_penerima a JOIN tb_pesanan b " +
+                     "ON a.id_penerima=b.id_penerima WHERE a.id_penerima  IN(SELECT id_penerima FROM tb_pesanan WHERE kode_pesanan=:kode) " +
+                     "GROUP BY a.id_penerima ";
+        Query query = createNativeQuery(sql).setParameter("kode", kode_pesanan);
+        listData = query.list();
+        return listData;
+    }
 }

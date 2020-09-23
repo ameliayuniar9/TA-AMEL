@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Tabel Kategori</title>
+    <title>Label Pengiriman Paket</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
@@ -297,20 +297,37 @@
                         <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
                             <div class="printableArea">
                                 <div class="print" id="lap">
-                                    <p>Silahkan transfer ke nomor rekening dibawah ini : </p><br>
-                                    <p>Nama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<b>Itsmostly Hijab</b><br>
-                                        Bank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;BCA<br>
-                                        No Rekening :&nbsp;8310147720 
-                                    </p><br><br>
-                                    <p>Nama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<b>Itsmostly Hijab</b><br>
-                                        Bank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Mandiri<br>
-                                        No Rekening :&nbsp;118-00-1088463-2 
-                                    </p><br><br>
+                                    <table>
+                                        <tr>
+                                            <td>Pengirim</td>
+                                            <td>:</td>
+                                            <td>Itsmostly<br>
+                                            6285775996643<br>JAWA BARAT,BANDUNG</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Penerima</td>
+                                            <td>:</td>
+                                            <td><c:forEach var="listPenerima" items="${listPenerimaDto}">
+                                                    ${listPenerima.nama_penerima}<br>
+                                                    ${listPenerima.no_telp}<br>
+                                                    ${listPenerima.alamat_lengkap} , ${listPenerima.kabupaten}<br>
+                                                    ${listPenerima.provinsi}
+                                            </c:forEach></td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Produk</td>
+                                            <td>:</td>
+                                            <td><c:forEach var="listProduk" items="${listProdukDto}">
+                                                    ${listProduk.nama_produk}&nbsp;&nbsp;&nbsp;${listProduk.kuantitas}<br>
+                                            </c:forEach></td>
+                                        </tr>
+                                        
+                                    </table>
 
 
                                 </div>
 
-                                <button id="print" class="btn btn-default btn-outline" type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button>
+                                <center><button id="print" class="btn btn-default btn-outline" type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button></center>
                             </div></div>
                     </div>
     <!--</div>-->

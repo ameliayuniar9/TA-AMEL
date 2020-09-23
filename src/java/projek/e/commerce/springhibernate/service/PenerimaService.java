@@ -21,4 +21,5 @@ public interface PenerimaService {
     public PenerimaDto getUpdateDataPenerima(String id_penerima) throws Exception;
     public void doUpdateDataPenerima(PenerimaDto penerimaDto) throws Exception;
     public List <PenerimaDto> getListPenerimaById(String id_pembeli);
+    public List <PenerimaDto> getPenerimaByKodePesanan(String kode_pesanan) throws Exception;
 }

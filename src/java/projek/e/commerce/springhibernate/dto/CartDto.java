@@ -11,8 +11,8 @@ package projek.e.commerce.springhibernate.dto;
  */
 public class CartDto {
     String kode_cart,kode_detail,id_pembeli,status,kode_produk,gambar,nama_produk;
-    Integer kuantitas,harga_jual, total;
-
+    Integer kuantitas,harga_jual, total,berat;
+    
     public String getKode_cart() {
         return kode_cart;
     }
@@ -59,6 +59,13 @@ public class CartDto {
 
     public void setTotal(Integer total) {
         this.total = total;
+    }
+    public Integer getBerat() {
+        return berat;
+    }
+
+    public void setBerat(Integer berat) {
+        this.berat = berat;
     }
 
     public String getKode_produk() {

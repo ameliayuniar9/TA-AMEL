@@ -96,8 +96,8 @@
         .table1 {
             font-family: sans-serif;
             color: #444;
-            border-collapse: collapse;
             width: 50%;
+            border-collapse: collapse;
             border: 1px solid #f2f5f7;
             align-content: center;
         }
@@ -255,6 +255,7 @@
                     <c:url var="pesanan" value="/tabelPesanan.htm"/>
                     <c:url var="akun" value="/tabelAkun.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaran.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">
@@ -268,7 +269,8 @@
                             <li><a href="${pesanan}">Pesanan</a></li>
                             <li><a href="${akun}">Akun</a></li>
                             <li><a href="${pengeluaran}">Pengeluaran</a></li>
-                            <li><a href="#">Laporan</a></li>
+                            <li><a href="${laporan}">Laporan</a>
+                            </li>
                         </ul>
                     </div>
                 <!-- menu nav -->
@@ -321,7 +323,7 @@
                     <tr>  
                         <td>${index}</td>
                         <td>${listUlasan.kode_ulasan}</td>
-                        <td><video controls width="250">
+                        <td><video controls width="200" height="200px">
                                         <source src="b/img/video/${listUlasan.video}" type="video/mp4">
                                     </video></td>
                         <td>${listUlasan.keterangan}</td>

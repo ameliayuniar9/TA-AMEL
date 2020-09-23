@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projek.e.commerce.springhibernate.dao.KecamatanDao;
 import projek.e.commerce.springhibernate.dao.KotaDao;
+import projek.e.commerce.springhibernate.dao.OngkirDao;
 import projek.e.commerce.springhibernate.dao.PenerimaDao;
 import projek.e.commerce.springhibernate.dao.ProvinsiDao;
 import projek.e.commerce.springhibernate.dto.PenerimaDto;
 import projek.e.commerce.springhibernate.model.KecamatanModel;
 import projek.e.commerce.springhibernate.model.KotaModel;
+import projek.e.commerce.springhibernate.model.OngkirModel;
 import projek.e.commerce.springhibernate.model.PenerimaModel;
 import projek.e.commerce.springhibernate.model.ProvinsiModel;
 import projek.e.commerce.springhibernate.service.PenerimaService;
@@ -35,6 +37,9 @@ public class PenerimaServiceImpl implements PenerimaService{
     
     @Autowired
     KotaDao kotaDao;
+    
+    @Autowired
+    OngkirDao OngkirDao;
     
     @Autowired
     KecamatanDao kecamatanDao;
@@ -105,7 +110,7 @@ public class PenerimaServiceImpl implements PenerimaService{
         String id_pen="PEN-"+b+"";
         try {
             penerimaModel.setId_penerima(id_pen);
-            penerimaModel.setId_pembeli("202003");
+            penerimaModel.setId_pembeli(penerimaDto.getId_penerima());
             penerimaModel.setNama_penerima(penerimaDto.getNama_penerima());
             penerimaModel.setNo_telp(penerimaDto.getNo_telp());
             penerimaModel.setProvinsi(provinsiModel.getNama());
@@ -182,16 +187,19 @@ public class PenerimaServiceImpl implements PenerimaService{
     @Override
     public void doUpdateDataPenerima(PenerimaDto penerimaDto) throws Exception {
         PenerimaModel penerimaModel= new PenerimaModel();
+        ProvinsiModel provinsiModel=provinsiDao.getProvinsiModelById(penerimaDto.getProvinsi());
+        KotaModel kotaModel=kotaDao.getKotaModelById(penerimaDto.getKabupaten());
+        KecamatanModel kecamatanModel=kecamatanDao.getKecamatanModelById(penerimaDto.getKecamatan());
         try {
             penerimaModel.setId_penerima(penerimaDto.getId_penerima());
             penerimaModel.setId_pembeli(penerimaDto.getId_pembeli());
             penerimaModel.setNama_penerima(penerimaDto.getNama_penerima());
             penerimaModel.setNo_telp(penerimaDto.getNo_telp());
-            penerimaModel.setProvinsi(penerimaDto.getProvinsi());
-            penerimaModel.setKabupaten(penerimaDto.getKabupaten());
-            penerimaModel.setKecamatan(penerimaDto.getKecamatan());
+            penerimaModel.setProvinsi(provinsiModel.getNama());
+            penerimaModel.setKabupaten(kotaModel.getNama());
+            penerimaModel.setKecamatan(kecamatanModel.getNama());
             penerimaModel.setAlamat_lengkap(penerimaDto.getAlamat_lengkap());
-            penerimaModel.setStatus(penerimaDto.getStatus());
+            penerimaModel.setStatus("IN_ACTIVE");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -224,9 +232,17 @@ public class PenerimaServiceImpl implements PenerimaService{
                     }
                     if(model.getKabupaten()!= null){
                         penerimaDto.setKabupaten(model.getKabupaten());
+                        try{
+                            OngkirModel dd=(OngkirModel) OngkirDao.getOngkir(penerimaDto.getKabupaten());
+                            penerimaDto.setHarga(dd.getHarga());
+                        }catch(Exception e){
+                            penerimaDto.setHarga(0);
+                        }
+                        
                     }
                     if(model.getKecamatan()!= null){
                         penerimaDto.setKecamatan(model.getKecamatan());
+                        
                     }
                     if(model.getAlamat_lengkap()!= null){
                         penerimaDto.setAlamat_lengkap(model.getAlamat_lengkap());
@@ -234,6 +250,32 @@ public class PenerimaServiceImpl implements PenerimaService{
                     if(model.getStatus()!= null){
                         penerimaDto.setStatus(model.getStatus());
                     }
+                    
+                    listDataDto.add(penerimaDto);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+        return listDataDto;
+    }
+
+    @Override
+    public List<PenerimaDto> getPenerimaByKodePesanan(String kode_pesanan) throws Exception{
+        List <PenerimaDto> listDataDto = new ArrayList<>();
+        List <Object[]> listData = penerimaDao.getAlamatPenerima(kode_pesanan);
+        PenerimaDto penerimaDto = null;
+        try {
+            if(listData != null){
+                for(Object[] model : listData){
+                    penerimaDto = new PenerimaDto();
+                    penerimaDto.setNama_penerima(model[0].toString());
+                    penerimaDto.setNo_telp(model[1].toString());
+                    penerimaDto.setProvinsi(model[2].toString());
+                    penerimaDto.setKabupaten(model[3].toString());
+                    penerimaDto.setKecamatan(model[4].toString());
+                    penerimaDto.setAlamat_lengkap(model[5].toString());
+                    
                     
                     listDataDto.add(penerimaDto);
                 }

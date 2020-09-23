@@ -21,4 +21,5 @@ public interface PenerimaDao {
     public void saveDataPenerima(PenerimaModel penerimaModel);
     public List<PenerimaModel> getListPenerimaUpdate(String id_penerima);
     public List<PenerimaModel> getListDataPenerimaById(String id_pembeli);
+    public List<Object[]> getAlamatPenerima(String kode_pesanan) throws Exception;
 }

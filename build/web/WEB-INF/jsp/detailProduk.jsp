@@ -120,10 +120,6 @@
 
                         <!-- Icon header -->
                         <div class="wrap-icon-header flex-w flex-r-m">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                <i class="zmdi zmdi-search"></i>
-                            </div>
-
                             <c:set var="listCart" value="${listCartDto}"/>
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
                                 <i class="zmdi zmdi-shopping-cart"></i>
@@ -253,7 +249,7 @@
             <div class="header-cart flex-col-l p-l-65 p-r-25">
                 <div class="header-cart-title flex-w flex-sb-m p-b-8">
                     <span class="mtext-103 cl2">
-                        Your Cart
+                        Keranjang
                     </span>
 
                     <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
@@ -292,12 +288,9 @@
                         <c:url var="detailCart" value="/detailKeranjang.htm"></c:url>
                             <div class="header-cart-buttons flex-w w-full">
                                 <a href="${detailCart}" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-                                View Cart
+                                Lihat Keranjang
                             </a>
-
-                            <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-                                Check Out
-                            </a>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -308,15 +301,6 @@
         <!-- breadcrumb -->
         <div class="container">
             <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-                <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Home
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
-
-                <a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
-                    Men
-                    <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-                </a>
                 <c:set var="prod" value="${produkDto}"/>
                 <span class="stext-109 cl4">
                     <c:out value="${prod.nama_produk}"/>
@@ -381,24 +365,27 @@
                                         <c:out value="${produk.warna}"/>
                                     </div>
                                 </div>
-
                                 <div class="flex-w flex-r-m p-b-10">
-                                    <div class="size-204 flex-w flex-m respon6-next">
-                                        <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                    <div class="size-203 flex-c-m respon6">
+                                        Jumlah
+                                    </div>
+
+                                    <div class="size-204 respon6-next">
+                                        <form:form id="keranjang" action="saveKeranjang.htm" modelAttribute="cartDto"  method="POST">
+                                                <form:input type="number" path="kuantitas" min="1" max="${produk.stok}"/>
+                                    </div>
+                                </div>
+                                        
+                                         
+                                            
 
 
-                                            <form:form id="keranjang" action="saveKeranjang.htm" modelAttribute="cartDto"  method="POST">
-                                                <form:input type="number" path="kuantitas" class="input"/>
 
-                                            </div>
-
-
-                                            <form:button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                            <form:button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                                 Tambah ke Keranjang
                                             </form:button>
                                         </form:form>
-                                    </div>
-                                </div>
+                                    
                             </div>
                         </div>
                     </div>
