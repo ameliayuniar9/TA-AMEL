@@ -13,6 +13,11 @@ import projek.e.commerce.springhibernate.model.PesananModel;
  * @author HP
  */
 public interface PesananDao {
+    public void deletegagalpesan(String belanjaModel)throws Exception;
+    public void deleteDetailPesanan(String kodePesanan,String kodeDetail)throws Exception;
+    public void updatepdateDetail(String kodeDetail,int stok)throws Exception;
+    
+    public List<Object[]> deletePesanan()throws Exception;
     public void saveDataBelanja(PesananModel belanjaModel)throws Exception;
     public List<PesananModel> getListDataBelanja()throws Exception;
     public PesananModel getBelanjaById(String id) throws Exception;

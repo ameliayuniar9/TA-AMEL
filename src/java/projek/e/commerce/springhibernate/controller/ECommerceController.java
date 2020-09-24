@@ -30,6 +30,7 @@ import projek.e.commerce.springhibernate.dao.AkunDao;
 import projek.e.commerce.springhibernate.dao.CartDao;
 import projek.e.commerce.springhibernate.dao.DetailDao;
 import projek.e.commerce.springhibernate.dao.DetailPesananDao;
+import projek.e.commerce.springhibernate.dao.PesananDao;
 import projek.e.commerce.springhibernate.dao.KecamatanDao;
 import projek.e.commerce.springhibernate.dao.KotaDao;
 import projek.e.commerce.springhibernate.dao.LoginDao;
@@ -130,6 +131,9 @@ public class ECommerceController {
       
       @Autowired
     PenerimaDao  penerimaDao;
+    
+      @Autowired
+    PesananDao  pesananDao;
       
       @Autowired
     UlasanService ulasanService;
@@ -958,11 +962,12 @@ public class ECommerceController {
         if(listData != null){
             for (LoginModel ddm : listData) {
                 if(ddm.getUsername().equals(formDto.getUsername()) && ddm.getPassword().equals(formDto.getPassword())){
-                    if(ddm.getAkses().equalsIgnoreCase("Admin")){   
+                    if(ddm.getAkses().equalsIgnoreCase("Admin")){  
                         x=ddm.getUsername();
                         cek=1;
                         id_login=ddm.getId_login();
                         akses=ddm.getAkses();
+                        pesananService.deleteDataBelanjaPesan();
                         return"redirect:menuAdmin.htm?id_login="+id_login;   
                     }else if(ddm.getAkses().equalsIgnoreCase("Owner")){
                         x=ddm.getUsername();

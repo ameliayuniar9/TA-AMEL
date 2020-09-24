@@ -188,6 +188,24 @@ public class PesananServiceImpl implements PesananService{
     }
 
     @Override
+    public void deleteDataBelanjaPesan() throws Exception {
+        try {
+            List<Object[]> list=belanjaDao.deletePesanan();
+            if(list != null){
+                for(Object[] model : list){
+                    belanjaDao.deleteDetailPesanan(model[0].toString(),model[1].toString());
+                    belanjaDao.deleteBelanja(model[0].toString());
+                    belanjaDao.updatepdateDetail(model[1].toString(),(int) model[2]);
+                }
+                    
+                    
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
     public PesananDto getUpdateDataBelanja(String kode_belanja) throws Exception {
         List<PesananModel> dataList = belanjaDao.getListBelanjaUpdate(kode_belanja);
         PesananDto belanjaDto = null;

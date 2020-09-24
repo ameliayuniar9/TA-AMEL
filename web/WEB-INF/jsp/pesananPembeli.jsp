@@ -61,6 +61,13 @@
     function getAlamat(id_penerima) {
         document.getElementById("id_penerima").value = id_penerima;
     }
+    function labelBayar(label,id){
+        
+        var kodeChart = document.getElementById(id);
+        if(label.equals("BELUM BAYAR")){
+            kodeChart.disabled=false;
+        }
+    }
 </script>
 <!DOCTYPE html>
 <html lang="en">
@@ -398,7 +405,7 @@
                                             <c:url var="pembayaran" value="/pembayaran.htm">
                                                 <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                                             </c:url>
-                                            <td class="column-6"><a class="btn btn-primary" href="${pembayaran}">BAYAR</a></td>
+                                            <td class="column-6"><a class="btn btn-primary" id="${listPesanan.kode_pesanan}" href="${pembayaran}" onfocus="labelBayar('${listPesanan.status}','${listPesanan.kode_pesanan}');" disabled>BAYAR</a></td>
                                         </tr> 
                                     </c:forEach>
                                     </tbody>
