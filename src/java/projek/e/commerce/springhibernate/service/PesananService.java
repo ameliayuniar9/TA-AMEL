@@ -24,8 +24,9 @@ public interface PesananService {
     public List<PesananDto> getPesananStatusBaru() throws Exception;
     public List<PesananDto> getPesananStatusBelumBayar() throws Exception;
     public List<PesananDto> getPesananStatusSudahBayar() throws Exception;
-    public List<PesananDto> getPesananStatusReject() throws Exception;
+    public List<PesananDto> getPesananStatusReject(String id) throws Exception;
     public  void Confirm(String kode_pesanan) throws Exception;
+    public  void Dikirim(String kode_pesanan) throws Exception;
     public void Reject(String kode_pesanan) throws Exception;
     public List <PesananDto> getBelanjaByIdPembeli(String id);
     public List<PesananDto> GrafikProdukToko() throws Exception;
@@ -34,4 +35,5 @@ public interface PesananService {
     public List <PesananDto> getProdukTerjual(String tanggal_transaksi, String bulan_transaksi);
     public List <PesananDto> getTahunToMakeLaporan() throws Exception;
     public List <PesananDto> getDetailPesanan(String kode_pesanan) throws Exception;
+    public List<PesananDto> getPesananStatusReject() throws Exception;
 }

@@ -4,6 +4,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" a href="js/validation/css/validationEngine.jquery.css">
+<script type="text/javascript" src="js/validation/jquery.validationEngine-en.js"></script>
+<script type="text/javascript" src="js/validation/jquery.validationEngine.js"></script>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -217,34 +221,34 @@
                         <td>NAMA PRODUK</td>
                         <td>&nbsp;&nbsp;</td>
                         <td><div class="form-group">
-                                <form:input path="nama_produk" class="input" value="${produkDto.nama_produk}"/>
+                                <form:input path="nama_produk" value="${produkDto.nama_produk}" class="validate validate[required,maxSize[100],custom[onlyLetter]]"/>
                             </div></td>
                     </tr>
                     <tr>
                         <td>HARGA JUAL</td>
                         <td>&nbsp;&nbsp;</td>
                         <td><div class="form-group">
-                                <form:input path="harga_jual" class="input" value="${produkDto.harga_jual}"/>
+                                <form:input path="harga_jual" class="validate validate[required,custom[onlyNumberSp],maxSize[14],custom[noSpace]]" value="${produkDto.harga_jual}"/>
                             </div></td>
                     </tr>
                     <tr>
                         <td>BERAT</td>
                         <td>&nbsp;&nbsp;</td>
                         <td><div class="form-group">
-                                <form:input path="berat" class="input" value="${produkDto.berat}"/>
+                                <form:input path="berat" class="validate validate[required,custom[onlyNumberSp],maxSize[14],custom[noSpace]]" value="${produkDto.berat}"/>
                             </div></td>
                     </tr>
                     <tr>
                         <td>KETERANGAN PRODUK</td>
                         <td>&nbsp;&nbsp;</td>
                         <td><div class="form-group">
-                                <form:input path="keterangan_produk" class="input" value="${produkDto.keterangan_produk}"/>
+                                <form:input path="keterangan_produk" class="validate validate[required,maxSize[100],custom[onlyLetter]]" value="${produkDto.keterangan_produk}"/>
                             </div></td>
                     </tr>
                     <tr>
                         <td></td>
                         <td colspan="3">
-                            <form:button class="primary-btn" type="submit"><b>SIMPAN DATA</b></form:button>
+                            <form:button id="save" class="primary-btn" type="submit"><b>SIMPAN DATA</b></form:button>
                         </td>
                     </tr>
                 </form:form>
@@ -261,3 +265,20 @@
 </body>
 
 </html>
+<script type="text/javascript">
+                $(document).ready(
+                        function () {
+                            $("#save").click(
+                                    function (evt) { //id tombol submit
+                                        evt.preventDefault();
+                                        var validate = $('#produkUpdate').validationEngine('validate'); //id form
+                                        if (validate) {
+                                            $('#produkUpdate').submit();
+                                        } else {
+                                            return false;
+                                        }
+                                    }
+                            );
+                        }
+                );
+            </script>

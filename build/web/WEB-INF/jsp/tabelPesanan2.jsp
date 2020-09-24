@@ -325,7 +325,8 @@
                 <th width="300px">Tanggal Pesan</th>
                 <th>Bukti Pembayaran</th>
                 <th>Tanggal Pembayaran</th> 
-                <th></th>
+                <th>Status Pesanan</th> 
+                <th colspan="2">Action</th>
             </tr>
             <c:set var="index" value="1"/>
             <c:forEach var="listPesanan" items="${listPesananDto}">
@@ -338,10 +339,15 @@
                     <c:set var="gambar" value="${listPesanan.bukti_pembayaran}"/>
                     <td><c:if test="${gambar != null}"><img src="./b/img/pembayaran/${listPesanan.bukti_pembayaran}" width="100px" height="130px"></c:if></td>
                     <td>${listPesanan.tanggal_pembayaran}</td>
+                    <td>${listPesanan.status}</td>
                     <c:url var="cetak" value="/cetak.htm">
                         <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                     </c:url>
                     <td><a class="btn btn-primary" href="${cetak}">Cetak Alamat</td>
+                    <c:url var="updatePesanan" value="/updateDikirim.htm">
+                        <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
+                    </c:url>
+                    <td><a class="btn btn-info" href="${updatePesanan}">Update Status</td>
                   </tr>            
                 <c:set var="index" value="${index+1}"/>
             </c:forEach>

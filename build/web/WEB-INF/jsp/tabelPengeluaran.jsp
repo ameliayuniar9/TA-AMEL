@@ -285,9 +285,6 @@
     </c:url>
     <p align="center" style = "font-family:courier;"><u><a href="${tambahDataPengeluaran}">Tambah</a></u></p>
     <!--<div class="col-md-3 col-sm-6 col-xs-6">-->
-    <form>
-        <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Tanggal"/><br><br></center>
-    </form>
     <table  align="center" class="table1" border="1">
         <thead><tr>
             <th>No</th> 
@@ -353,6 +350,9 @@
 </table><br><br>
 
 <h5 align="center">Tabel Pengeluaran</h5>
+<form>
+        <center><input class="searchNama" type="text" id="search" placeholder="Search berdasarkan Tanggal"/><br><br></center>
+    </form>
 <table  align="center" class="table1" border="1">
     <tr>
         <th>No</th> 

@@ -10,6 +10,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" a href="js/validation/css/validationEngine.jquery.css">
 <script type="text/javascript" src="js/validation/jquery.validationEngine-en.js"></script>
 <script type="text/javascript" src="js/validation/jquery.validationEngine.js"></script>
@@ -174,7 +175,9 @@
                                 <div class="header-btns-icon">
                                     <i class="fa fa-user-o"></i>
                                 </div>
-                                <c:url var="login" value="/index.htm"></c:url>
+                                <c:url var="login" value="/index.htm">
+                                    
+                                </c:url>
                                 <a href="${login}" class="text-uppercase">LOGOUT</a>
                             </div>
                         </li>
@@ -296,13 +299,6 @@
 </div>
 
 <!-- jQuery Plugins -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/jquery.zoom.min.js"></script>
-<script src="js/main.js"></script>
-
 </body>
 
 </html>

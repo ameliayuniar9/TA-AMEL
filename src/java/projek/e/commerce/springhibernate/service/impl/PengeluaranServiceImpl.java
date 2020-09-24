@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import projek.e.commerce.springhibernate.dao.AkunDao;
 import projek.e.commerce.springhibernate.dao.PengeluaranDao;
 import projek.e.commerce.springhibernate.dto.PengeluaranDto;
+import projek.e.commerce.springhibernate.model.AkunModel;
 import projek.e.commerce.springhibernate.model.PengeluaranModel;
 import projek.e.commerce.springhibernate.service.PengeluaranService;
 
@@ -22,6 +24,9 @@ import projek.e.commerce.springhibernate.service.PengeluaranService;
 public class PengeluaranServiceImpl implements PengeluaranService{
     @Autowired
     PengeluaranDao  pengeluaranDao;
+    
+    @Autowired
+    AkunDao  akunDao;
     
     @Override
     public void saveDataPengeluaran(PengeluaranDto pengeluaranDto) throws Exception {

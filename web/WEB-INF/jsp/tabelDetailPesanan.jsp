@@ -285,7 +285,7 @@
                 <th>Total</th>
             </tr>
             <c:set var="index" value="1"/>
-            <c:forEach var="listPesanan" items="${listSDetailPesananDto}">
+            <c:forEach var="listPesanan" items="${listDetailPesananDto}">
                 <tr>  
                     <td>${index}</td>
                     <td>${listPesanan.kode_detail_pesanan}</td>

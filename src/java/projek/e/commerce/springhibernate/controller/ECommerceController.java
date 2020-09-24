@@ -10,11 +10,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -199,9 +197,11 @@ public class ECommerceController {
     }
     
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String viewHome(String id_pembeli,ModelMap model){
+    public String viewHome(String id_pembeli,ModelMap model) throws Exception{
         List<CartDto> listCartDto=cartService.getListCartByIdPembeli(id);
         model.addAttribute("listCartDto", listCartDto);
+        List<PesananDto> listPesananDto = pesananService.getPesananStatusReject(id);
+        model.addAttribute("listPesananDto", listPesananDto);
         return "home";
     }
     
@@ -397,26 +397,13 @@ public class ECommerceController {
     @RequestMapping(value = "/savePembeli", method = RequestMethod.POST)
     public String saveDataPembeli(PembeliDto pembeliDto, ModelMap model) throws Exception{ 
         try{
-//            byte[] bytes = pembeliDto.getFile().getBytes(); 
-//            String rootPath = "E:\\Amelia\\Ameliay\\E-Commerce\\web\\b\\img";
-//            File dir = new File(rootPath);
-//            if (!dir.exists()){
-//                dir.mkdirs();
-//            }
-//            File serverFile = new File(dir.getAbsolutePath()
-//                                + File.separator + pembeliDto.getFile().getOriginalFilename());
-//            BufferedOutputStream stream = new BufferedOutputStream(
-//                                new FileOutputStream(serverFile));
-//            stream.write(bytes);
-//            stream.close(); 
-            
             ModelAndView mdl = new ModelAndView();
             pembeliService.saveDataPembeli(pembeliDto); 
         }catch (Exception e) {
             e.printStackTrace();
             Logger.getLogger(PembeliServiceImpl.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
-        return "redirect:loginPembeli.htm";
+        return "redirect:index.htm";
     }
     
     
@@ -734,7 +721,13 @@ public class ECommerceController {
     @RequestMapping(value = "/updateConfirm", method = RequestMethod.GET)
     public String updateConfirm(String kode_pesanan, ModelMap model) throws Exception {
         pesananService.Confirm(kode_pesanan);
-        return "redirect:cetak.htm";
+        return "redirect:tabelPesanan.htm";
+    }
+    
+    @RequestMapping(value = "/updateDikirim", method = RequestMethod.GET)
+    public String updateDikirim(String kode_pesanan, ModelMap model) throws Exception {
+        pesananService.Dikirim(kode_pesanan);
+        return "redirect:tabelPesanan2.htm";
     }
     
     @RequestMapping(value = "/cetak", method = RequestMethod.GET)
@@ -842,7 +835,7 @@ public class ECommerceController {
         LoginDto login=loginService.getUpdateDataLogin(id_login);
         model.addAttribute("id_login", id_login);
         List<PesananDto> listPesananDto = pesananService.getPesananStatusBaru();
-            model.addAttribute("listPesananDto", listPesananDto);
+        model.addAttribute("listPesananDto", listPesananDto);
         return "menuAdmin";
     }
     

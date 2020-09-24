@@ -148,7 +148,7 @@ code {
   }</style>
    </head>
 
-    <body onload="cek();">
+    <body>
         <div class="wrapper">
             <div class="image-holder">
                 <img src="images/registration-form-8.jpg" alt="">
@@ -164,29 +164,29 @@ code {
                     </div>
                     <div class="form-group">
                         <label for="">Nama Lengkap</label>
-                        <input type="text"  name="nama" path="nama" class="form-control"/> <!--data-validation="length" data-validation-length="min8"-->
+                        <input type="text"  name="nama" path="nama" class="form-control validate validate[required,maxSize[100],custom[onlyLetter]]"/> <!--data-validation="length" data-validation-length="min8"-->
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
-                        <input type="text"  name="email" path="email" class="form-control"/> <!--data-validation="length" data-validation-length="min8"-->
+                        <input type="text"  name="email" path="email" class="form-control validate validate[required,maxSize[100],custom[onlyLetter]]"/> <!--data-validation="length" data-validation-length="min8"-->
                     </div>
                     <div class="form-group">
                         <label for="">Nomor Telepon</label>
-                        <input type="text"  name="no_telp" path="no_telp" class="form-control"/> <!--data-validation="length" data-validation-length="min8"-->
+                        <input type="text"  name="no_telp" path="no_telp" class="form-control validate validate[required,custom[onlyNumberSp],maxSize[14],custom[noSpace]]"/> <!--data-validation="length" data-validation-length="min8"-->
                     </div>
                     <div class="form-group">
                         <label for="">Alamat</label>
-                        <input type="text"  name="alamat" path="alamat" class="form-control"/> <!--data-validation="length" data-validation-length="min8"-->
+                        <input type="text"  name="alamat" path="alamat" class="form-control validate validate[required,maxSize[100],custom[onlyLetter]]"/> <!--data-validation="length" data-validation-length="min8"-->
                     </div>
                     <div class="form-group">
                         <label for="">Username</label>
-                        <input type="text"  name="username" path="username" class="form-control"/> <!--data-validation="length" data-validation-length="min8"-->
+                        <input type="text"  name="username" path="username" class="form-control validate validate[required,maxSize[100],custom[onlyLetter]]"/> <!--data-validation="length" data-validation-length="min8"-->
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="text"  name="password" path="password" class="form-control"/> <!--data-validation="length" data-validation-length="min8"-->
+                        <input type="password"  name="password" path="password" class="form-control"/> <!--data-validation="length" data-validation-length="min8"-->
                     </div>
-                    <button type="submit">Registrasi</button>
+                    <button id="save" type="submit">Registrasi</button>
                 </form>
             </div>
 
@@ -197,76 +197,20 @@ code {
         <script src="js/main.js"></script>
     </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
-
 <script type="text/javascript">
-    function cek() {
-        var we='${notivDto.sukses}';
-        if(we!="")
-           alert(we);
-    }
     $(document).ready(
-            function () {
+            function (){
                 $("#save").click(
-                        function (evt) { //id tombol submit
-                            evt.preventDefault();
-                            var validate = $('#loginform').validationEngine('validate'); // id form
-                            if (validate) {
-                                $("#loginform").submit();
-                            } else {
-                                return false;
-                            }
+                    function(evt){ //id tombol submit
+                        evt.preventDefault();
+                        var validate=$('#pembeli').validationEngine('validate'); //id form
+                        if(validate){
+                            $('#pembeli').submit();
+                        }else{
+                            return false;
                         }
+                    }
                 );
             }
-    );
-    
-     
- var ALERT_TITLE = "Error Message";
-var ALERT_BUTTON_TEXT = "Ok";
-
-if(document.getElementById) {
-	window.alert = function(txt) {
-		createCustomAlert(txt);
-	}
-}
-
-function createCustomAlert(txt) {
-	d = document;
-
-	if(d.getElementById("modalContainer")) return;
-
-	mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
-	mObj.id = "modalContainer";
-	mObj.style.height = d.documentElement.scrollHeight + "px";
-	
-	alertObj = mObj.appendChild(d.createElement("div"));
-	alertObj.id = "alertBox";
-	if(d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
-	alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth)/2 + "px";
-	alertObj.style.visiblity="visible";
-
-	h1 = alertObj.appendChild(d.createElement("h1"));
-	h1.appendChild(d.createTextNode(ALERT_TITLE));
-
-	msg = alertObj.appendChild(d.createElement("p"));
-	//msg.appendChild(d.createTextNode(txt));
-	msg.innerHTML = txt;
-
-	btn = alertObj.appendChild(d.createElement("a"));
-	btn.id = "closeBtn";
-	btn.appendChild(d.createTextNode(ALERT_BUTTON_TEXT));
-	btn.href = "#";
-	btn.focus();
-	btn.onclick = function() { removeCustomAlert();return false; }
-
-	alertObj.style.display = "block";
-	
-}
-
-function removeCustomAlert() {
-	document.getElementsByTagName("body")[0].removeChild(document.getElementById("modalContainer"));
-}
-function ful(){
-alert('Alert this pages');
-}
+    ); 
 </script>

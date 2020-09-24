@@ -143,6 +143,20 @@
         #butcar:hover{
             background-color: yellow;
         }
+        .tengah{
+            border:2px solid;
+            width:500px;
+            height: 250px;
+            margin: 20px;
+            margin-left:auto;
+            margin-right:auto;
+            margin-top:auto;
+            margin-bottom:auto;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+        }
     </style>
 
 </head>
@@ -298,59 +312,80 @@
                             
                           <div class="card card-body printableArea">
                               <div id="lap">
-                                    <table align="center" border="1">
+                                  <div class="tengah">
+                                    <table align="center">
                                         <tr>
-                                            <td>Pengirim</td>
-                                            <td>:</td>
-                                            <td align="left">Itsmostly</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align: left;"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0px;font-family: sans-serif;">PENGIRIM</td>
+                                            <td style="padding: 0px;font-family: sans-serif;">:</td>
+                                            <td style="text-align: left; padding: 0px;font-family: sans-serif;">ITSMOSTLY</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0px;font-family: sans-serif;"></td>
+                                            <td style="padding: 0px;font-family: sans-serif;"></td>
+                                            <td style="text-align: left;padding: 0px;font-family: sans-serif;">6285775996643,GANG H HAMBALI 1 N0 93B</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0px;"></td>
+                                            <td></td>
+                                            <td style="text-align: left;padding: 0px;font-family: sans-serif;">KECAMATAN CICENDO,JAWA BARAT,BANDUNG</td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td></td>
-                                            <td align="left">6285775996643,Gang H Hambali 1 No 93B</td>
+                                            <td></td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td>Kecamatan Cicendo,Jawa Barat,Bandung</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Penerima</td>
-                                            <td>:</td>
-                                            <td><c:forEach var="listPenerima" items="${listPenerimaDto}">
+                                            <td style="padding: 0px;font-family: sans-serif;">PENERIMA</td>
+                                            <td style="padding: 0px;">:</td>
+                                            <td style="text-align: left;padding: 0px;font-family: sans-serif;"><c:forEach var="listPenerima" items="${listPenerimaDto}">
                                                     ${listPenerima.nama_penerima}
                                                 </td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td>${listPenerima.no_telp},${listPenerima.alamat_lengkap}</td>
+                                            <td style="padding: 0px;"></td>
+                                            <td style="padding: 0px;"></td>
+                                            <td style="text-align: left;padding: 0px;font-family: sans-serif;">${listPenerima.no_telp},${listPenerima.alamat_lengkap}</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td>${listPenerima.kecamatan},${listPenerima.kabupaten},${listPenerima.provinsi}</td>
+                                            <td style="padding: 0px;"></td>
+                                            <td style="padding: 0px;"></td>
+                                            <td style="text-align: left;padding: 0px;font-family: sans-serif;">${listPenerima.kecamatan},${listPenerima.kabupaten},${listPenerima.provinsi}</td>
                                         </tr>
                                         </c:forEach>
                                         <tr>
-                                            <td>Produk</td>
-                                            <td>:</td>
                                             <td></td>
+                                            <td></td>
+                                            <td style="text-align: left;"></td>
                                         </tr>
-                                        <c:forEach var="listProduk" items="${listProdukDto}">
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td>${listProduk.nama_produk}&nbsp;&nbsp;&nbsp;${listProduk.kuantitas}</td>
+                                            <td style="padding: 0px;font-family: sans-serif;">PRODUK</td>
+                                            <td style="padding: 0px;">:</td><c:forEach var="listProduk" items="${listProdukDto}" begin = "0" end = "0">
+                                            <td style="text-align: left;padding: 0px;font-family: sans-serif;">${listProduk.nama_produk}&nbsp;&nbsp;&nbsp;${listProduk.kuantitas}</td>
                                         </tr>
                                         </c:forEach>
                                         
+                                        <tr>
+                                            <td style="padding: 0px;"</td>
+                                            <td style="padding: 0px;"></td><c:forEach var="listProduk" items="${listProdukDto}" begin = "1">
+                                            <td style="text-align: left;padding: 0px;font-family: sans-serif;">${listProduk.nama_produk}&nbsp;&nbsp;&nbsp;${listProduk.kuantitas}</td>
+                                        </tr>
+                                         </c:forEach>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align: left;"></td>
+                                        </tr>
                                     </table>
 
-
+                                  </div>
                                 </div>
 
-                                <center><button id="print" class="btn btn-default btn-outline" type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button></center>
+                                <center><br><br><button id="print" class="btn btn-default btn-outline" type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button></center>
                             </div>
 <!--</div>-->
                     <!--</div>-->

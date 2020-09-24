@@ -6,6 +6,80 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <style type="text/css">
+            #button {
+                margin: 5% auto;
+                width: 100px;
+                text-align: center;
+            }
+
+            #button a {
+                background-image: linear-gradient(to bottom,#2a95c5,#21759b);
+                background-image: -o-linear-gradient(to bottom,#2a95c5,#21759b);
+                background-image: -ms-linear-gradient(to bottom,#2a95c5,#21759b);
+                background-image: -moz-linear-gradient(to bottom,#2a95c5,#21759b);
+                background-image: -webkit-linear-gradient(to bottom,#2a95c5,#21759b);
+                background-color: #2e9fd2;
+                width: 86px;
+                height: 30px;
+                vertical-align: middle;
+                padding: 10px;
+                color: #fff;
+                text-decoration: none;
+                border: 1px solid transparent;
+                border-radius: 5px;
+            }
+            #popup {
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                background: rgba(0,0,0,.7);
+                top: 0;
+                left: 0;
+                z-index: 9999;
+                visibility: visible;
+            }
+
+            .window {
+                width: 400px;
+                height: 120px;
+                background: #fff;
+                border-radius: 10px;
+                position: relative;
+                padding: 10px;
+                box-shadow: 0 0 5px rgba(0,0,0,.4);
+                text-align: center;
+                margin: 15% auto;
+            }
+
+            .close-button {
+                width: 20px;
+                height: 20px;
+                background: #000;
+                border-radius: 50%;
+                border: 3px solid #fff;
+                display: block;
+                text-align: center;
+                color: #fff;
+                text-decoration: none;
+                position: absolute;
+                top: -10px;
+                right: -10px;
+            }
+            #popup {
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                background: rgba(0,0,0,.7);
+                top: 0;
+                left: 0;
+                z-index: 9999;
+                visibility: hidden;
+            }
+            #popup:target {
+                visibility: visible;
+            }
+        </style>
         <title>Home</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,17 +180,41 @@
                                 </ul>
                             </li>
                             <li>
-                                    <a href="${billings}">Pesanan</a>
-                                </li>
+                                <a href="${billings}">Pesanan</a>
+                            </li>
                         </ul>
                     </div>	
 
                     <!-- Icon header -->
                     <div class="wrap-icon-header flex-w flex-r-m">
-                        <c:set var="listCart" value="${listCartDto}"/>
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
-                                <i class="zmdi zmdi-shopping-cart"></i>
+                        <a href="#popup"><img src="./b/images/icons/bell.png" width="25px" height="25px"></a>
+
+                        <div id="popup">
+                            <div class="window">
+                                <a href="#" class="close-button" title="Close">X</a>
+                                <c:set var="indexCek" value="0"/>
+                                <c:forEach var="listPesanan" items="${listPesananDto}">                   
+                                    <c:set var="indexCek" value="${indexCek+1}"/>
+                                </c:forEach>
+                                <c:if test = "${indexCek==0}">
+                                    <div class="alert alert-info" data-notify="${indexCek}">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                        <h3 class="text-info"><i class="fa fa-exclamation-circle"></i></h3> Tidak ada pembayaran yang direject
+                                    </div>
+                                </c:if>
+                                <c:if test = "${indexCek >0}">
+                                    <div class="alert alert-info" data-notify="${indexCek}">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                        <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Informasi</h3> ${indexCek} Bukti Pembayaran tidak valid. Silahkan upload kembali bukti pembayaran.
+                                    </div>
+                                </c:if>
                             </div>
+                        </div>
+
+                        <c:set var="listCart" value="${listCartDto}"/>
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="${listCart.size()}">
+                            <i class="zmdi zmdi-shopping-cart"></i>
+                        </div>
                     </div>
                 </nav>
             </div>	

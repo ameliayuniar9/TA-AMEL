@@ -4,6 +4,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" a href="js/validation/css/validationEngine.jquery.css">
+<script type="text/javascript" src="js/validation/jquery.validationEngine-en.js"></script>
+<script type="text/javascript" src="js/validation/jquery.validationEngine.js"></script>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -206,7 +210,7 @@
                         <td>VIDEO</td>
                         <td>&nbsp;&nbsp;</td>
                          <td><div class="form-group">
-                                <form:input type="file" path="file" id="txfile" />
+                                <form:input type="file" path="file" id="txfile" value="${ulasanDto.video}"/>
                             </div></td>
                     </tr>
                      <tr>

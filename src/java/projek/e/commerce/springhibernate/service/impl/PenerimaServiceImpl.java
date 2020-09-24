@@ -275,12 +275,12 @@ public class PenerimaServiceImpl implements PenerimaService{
             if(listData != null){
                 for(Object[] model : listData){
                     penerimaDto = new PenerimaDto();
-                    penerimaDto.setNama_penerima(model[0].toString());
+                    penerimaDto.setNama_penerima(model[0].toString().toUpperCase());
                     penerimaDto.setNo_telp(model[1].toString());
                     penerimaDto.setProvinsi(model[2].toString());
                     penerimaDto.setKabupaten(model[3].toString());
                     penerimaDto.setKecamatan(model[4].toString());
-                    penerimaDto.setAlamat_lengkap(model[5].toString());
+                    penerimaDto.setAlamat_lengkap(model[5].toString().toUpperCase());
                     
                     
                     listDataDto.add(penerimaDto);
