@@ -405,12 +405,24 @@
                                             <c:url var="pembayaran" value="/pembayaran.htm">
                                                 <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                                             </c:url>
-                                            <td class="column-6"><a class="btn btn-primary" id="${listPesanan.kode_pesanan}" href="${pembayaran}" onfocus="labelBayar('${listPesanan.status}','${listPesanan.kode_pesanan}');" disabled>BAYAR</a></td>
+                                            <c:url var="pembayaran1" value="/pembayaran.htm">
+                                                <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
+                                            </c:url>
+                                            <c:choose>
+                                                <c:when test="${listPesanan.status=='BELUM BAYAR'}">
+                                                    <td class="column-6"><a class="btn btn-primary" id="${listPesanan.kode_pesanan}" href="${pembayaran}" >BAYAR</a></td>
+                                                </c:when>
+                                                <c:when test="${listPesanan.status=='REJECT'}">
+                                                    <td class="column-6"><a class="btn btn-primary" id="${listPesanan.kode_pesanan}" href="${pembayaran1}" >BAYAR</a></td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td class="column-6"><a class="btn btn-primary" id="${listPesanan.kode_pesanan}"  disabled>BAYAR</a></td>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </tr> 
                                     </c:forEach>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>

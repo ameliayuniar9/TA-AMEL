@@ -21,8 +21,9 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     public List<Object[]> deletePesanan()throws Exception{
         List<Object[]> listData = null;
         try {
-            String sql = "select a.kode_pesanan,b.kode_detail,b.kuantitas from tb_pesanan a,tb_detail_pesanan b where Date_format(a.tgl_max_bayar,'%Y-%M-%d')= Date_format( now() + interval 1 DAY,'%Y-%M-%d')";
-            Query query = createQuery(sql);
+            String sql = "select a.kode_pesanan,b.kode_detail,b.kuantitas from tb_pesanan a,tb_detail_pesanan b where cast(a.tgl_max_bayar as date) < now() "
+                    + "AND a.kode_pesanan=b.kode_pesanan AND a.status IN('BELUM BAYAR','REJECT')";
+            Query query = createNativeQuery(sql);
             listData=query.list();
         } catch (Exception e) {
             e.printStackTrace();
@@ -220,8 +221,8 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     public void deletegagalpesan(String belanjaModel) throws Exception {
         try {
             String sql = "delete from tb_pesanan where kode_pesanan=:belanjaModel";
-            Query query = createQuery(sql).setParameter("belanjaModel", belanjaModel);  
-            query.list();
+            Query query = createNativeQuery(sql).setParameter("belanjaModel", belanjaModel);  
+            query.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -231,9 +232,9 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     public void deleteDetailPesanan(String kodePesanan,String kodeDetail) throws Exception {
         try {
             String sql = "delete from tb_detail_pesanan where kode_pesanan=:kodePesanan and kode_detail=:kodeDetail";
-            Query query = createQuery(sql).setParameter("kodePesanan", kodePesanan);  
+            Query query = createNativeQuery(sql).setParameter("kodePesanan", kodePesanan);  
            query.setParameter("kodeDetail", kodeDetail);
-            query.list();
+           query.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -242,9 +243,9 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     public void updatepdateDetail(String kodeDetail,int stok) throws Exception {
         try {
             String sql = "update tb_detail set stok=stok+:stok where kode_detail=:kodeDetail";
-            Query query = createQuery(sql).setParameter("kodePesanan", kodeDetail);  
-           query.setParameter("stok", stok);
-            query.list();
+            Query query = createNativeQuery(sql).setParameter("kodeDetail", kodeDetail);  
+            query.setParameter("stok", stok);
+            query.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
