@@ -13,10 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class PesananDto {
    String kode_pesanan,id_pembeli,status,bukti_pembayaran,tanggal_pesan,id_penerima,tanggal_pembayaran,nama,nama_penerima;
-   String kodeCart,kode_detail,jumlah_belanja,harga;
+   String kodeCart,kode_detail,jumlah_belanja,harga,tgl_max_bayar;
    String nama_produk,warna;
    Integer total_pesanan,kuantitas;
-   String[] kodeChart;
+   String kodeChart;
    MultipartFile file;
 
     public String getKode_pesanan() {
@@ -155,11 +155,11 @@ public class PesananDto {
         this.kuantitas = kuantitas;
     }
 
-    public String[] getKodeChart() {
+    public String getKodeChart() {
         return kodeChart;
     }
 
-    public void setKodeChart(String[] kodeChart) {
+    public void setKodeChart(String kodeChart) {
         this.kodeChart = kodeChart;
     }
 
@@ -170,8 +170,12 @@ public class PesananDto {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-   
-   
-    
-    
+
+    public String getTgl_max_bayar() {
+        return tgl_max_bayar;
+    }
+
+    public void setTgl_max_bayar(String tgl_max_bayar) {
+        this.tgl_max_bayar = tgl_max_bayar;
+    }
 }

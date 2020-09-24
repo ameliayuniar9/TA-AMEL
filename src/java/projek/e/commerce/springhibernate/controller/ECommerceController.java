@@ -10,6 +10,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,7 @@ import projek.e.commerce.springhibernate.dao.AkunDao;
 import projek.e.commerce.springhibernate.dao.CartDao;
 import projek.e.commerce.springhibernate.dao.DetailDao;
 import projek.e.commerce.springhibernate.dao.DetailPesananDao;
+import projek.e.commerce.springhibernate.dao.PesananDao;
 import projek.e.commerce.springhibernate.dao.KecamatanDao;
 import projek.e.commerce.springhibernate.dao.KotaDao;
 import projek.e.commerce.springhibernate.dao.LoginDao;
@@ -129,6 +131,9 @@ public class ECommerceController {
       
       @Autowired
     PenerimaDao  penerimaDao;
+    
+      @Autowired
+    PesananDao  pesananDao;
       
       @Autowired
     UlasanService ulasanService;
@@ -456,14 +461,14 @@ public class ECommerceController {
     
     @RequestMapping(value = "/savePesanan", method = RequestMethod.POST)
     public String Pesan(PesananDto pesananDto,ModelMap model) throws Exception{
-        System.out.println(pesananDto.getKode_detail());
-        System.out.println(pesananDto.getKodeChart());
-        System.out.println(pesananDto.getJumlah_belanja());
-        System.out.println(pesananDto.getHarga());
+        System.out.println("KODE DETAIL "+pesananDto.getKode_detail());
+        System.out.println("KODE CART "+pesananDto.getKodeChart());
+        System.out.println("JUMLAH BELANJA"+pesananDto.getJumlah_belanja());
+        System.out.println("HARGA :"+pesananDto.getHarga());
          
         try {
             String[] detail=pesananDto.getKode_detail().split(",");
-            String[] chart=pesananDto.getKodeCart().split(",");
+            String[] chart=pesananDto.getKodeChart().split(",");
             String[] stok=pesananDto.getJumlah_belanja().split(",");
             String[] harga=pesananDto.getHarga().split(",");
             
@@ -957,11 +962,12 @@ public class ECommerceController {
         if(listData != null){
             for (LoginModel ddm : listData) {
                 if(ddm.getUsername().equals(formDto.getUsername()) && ddm.getPassword().equals(formDto.getPassword())){
-                    if(ddm.getAkses().equalsIgnoreCase("Admin")){   
+                    if(ddm.getAkses().equalsIgnoreCase("Admin")){  
                         x=ddm.getUsername();
                         cek=1;
                         id_login=ddm.getId_login();
                         akses=ddm.getAkses();
+                        pesananService.deleteDataBelanjaPesan();
                         return"redirect:menuAdmin.htm?id_login="+id_login;   
                     }else if(ddm.getAkses().equalsIgnoreCase("Owner")){
                         x=ddm.getUsername();

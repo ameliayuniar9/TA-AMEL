@@ -293,34 +293,57 @@
     <!-- /footer widget -->
 
     <!-- footer subscribe -->
-    <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-                        <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-                            <div class="printableArea">
-                                <div class="print" id="lap">
-                                    <table>
+    <!--<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">-->
+                        <!--<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">-->
+                            
+                          <div class="card card-body printableArea">
+                              <div id="lap">
+                                    <table align="center" border="1">
                                         <tr>
                                             <td>Pengirim</td>
                                             <td>:</td>
-                                            <td>Itsmostly<br>
-                                            6285775996643<br>JAWA BARAT,BANDUNG</td>
+                                            <td align="left">Itsmostly</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td align="left">6285775996643,Gang H Hambali 1 No 93B</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Kecamatan Cicendo,Jawa Barat,Bandung</td>
                                         </tr>
                                         <tr>
                                             <td>Penerima</td>
                                             <td>:</td>
                                             <td><c:forEach var="listPenerima" items="${listPenerimaDto}">
-                                                    ${listPenerima.nama_penerima}<br>
-                                                    ${listPenerima.no_telp}<br>
-                                                    ${listPenerima.alamat_lengkap} , ${listPenerima.kabupaten}<br>
-                                                    ${listPenerima.provinsi}
-                                            </c:forEach></td></td>
+                                                    ${listPenerima.nama_penerima}
+                                                </td>
                                         </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>${listPenerima.no_telp},${listPenerima.alamat_lengkap}</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>${listPenerima.kecamatan},${listPenerima.kabupaten},${listPenerima.provinsi}</td>
+                                        </tr>
+                                        </c:forEach>
                                         <tr>
                                             <td>Produk</td>
                                             <td>:</td>
-                                            <td><c:forEach var="listProduk" items="${listProdukDto}">
-                                                    ${listProduk.nama_produk}&nbsp;&nbsp;&nbsp;${listProduk.kuantitas}<br>
-                                            </c:forEach></td>
+                                            <td></td>
                                         </tr>
+                                        <c:forEach var="listProduk" items="${listProdukDto}">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>${listProduk.nama_produk}&nbsp;&nbsp;&nbsp;${listProduk.kuantitas}</td>
+                                        </tr>
+                                        </c:forEach>
                                         
                                     </table>
 
@@ -328,10 +351,11 @@
                                 </div>
 
                                 <center><button id="print" class="btn btn-default btn-outline" type="button" onclick="printContent('lap')"> <span><i class="fa fa-print"></i> Print</span> </button></center>
-                            </div></div>
-                    </div>
+                            </div>
+<!--</div>-->
+                    <!--</div>-->
     <!--</div>-->
-</div>
+<!--</div>-->
 
 <!-- jQuery Plugins -->
 <script src="js/jquery.min.js"></script>

@@ -5,7 +5,9 @@
  */
 package projek.e.commerce.springhibernate.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import projek.e.commerce.springhibernate.dao.DetailPesananDao;
@@ -62,6 +64,7 @@ public class DetailPesananServiceImpl implements DetailPesananService{
     
     @Override
     public void saveDataDetailPesanan(DetailPesananDto detailPesananDto) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         DetailPesananModel detailPesananModel = new DetailPesananModel();
         List<DetailPesananModel> listData=detailPesananDao.getListDataDetailPesanan();
         int a=0;
@@ -80,13 +83,13 @@ public class DetailPesananServiceImpl implements DetailPesananService{
         int b=0;
         for(PesananModel model : listDatax){
             String tam=model.getKode_pesanan();
-            String tamp=tam.substring(4);
+            String tamp=tam.substring(8);
             if(b<Integer.parseInt(tamp)){
                 b=Integer.parseInt(tamp);
             }
         }
         b+=1;
-        String kode_bel="PEN-"+b+"";
+        String kode_bel=sdf.format(new Date())+b+"";
         
         
         try {

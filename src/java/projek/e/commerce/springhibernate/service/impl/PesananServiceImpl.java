@@ -7,6 +7,7 @@ package projek.e.commerce.springhibernate.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -136,10 +137,11 @@ public class PesananServiceImpl implements PesananService{
             dataModel.setId_pembeli(belanjaDto.getId_pembeli());
             dataModel.setTotal_pesanan(belanjaDto.getTotal_pesanan());
             dataModel.setTanggal_pesan(belanjaDto.getTanggal_pesan());
-            dataModel.setStatus("SUDAH BAYAR");
+            dataModel.setStatus("BARU");
             dataModel.setBukti_pembayaran(belanjaDto.getFile().getOriginalFilename());
             dataModel.setId_penerima(belanjaDto.getId_penerima());
             dataModel.setTanggal_pembayaran(String.valueOf(dt.format(new Date())));
+            dataModel.setTgl_max_bayar(belanjaDto.getTgl_max_bayar());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -170,6 +172,9 @@ public class PesananServiceImpl implements PesananService{
         dataModel.setBukti_pembayaran("");
         dataModel.setId_penerima(belanjaDto.getId_penerima());
         dataModel.setTanggal_pembayaran("");
+        Date today = new Date();
+        Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+        dataModel.setTgl_max_bayar(String.valueOf(dt.format(tomorrow)));
 
         belanjaDao.saveDataBelanja(dataModel);
     }
@@ -183,6 +188,24 @@ public class PesananServiceImpl implements PesananService{
         }
     }
 
+    @Override
+    public void deleteDataBelanjaPesan() throws Exception {
+        try {
+            List<Object[]> list=belanjaDao.deletePesanan();
+            if(list != null){
+                for(Object[] model : list){
+                    belanjaDao.deleteDetailPesanan(model[0].toString(),model[1].toString());
+                    belanjaDao.deleteBelanja(model[0].toString());
+                    belanjaDao.updatepdateDetail(model[1].toString(),(int) model[2]);
+                }
+                    
+                    
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public PesananDto getUpdateDataBelanja(String kode_belanja) throws Exception {
         List<PesananModel> dataList = belanjaDao.getListBelanjaUpdate(kode_belanja);
@@ -341,6 +364,7 @@ public class PesananServiceImpl implements PesananService{
     
     @Override
     public void Reject(String kode_pesanan) throws Exception {
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         PesananModel dataModel = new PesananModel();
         PesananModel belanjaDto=belanjaDao.getBelanjaById(kode_pesanan);
         List<PesananModel> listData=belanjaDao.getListDataBelanja();
@@ -352,6 +376,9 @@ public class PesananServiceImpl implements PesananService{
         dataModel.setBukti_pembayaran(belanjaDto.getBukti_pembayaran());
         dataModel.setId_penerima(belanjaDto.getId_penerima());
         dataModel.setTanggal_pembayaran(belanjaDto.getTanggal_pembayaran());
+        Date today = new Date();
+        Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+        dataModel.setTgl_max_bayar(String.valueOf(dt.format(tomorrow)));
 
         belanjaDao.updateBelanja(dataModel);
     }
@@ -390,6 +417,9 @@ public class PesananServiceImpl implements PesananService{
                     }
                     if(model.getTanggal_pembayaran()!= null){
                         belanjaDto.setTanggal_pembayaran(model.getTanggal_pembayaran());
+                    }
+                    if(model.getTgl_max_bayar()!= null){
+                        belanjaDto.setTgl_max_bayar(model.getTgl_max_bayar());
                     }
                     
                     listDataDto.add(belanjaDto);

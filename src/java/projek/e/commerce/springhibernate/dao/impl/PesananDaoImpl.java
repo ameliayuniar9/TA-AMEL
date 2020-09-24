@@ -16,6 +16,21 @@ import projek.e.commerce.springhibernate.dao.PesananDao;
  */
 public class PesananDaoImpl extends HibernateUtil implements PesananDao{
 
+    
+    @Override
+    public List<Object[]> deletePesanan()throws Exception{
+        List<Object[]> listData = null;
+        try {
+            String sql = "select a.kode_pesanan,b.kode_detail,b.kuantitas from tb_pesanan a,tb_detail_pesanan b where cast(a.tgl_max_bayar as date) < now() "
+                    + "AND a.kode_pesanan=b.kode_pesanan AND a.status IN('BELUM BAYAR','REJECT')";
+            Query query = createNativeQuery(sql);
+            listData=query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listData;
+    }
+    
     @Override
     public void saveDataBelanja(PesananModel belanjaModel) throws Exception {
         try {
@@ -200,6 +215,40 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         Query query = createNativeQuery(sql).setParameter("kode", kode_pesanan);
         listData = query.list();
         return listData;
+    }
+
+    @Override
+    public void deletegagalpesan(String belanjaModel) throws Exception {
+        try {
+            String sql = "delete from tb_pesanan where kode_pesanan=:belanjaModel";
+            Query query = createNativeQuery(sql).setParameter("belanjaModel", belanjaModel);  
+            query.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteDetailPesanan(String kodePesanan,String kodeDetail) throws Exception {
+        try {
+            String sql = "delete from tb_detail_pesanan where kode_pesanan=:kodePesanan and kode_detail=:kodeDetail";
+            Query query = createNativeQuery(sql).setParameter("kodePesanan", kodePesanan);  
+           query.setParameter("kodeDetail", kodeDetail);
+           query.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void updatepdateDetail(String kodeDetail,int stok) throws Exception {
+        try {
+            String sql = "update tb_detail set stok=stok+:stok where kode_detail=:kodeDetail";
+            Query query = createNativeQuery(sql).setParameter("kodeDetail", kodeDetail);  
+            query.setParameter("stok", stok);
+            query.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

@@ -61,6 +61,13 @@
     function getAlamat(id_penerima) {
         document.getElementById("id_penerima").value = id_penerima;
     }
+    function labelBayar(label,id){
+        
+        var kodeChart = document.getElementById(id);
+        if(label.equals("BELUM BAYAR")){
+            kodeChart.disabled=false;
+        }
+    }
 </script>
 <!DOCTYPE html>
 <html lang="en">
@@ -383,7 +390,8 @@
                                         <th class="column-2">Total Pesanan</th>
                                         <th class="column-3">Tanggal Pesan</th>
                                         <th class="column-4">Status</th>
-                                        <th class="column-5">Action</th>
+                                        <th class="column-5">Tanggal Maksimal Bayar</th>
+                                        <th class="column-6">Action</th>
                                     </tr>   
                                     </thead>
                                     <tbody>
@@ -393,15 +401,28 @@
                                             <td class="column-2" align="center">${listPesanan.total_pesanan}</td>
                                             <td class="column-3">${listPesanan.tanggal_pesan}</td>
                                             <td class="column-4">${listPesanan.status}</td>
+                                            <td class="column-5">${listPesanan.tgl_max_bayar}</td>
                                             <c:url var="pembayaran" value="/pembayaran.htm">
                                                 <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                                             </c:url>
-                                            <td class="column-5"><a class="btn btn-primary" href="${pembayaran}">BAYAR</a></td>
+                                            <c:url var="pembayaran1" value="/pembayaran.htm">
+                                                <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
+                                            </c:url>
+                                            <c:choose>
+                                                <c:when test="${listPesanan.status=='BELUM BAYAR'}">
+                                                    <td class="column-6"><a class="btn btn-primary" id="${listPesanan.kode_pesanan}" href="${pembayaran}" >BAYAR</a></td>
+                                                </c:when>
+                                                <c:when test="${listPesanan.status=='REJECT'}">
+                                                    <td class="column-6"><a class="btn btn-primary" id="${listPesanan.kode_pesanan}" href="${pembayaran1}" >BAYAR</a></td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td class="column-6"><a class="btn btn-primary" id="${listPesanan.kode_pesanan}"  disabled>BAYAR</a></td>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </tr> 
                                     </c:forEach>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
