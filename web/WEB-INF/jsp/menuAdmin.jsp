@@ -198,7 +198,7 @@
                             <c:if test = "${indexCek >0}">
                                 <div class="alert alert-info">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-                                    <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Information</h3> ${indexCek} Permintaan Confirm Pembayaran Baru
+                                    <h3 class="text-info"><i class="fa fa-exclamation-circle"></i> Informasi</h3> ${indexCek} Permintaan Confirm Pembayaran Baru
                                 </div>
                             </c:if>
                             <br><br>

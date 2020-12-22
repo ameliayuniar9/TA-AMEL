@@ -70,6 +70,9 @@ public class PesananServiceImpl implements PesananService{
                     if(model.getTanggal_pembayaran()!= null){
                         belanjaDto.setTanggal_pembayaran(model.getTanggal_pembayaran());
                     }
+                    if(model.getTgl_max_bayar()!= null){
+                        belanjaDto.setTgl_max_bayar(model.getTgl_max_bayar());
+                    }
                     
                     listDataDto.add(belanjaDto);
                 }
@@ -118,6 +121,9 @@ public class PesananServiceImpl implements PesananService{
                     if(model.getTanggal_pembayaran()!= null){
                         belanjaDto.setTanggal_pembayaran(model.getTanggal_pembayaran());
                     }
+                    if(model.getTgl_max_bayar()!= null){
+                        belanjaDto.setTgl_max_bayar(model.getTgl_max_bayar());
+                    }
                     
                     listDataDto.add(belanjaDto);
                 }
@@ -142,6 +148,7 @@ public class PesananServiceImpl implements PesananService{
             dataModel.setId_penerima(belanjaDto.getId_penerima());
             dataModel.setTanggal_pembayaran(String.valueOf(dt.format(new Date())));
             dataModel.setTgl_max_bayar(belanjaDto.getTgl_max_bayar());
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -237,6 +244,9 @@ public class PesananServiceImpl implements PesananService{
                     if(model.getTanggal_pembayaran()!= null){
                         belanjaDto.setTanggal_pembayaran(model.getTanggal_pembayaran());
                     }
+                    if(model.getTgl_max_bayar()!= null){
+                        belanjaDto.setTgl_max_bayar(model.getTgl_max_bayar());
+                    }
                 }
         }
         return belanjaDto;
@@ -258,6 +268,7 @@ public class PesananServiceImpl implements PesananService{
                     pesananDto.setStatus(model[4].toString());
                     pesananDto.setBukti_pembayaran(model[5].toString());
                     pesananDto.setTanggal_pembayaran(model[6].toString());
+                    pesananDto.setTgl_max_bayar(model[7].toString());
                     
                     listDataDto.add(pesananDto);   
                 }
@@ -284,6 +295,7 @@ public class PesananServiceImpl implements PesananService{
                     pesananDto.setStatus(model[4].toString());
                     pesananDto.setBukti_pembayaran(model[5].toString());
                     pesananDto.setTanggal_pembayaran(model[6].toString());
+                    pesananDto.setTgl_max_bayar(model[7].toString());
                     
                     listDataDto.add(pesananDto);   
                 }
@@ -310,6 +322,7 @@ public class PesananServiceImpl implements PesananService{
                     pesananDto.setStatus(model[4].toString());
                     pesananDto.setBukti_pembayaran(model[5].toString());
                     pesananDto.setTanggal_pembayaran(model[6].toString());
+                    pesananDto.setTgl_max_bayar(model[7].toString());
                     
                     listDataDto.add(pesananDto);   
                 }
@@ -336,6 +349,7 @@ public class PesananServiceImpl implements PesananService{
                     pesananDto.setStatus(model[4].toString());
                     pesananDto.setBukti_pembayaran(model[5].toString());
                     pesananDto.setTanggal_pembayaran(model[6].toString());
+                    pesananDto.setTgl_max_bayar(model[7].toString());
                     
                     listDataDto.add(pesananDto);   
                 }
@@ -358,6 +372,7 @@ public class PesananServiceImpl implements PesananService{
         dataModel.setBukti_pembayaran(belanjaDto.getBukti_pembayaran());
         dataModel.setId_penerima(belanjaDto.getId_penerima());
         dataModel.setTanggal_pembayaran(belanjaDto.getTanggal_pembayaran());
+        dataModel.setTgl_max_bayar(belanjaDto.getTgl_max_bayar());
 
         belanjaDao.updateBelanja(dataModel);
     }
@@ -491,6 +506,9 @@ public class PesananServiceImpl implements PesananService{
                     if(model.getTanggal_pembayaran()!= null){
                         belanjaDto.setTanggal_pembayaran(model.getTanggal_pembayaran());
                     }
+                    if(model.getTgl_max_bayar()!= null){
+                        belanjaDto.setTgl_max_bayar(model.getTgl_max_bayar());
+                    }
                     
                     listDataDto.add(belanjaDto);
                 }
@@ -601,6 +619,24 @@ public class PesananServiceImpl implements PesananService{
         dataModel.setBukti_pembayaran(belanjaDto.getBukti_pembayaran());
         dataModel.setId_penerima(belanjaDto.getId_penerima());
         dataModel.setTanggal_pembayaran(belanjaDto.getTanggal_pembayaran());
+        dataModel.setTgl_max_bayar(belanjaDto.getTgl_max_bayar());
+
+        belanjaDao.updateBelanja(dataModel);
+    }
+    
+    @Override
+    public void Diterima(String kode_pesanan) throws Exception {
+        PesananModel dataModel = new PesananModel();
+        PesananModel belanjaDto=belanjaDao.getBelanjaById(kode_pesanan);
+        dataModel.setKode_pesanan(belanjaDto.getKode_pesanan());
+        dataModel.setId_pembeli(belanjaDto.getId_pembeli());
+        dataModel.setTotal_pesanan(belanjaDto.getTotal_pesanan());
+        dataModel.setTanggal_pesan(belanjaDto.getTanggal_pesan());
+        dataModel.setStatus("DITERIMA");
+        dataModel.setBukti_pembayaran(belanjaDto.getBukti_pembayaran());
+        dataModel.setId_penerima(belanjaDto.getId_penerima());
+        dataModel.setTanggal_pembayaran(belanjaDto.getTanggal_pembayaran());
+        dataModel.setTgl_max_bayar(belanjaDto.getTgl_max_bayar());
 
         belanjaDao.updateBelanja(dataModel);
     }
@@ -621,6 +657,7 @@ public class PesananServiceImpl implements PesananService{
                     pesananDto.setStatus(model[4].toString());
                     pesananDto.setBukti_pembayaran(model[5].toString());
                     pesananDto.setTanggal_pembayaran(model[6].toString());
+                    pesananDto.setTgl_max_bayar(model[7].toString());
                     
                     listDataDto.add(pesananDto);   
                 }

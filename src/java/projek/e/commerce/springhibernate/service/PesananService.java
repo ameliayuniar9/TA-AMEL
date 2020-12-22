@@ -27,6 +27,7 @@ public interface PesananService {
     public List<PesananDto> getPesananStatusReject(String id) throws Exception;
     public  void Confirm(String kode_pesanan) throws Exception;
     public  void Dikirim(String kode_pesanan) throws Exception;
+    public  void Diterima(String kode_pesanan) throws Exception;
     public void Reject(String kode_pesanan) throws Exception;
     public List <PesananDto> getBelanjaByIdPembeli(String id);
     public List<PesananDto> GrafikProdukToko() throws Exception;

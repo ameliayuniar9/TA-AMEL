@@ -385,7 +385,7 @@ public class ECommerceController {
         PembeliDto dto = null;       
         try {
             dto = new PembeliDto();
-            model.addAttribute("pembeliDto", dto);
+            model.addAttribute("formDto", dto);
         } catch (Exception e) {
             e.printStackTrace();
             return "gagal upload " + e.getMessage();
@@ -727,6 +727,12 @@ public class ECommerceController {
     @RequestMapping(value = "/updateDikirim", method = RequestMethod.GET)
     public String updateDikirim(String kode_pesanan, ModelMap model) throws Exception {
         pesananService.Dikirim(kode_pesanan);
+        return "redirect:tabelPesanan2.htm";
+    }
+    
+    @RequestMapping(value = "/updateDiterima", method = RequestMethod.GET)
+    public String updateDiterima(String kode_pesanan, ModelMap model) throws Exception {
+        pesananService.Diterima(kode_pesanan);
         return "redirect:tabelPesanan2.htm";
     }
     

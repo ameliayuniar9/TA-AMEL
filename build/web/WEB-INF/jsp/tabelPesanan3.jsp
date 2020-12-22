@@ -323,7 +323,8 @@
             <th>Nama Pembeli</th>  
             <th>Total Pesanan</th>            
             <th width="300px">Tanggal Pesan</th>
-            <th>Tanggal Pembayaran</th>       
+            <th>Tanggal Pembayaran</th>     
+            <th>Tanggal Maksimal Bayar</th>
             <th colspan="2">action</th>
         </tr>
         <c:set var="index" value="1"/>
@@ -335,6 +336,7 @@
                 <td>${listPesanan.total_pesanan}</td>
                 <td>${listPesanan.tanggal_pesan}</td>
                 <td>${listPesanan.tanggal_pembayaran}</td>
+                <td>${listPesanan.tgl_max_bayar}</td>
                 <c:url var="deletePesanan" value="/deleteDataPesanan.htm">
                     <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                 </c:url>

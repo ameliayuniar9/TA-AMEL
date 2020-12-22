@@ -94,7 +94,7 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     @Override
     public List<Object[]> getPesananStatusBaru() throws Exception {
         List<Object[]> listData = null;
-        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran " +
+        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran,a.tgl_max_bayar " +
                       "FROM tb_pesanan a JOIN tb_pembeli b ON a.id_pembeli=b.id_pembeli " +
                       "WHERE a.status='BARU' ";
         Query query = createNativeQuery(sql);
@@ -105,7 +105,7 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     @Override
     public List<Object[]> getPesananStatusBelumBayar() throws Exception {
         List<Object[]> listData = null;
-        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran " +
+        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran,a.tgl_max_bayar " +
                       "FROM tb_pesanan a JOIN tb_pembeli b ON a.id_pembeli=b.id_pembeli " +
                       "WHERE a.status='BELUM BAYAR' ";
         Query query = createNativeQuery(sql);
@@ -116,9 +116,9 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     @Override
     public List<Object[]> getPesananStatusSudahBayar() throws Exception {
         List<Object[]> listData = null;
-        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran " +
+        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran,a.tgl_max_bayar " +
                       "FROM tb_pesanan a JOIN tb_pembeli b ON a.id_pembeli=b.id_pembeli " +
-                      "WHERE a.status IN ('DIKEMAS','DIKIRIM') ";
+                      "WHERE a.status IN ('DIKEMAS','DIKIRIM','DITERIMA') ";
         Query query = createNativeQuery(sql);
         listData = query.list();
         return listData;
@@ -127,7 +127,7 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     @Override
     public List<Object[]> getPesananStatusReject(String id) throws Exception {
         List<Object[]> listData = null;
-        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran " +
+        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran,a.tgl_max_bayar " +
                       "FROM tb_pesanan a JOIN tb_pembeli b ON a.id_pembeli=b.id_pembeli " +
                       "WHERE a.status='REJECT' and a.id_pembeli=:id";
         Query query = createNativeQuery(sql).setParameter("id", id);
@@ -148,7 +148,7 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         List<Object[]> listData = null;
         String sql = "SELECT c.kode_detail,b.nama_produk,a.warna,SUM(c.kuantitas) FROM tb_detail_pesanan c " +
                      "JOIN tb_pesanan d ON c.kode_pesanan=d.kode_pesanan JOIN tb_detail a " +
-                     "ON a.kode_detail=c.kode_detail JOIN tb_produk b ON a.kode_produk=b.kode_produk WHERE d.status in ('DIKEMAS','DIKIRIM') GROUP BY c.kode_detail ORDER BY SUM(kuantitas) DESC LIMIT 5";
+                     "ON a.kode_detail=c.kode_detail JOIN tb_produk b ON a.kode_produk=b.kode_produk WHERE d.status in ('DIKEMAS','DIKIRIM','DITERIMA') GROUP BY c.kode_detail ORDER BY SUM(kuantitas) DESC LIMIT 5";
         Query query = createNativeQuery(sql);
         listData = query.list();
         return listData;
@@ -173,7 +173,7 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         String sql = "SELECT c.kode_detail,CONCAT(b.nama_produk,' ',a.warna) AS produk,SUM(c.kuantitas) AS kuantitas,SUM(d.total_pesanan) AS total,d.tanggal_pesan " +
                      "FROM tb_detail_pesanan c JOIN tb_detail a " +
                      "ON a.kode_detail=c.kode_detail JOIN tb_produk b ON a.kode_produk=b.kode_produk " +
-                     "JOIN tb_pesanan d ON c.kode_pesanan=d.kode_pesanan WHERE d.status in ('DIKEMAS','DIKIRIM') AND YEAR(tanggal_pesan)=:thn " +
+                     "JOIN tb_pesanan d ON c.kode_pesanan=d.kode_pesanan WHERE d.status in ('DIKEMAS','DIKIRIM','DITERIMA') AND YEAR(tanggal_pesan)=:thn " +
                      "AND MONTH(tanggal_pesan)=:bln " +
                      "GROUP BY c.kode_detail ORDER BY d.tanggal_pesan ASC";
         Query query = createNativeQuery(sql).setParameter("thn", tanggal_transaksi);
@@ -188,7 +188,7 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         String sql = "SELECT CONCAT(b.nama_produk,' ',a.warna) AS produk,SUM(d.total_pesanan) AS total " +
                      "FROM tb_detail_pesanan c JOIN tb_detail a " +
                      "ON a.kode_detail=c.kode_detail JOIN tb_produk b ON a.kode_produk=b.kode_produk " +
-                     "JOIN tb_pesanan d ON c.kode_pesanan=d.kode_pesanan WHERE d.status in ('DIKEMAS','DIKIRIM') AND YEAR(tanggal_pesan)=:thn " +
+                     "JOIN tb_pesanan d ON c.kode_pesanan=d.kode_pesanan WHERE d.status in ('DIKEMAS','DIKIRIM','DITERIMA') AND YEAR(tanggal_pesan)=:thn " +
                      "AND MONTH(tanggal_pesan)=:bl " +
                      "GROUP BY c.kode_detail ORDER BY d.tanggal_pesan ASC";
         Query query = createNativeQuery(sql).setParameter("thn", tanggal_transaksi);
@@ -200,7 +200,7 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     @Override
     public List<Object[]> getTahunToMakeLaporan() throws Exception {
         List<Object[]> listData = null;
-        String sql = "SELECT DISTINCT kode_pesanan,YEAR(tanggal_pesan) as tahun FROM tb_pesanan WHERE STATUS in ('DIKEMAS','DIKIRIM') GROUP BY YEAR(tanggal_pesan) ";
+        String sql = "SELECT DISTINCT kode_pesanan,YEAR(tanggal_pesan) as tahun FROM tb_pesanan WHERE STATUS in ('DIKEMAS','DIKIRIM','DITERIMA') GROUP BY YEAR(tanggal_pesan) ";
         Query query = createNativeQuery(sql);
         listData = query.list();
         return listData;
@@ -218,7 +218,6 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
     }
 
     @Override
-<<<<<<< Updated upstream
     public void deletegagalpesan(String belanjaModel) throws Exception {
         try {
             String sql = "delete from tb_pesanan where kode_pesanan=:belanjaModel";
@@ -250,16 +249,17 @@ public class PesananDaoImpl extends HibernateUtil implements PesananDao{
         } catch (Exception e) {
             e.printStackTrace();
         }
-=======
+    }
+    
+    @Override
     public List<Object[]> getPesananStatusReject() throws Exception {
         List<Object[]> listData = null;
-        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran " +
+        String sql = "SELECT a.kode_pesanan,b.nama,a.total_pesanan,a.tanggal_pesan,a.status,a.bukti_pembayaran,a.tanggal_pembayaran,a.tgl_max_bayar " +
                       "FROM tb_pesanan a JOIN tb_pembeli b ON a.id_pembeli=b.id_pembeli " +
                       "WHERE a.status='REJECT' ";
         Query query = createNativeQuery(sql);
         listData = query.list();
         return listData;
->>>>>>> Stashed changes
     }
     
 }

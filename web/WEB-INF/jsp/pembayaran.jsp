@@ -324,6 +324,7 @@
                                     <form:hidden path="total_pesanan" value="${pesananDto.total_pesanan}"></form:hidden>
                                     <form:hidden path="tanggal_pesan" value="${pesananDto.tanggal_pesan}"></form:hidden>
                                     <form:hidden path="status" value="${pesananDto.status}"></form:hidden>
+                                    <form:hidden path="tgl_max_bayar" value="${pesananDto.tgl_max_bayar}"></form:hidden>
                                     <form:hidden path="id_penerima" value="${pesananDto.id_penerima}"></form:hidden>
                                         <table  class="table1">
                                             <tr>

@@ -293,7 +293,7 @@ public class PengeluaranServiceImpl implements PengeluaranService{
             ddm.setDeskripsi(pengeluaranDto.getDeskripsi());
             ddm.setJumlah(pengeluaranDto.getJumlah());
             ddm.setUpload_file(pengeluaranDto.getUpload_file());
-            ddm.setStatus("Disapproved");
+            ddm.setStatus("Reject");
         } catch (Exception e) {
             e.printStackTrace();
         }

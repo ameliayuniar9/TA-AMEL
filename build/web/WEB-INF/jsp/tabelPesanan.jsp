@@ -324,7 +324,8 @@
                 <th>Total Pesanan</th>            
                 <th width="300px">Tanggal Pesan</th>
                 <th>Bukti Pembayaran</th>
-                <th>Tanggal Pembayaran</th>             
+                <th>Tanggal Pembayaran</th>     
+                <th>Tanggal Maksimal Bayar</th>
                 <th colspan="2">action</th>
             </tr>
             <c:set var="index" value="1"/>
@@ -337,6 +338,7 @@
                     <td>${listPesanan.tanggal_pesan}</td>
                     <td><a class="image-popup-vertical-fit" href="./b/img/pembayaran/${listPesanan.bukti_pembayaran}"><img src="./b/img/pembayaran/${listPesanan.bukti_pembayaran}" width="100px" height="130px"></a></td>
                     <td>${listPesanan.tanggal_pembayaran}</td>
+                    <td>${listPesanan.tgl_max_bayar}</td>
                     <c:url var="rejectPesanan" value="/updateReject.htm">
                         <c:param name="kode_pesanan" value="${listPesanan.kode_pesanan}"/>
                     </c:url>

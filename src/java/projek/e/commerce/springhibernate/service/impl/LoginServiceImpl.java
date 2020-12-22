@@ -102,7 +102,7 @@ public class LoginServiceImpl implements LoginService{
     @Override
     public void saveDataLogin(LoginDto loginDto) throws Exception {
         LoginModel loginModel = new LoginModel();
-        List<LoginModel> listData=loginDao.getListDataLogin(loginDto);
+        List<LoginModel> listData=loginDao.getListDataUser();
         try {
             int b=0;
             for(LoginModel model : listData){

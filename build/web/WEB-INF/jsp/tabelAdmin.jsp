@@ -251,7 +251,7 @@
                     <c:url var="admin" value="/tabelAdmin.htm"/>
                     <c:url var="produk" value="/tabelProdukForOwner.htm"/>
                     <c:url var="pengeluaran" value="/tabelPengeluaranForOwner.htm"/>
-                    <c:url var="laporan" value="/doSelectTahunLaporan.htm"/>
+                    <c:url var="laporan" value="/doSelectTahunLaporanOwner.htm"/>
                     <div class="menu-nav">
                         <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                         <ul class="menu-list">

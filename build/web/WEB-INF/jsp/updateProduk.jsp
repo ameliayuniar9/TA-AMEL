@@ -242,7 +242,7 @@
                         <td>KETERANGAN PRODUK</td>
                         <td>&nbsp;&nbsp;</td>
                         <td><div class="form-group">
-                                <form:input path="keterangan_produk" class="validate validate[required,maxSize[100],custom[onlyLetter]]" value="${produkDto.keterangan_produk}"/>
+                                <form:input path="keterangan_produk" value="${produkDto.keterangan_produk}"/>
                             </div></td>
                     </tr>
                     <tr>
